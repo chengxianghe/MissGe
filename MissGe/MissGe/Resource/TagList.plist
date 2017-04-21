@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>白骨精</key>
+	<string>tag_flag_bgj_70x68_</string>
+	<key>俏佳人</key>
+	<string>tag_flag_qjr_70x68_</string>
+	<key>高情商</key>
+	<string>tag_flag_gqs_70x68_</string>
+	<key>慧生活</key>
+	<string>tag_flag_hsh_70x68_</string>
+	<key>巧搭配</key>
+	<string>tag_flag_qdp_70x68_</string>
+	<key>懂养生</key>
+	<string>tag_flag_dys_70x68_</string>
+	<key>享趣味</key>
+	<string>tag_flag_xqw_70x68_</string>
+	<key>美容</key>
+	<string>tag_flag_beauty_71x68_</string>
+	<key>养生</key>
+	<string>tag_flag_health_70x68_</string>
+	<key>百科</key>
+	<string>tag_flag_encyclopedia_70x68_</string>
+	<key>家居</key>
+	<string>tag_flag_house_70x68_</string>
+	<key>穿搭</key>
+	<string>tag_flag_dress_70x68_</string>
+	<key>美食</key>
+	<string>tag_flag_food_70x68_</string>
+	<key>塑型</key>
+	<string>tag_flag_weight_loss_70x68_</string>
+	<key>旅行</key>
+	<string>tag_flag_journey_70x68_</string>
+	<key>两性</key>
+	<string>tag_flag_sex_70x68_</string>
+	<key>星座</key>
+	<string>tag_flag_star_sign_70x68_</string>
+	<key>职场</key>
+	<string>tag_flag_job_70x68_</string>
+	<key>乐活</key>
+	<string>tag_flag_happy_70x68_</string>
+	<key>情感</key>
+	<string>tag_flag_emotion_70x68_</string>
+	<key>更多</key>
+	<string>tag_flag_more_70x68_</string>
+	<key>阅读</key>
+	<string>tag_flag_reading_70x67_</string>
+	<key>收起</key>
+	<string>tag_flag_retract_70x68_</string>
+	<key>鸡汤</key>
+	<string>tag_flag_soup_70x68_</string>
+	<key>测试</key>
+	<string>tag_flag_test_70x68_</string>
+</dict>
+</plist>

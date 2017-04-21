@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="tT8-Va-YqK">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Title-->
+        <scene sceneID="E4D-bO-SYx">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="tT8-Va-YqK" customClass="MLHomeDetailController" customModule="MissGe" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="PW3-bm-iXB"/>
+                        <viewControllerLayoutGuide type="bottom" id="xMG-jU-O7a"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="XXp-nK-MjS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U9s-od-HCz">
+                                <rect key="frame" x="0.0" y="603" width="375" height="64"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="details_like_bg_63x61_" translatesAutoresizingMaskIntoConstraints="NO" id="i0X-uo-TAR">
+                                        <rect key="frame" x="154.5" y="0.0" width="66" height="64"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="i0X-uo-TAR" secondAttribute="height" multiplier="63:61" id="5r7-sK-NRx"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabbar_bg_nor" translatesAutoresizingMaskIntoConstraints="NO" id="ubv-hV-yp3">
+                                        <rect key="frame" x="0.0" y="18" width="154.5" height="46"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabbar_bg_nor" translatesAutoresizingMaskIntoConstraints="NO" id="19b-ux-sBo">
+                                        <rect key="frame" x="220.5" y="18" width="154.5" height="46"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3FM-2I-iku">
+                                        <rect key="frame" x="253" y="18" width="75" height="44"/>
+                                        <state key="normal" image="details_next_btn_nor_75x44_"/>
+                                        <state key="selected" image="details_next_btn_sel_75x44_"/>
+                                        <connections>
+                                            <action selector="onNextButtonClick:" destination="tT8-Va-YqK" eventType="touchUpInside" id="0FS-ei-B1X"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="365" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pck-vk-cu7">
+                                        <rect key="frame" x="171" y="42.5" width="33.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" red="1" green="0.0" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jxU-w1-q6i">
+                                        <rect key="frame" x="172" y="14.5" width="31" height="31"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="jxU-w1-q6i" secondAttribute="height" multiplier="1:1" id="FcX-Nv-O38"/>
+                                            <constraint firstAttribute="width" constant="31" id="dcJ-OB-EUa"/>
+                                        </constraints>
+                                        <state key="normal" image="details_like_btn_nor_31x31_"/>
+                                        <state key="selected" image="details_like_btn_sel_31x31_"/>
+                                        <connections>
+                                            <action selector="onLikeButtonClick:" destination="tT8-Va-YqK" eventType="touchUpInside" id="Fg3-dw-hY7"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nAk-Mz-rBQ">
+                                        <rect key="frame" x="47" y="18" width="75" height="44"/>
+                                        <state key="normal" image="details_review_btn_nor_75x44_"/>
+                                        <state key="selected" image="details_review_btn_sel_75x44_"/>
+                                        <connections>
+                                            <action selector="onCommentButtonClick:" destination="tT8-Va-YqK" eventType="touchUpInside" id="Npy-JB-K2f"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="i0X-uo-TAR" firstAttribute="leading" secondItem="ubv-hV-yp3" secondAttribute="trailing" id="24l-4M-vD4"/>
+                                    <constraint firstItem="19b-ux-sBo" firstAttribute="top" secondItem="ubv-hV-yp3" secondAttribute="top" id="6bH-YO-plh"/>
+                                    <constraint firstItem="pck-vk-cu7" firstAttribute="top" secondItem="jxU-w1-q6i" secondAttribute="bottom" constant="-3" id="E3f-IM-CPD"/>
+                                    <constraint firstItem="ubv-hV-yp3" firstAttribute="top" secondItem="U9s-od-HCz" secondAttribute="top" constant="18" id="Eu2-Hj-Nrk"/>
+                                    <constraint firstItem="i0X-uo-TAR" firstAttribute="top" secondItem="U9s-od-HCz" secondAttribute="top" id="FjY-Je-TCI"/>
+                                    <constraint firstItem="jxU-w1-q6i" firstAttribute="centerX" secondItem="U9s-od-HCz" secondAttribute="centerX" id="Ja6-ZZ-vYD"/>
+                                    <constraint firstAttribute="bottom" secondItem="pck-vk-cu7" secondAttribute="bottom" constant="1" id="Mfo-gq-b0w"/>
+                                    <constraint firstAttribute="bottom" secondItem="i0X-uo-TAR" secondAttribute="bottom" id="Q75-EB-NZg"/>
+                                    <constraint firstAttribute="height" constant="64" id="dST-ij-2Qc"/>
+                                    <constraint firstAttribute="bottom" secondItem="19b-ux-sBo" secondAttribute="bottom" id="e9b-2j-5S1"/>
+                                    <constraint firstItem="3FM-2I-iku" firstAttribute="centerX" secondItem="U9s-od-HCz" secondAttribute="centerX" multiplier="1.55" id="gXk-UJ-eWE"/>
+                                    <constraint firstItem="ubv-hV-yp3" firstAttribute="leading" secondItem="U9s-od-HCz" secondAttribute="leading" id="kTR-cz-BJA"/>
+                                    <constraint firstAttribute="bottom" secondItem="ubv-hV-yp3" secondAttribute="bottom" id="nVi-dG-oR3"/>
+                                    <constraint firstItem="i0X-uo-TAR" firstAttribute="centerX" secondItem="U9s-od-HCz" secondAttribute="centerX" id="pXq-TS-n43"/>
+                                    <constraint firstItem="nAk-Mz-rBQ" firstAttribute="centerY" secondItem="U9s-od-HCz" secondAttribute="centerY" constant="8" id="sKa-3n-Stv"/>
+                                    <constraint firstItem="3FM-2I-iku" firstAttribute="centerY" secondItem="nAk-Mz-rBQ" secondAttribute="centerY" id="toy-Rk-xA7"/>
+                                    <constraint firstItem="nAk-Mz-rBQ" firstAttribute="centerX" secondItem="U9s-od-HCz" secondAttribute="centerX" multiplier="0.45" id="trx-rY-dEZ"/>
+                                    <constraint firstItem="19b-ux-sBo" firstAttribute="leading" secondItem="i0X-uo-TAR" secondAttribute="trailing" id="vmA-yB-VlF"/>
+                                    <constraint firstItem="pck-vk-cu7" firstAttribute="centerX" secondItem="U9s-od-HCz" secondAttribute="centerX" id="zGv-82-x3c"/>
+                                    <constraint firstAttribute="trailing" secondItem="19b-ux-sBo" secondAttribute="trailing" id="zNd-2t-OLw"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="U9s-od-HCz" secondAttribute="trailing" id="9If-58-RtA"/>
+                            <constraint firstAttribute="bottom" secondItem="U9s-od-HCz" secondAttribute="bottom" id="YyO-eq-iHj"/>
+                            <constraint firstItem="U9s-od-HCz" firstAttribute="leading" secondItem="XXp-nK-MjS" secondAttribute="leading" id="x3O-Fd-fbJ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Title" id="bfz-Hz-mNz">
+                        <rightBarButtonItems>
+                            <barButtonItem id="mi0-pR-clg">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qrh-0V-gUv">
+                                    <rect key="frame" x="329" y="7" width="30" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="details_share_btn_nor_30x30_"/>
+                                    <state key="selected" image="details_share_btn_sel_30x30_"/>
+                                    <connections>
+                                        <action selector="onShareButtonClick:" destination="tT8-Va-YqK" eventType="touchUpInside" id="zuN-Ia-WG0"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                            <barButtonItem id="IDs-4U-vEK">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Nhc-oT-LgM">
+                                    <rect key="frame" x="291" y="7" width="30" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="details_collect_btn_nor_30x30_"/>
+                                    <state key="selected" image="details_collect_btn_sel_30x30_"/>
+                                    <connections>
+                                        <action selector="onFavoriteButtonClick:" destination="tT8-Va-YqK" eventType="touchUpInside" id="eOf-7t-olF"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="bottomView" destination="U9s-od-HCz" id="Jen-so-Ksp"/>
+                        <outlet property="commentButton" destination="nAk-Mz-rBQ" id="LzC-l7-sRv"/>
+                        <outlet property="favoriteButton" destination="Nhc-oT-LgM" id="qNw-Xe-9w8"/>
+                        <outlet property="likeButton" destination="jxU-w1-q6i" id="wgY-0t-ye8"/>
+                        <outlet property="likeLabel" destination="pck-vk-cu7" id="bTI-O1-Kw9"/>
+                        <outlet property="nextButton" destination="3FM-2I-iku" id="ie3-mI-fTe"/>
+                        <outlet property="shareButton" destination="qrh-0V-gUv" id="7cs-KT-CiZ"/>
+                        <segue destination="d9T-Ij-Mqg" kind="show" identifier="HomeDetailToComment" id="Y5B-n4-Y9d"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="U2c-Vb-dzM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="492" y="-1458"/>
+        </scene>
+        <!--HomeComment-->
+        <scene sceneID="wvj-vc-kPs">
+            <objects>
+                <viewControllerPlaceholder storyboardName="HomeComment" id="d9T-Ij-Mqg" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YTn-w0-8wk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1128.5" y="-1461"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="details_collect_btn_nor_30x30_" width="30" height="30"/>
+        <image name="details_collect_btn_sel_30x30_" width="30" height="30"/>
+        <image name="details_like_bg_63x61_" width="63" height="61"/>
+        <image name="details_like_btn_nor_31x31_" width="31" height="31"/>
+        <image name="details_like_btn_sel_31x31_" width="31" height="31"/>
+        <image name="details_next_btn_nor_75x44_" width="75" height="44"/>
+        <image name="details_next_btn_sel_75x44_" width="75" height="44"/>
+        <image name="details_review_btn_nor_75x44_" width="75" height="44"/>
+        <image name="details_review_btn_sel_75x44_" width="75" height="44"/>
+        <image name="details_share_btn_nor_30x30_" width="30" height="30"/>
+        <image name="details_share_btn_sel_30x30_" width="30" height="30"/>
+        <image name="tabbar_bg_nor" width="89" height="44"/>
+    </resources>
+</document>

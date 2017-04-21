@@ -1,0 +1,6 @@
+framework module Pods_MissGe {
+  umbrella header "Pods-MissGe-umbrella.h"
+
+  export *
+  module * { export * }
+}

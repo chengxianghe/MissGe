@@ -1,0 +1,31 @@
+source 'https://github.com/CocoaPods/Specs.git'
+inhibit_all_warnings!
+platform :ios, '8.1'
+use_frameworks!
+
+target "MissGe" do
+    pod 'MJRefresh'
+    pod 'Bugtags'
+    pod 'AFNetworking'
+    pod 'TUNetworking'
+    
+    pod 'YYText'
+    pod 'YYImage'
+    pod 'YYCache'
+    pod 'YYWebImage'
+#   pod 'YYModel'
+    
+    pod 'SVProgressHUD'
+    pod 'FXBlurView'
+    pod 'TZImagePickerController'
+    pod 'XHPhotoBrowser'
+#   pod 'SnapKit'
+
+    pod 'KeychainAccess'
+    
+    pod 'ObjectMapper'
+#    pod 'SwiftDate', '~> 4.0'
+
+    #tabbar https://github.com/eggswift/ESTabBarController
+    pod 'ESTabBarController-swift'
+end

@@ -1,0 +1,98 @@
+PODS:
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
+    - AFNetworking/NSURLSession
+  - Bugtags (2.2.2):
+    - Bugtags/Core (= 2.2.2)
+  - Bugtags/Core (2.2.2)
+  - ESTabBarController-swift (2.3)
+  - FXBlurView (1.6.4)
+  - KeychainAccess (3.0.2)
+  - MJRefresh (3.1.12)
+  - ObjectMapper (2.2.5)
+  - SVProgressHUD (2.1.2)
+  - TUNetworking (1.0.13):
+    - AFNetworking (~> 3.0)
+    - TUNetworking/Batch (= 1.0.13)
+    - TUNetworking/Config (= 1.0.13)
+    - TUNetworking/Helper (= 1.0.13)
+    - TUNetworking/Manager (= 1.0.13)
+    - TUNetworking/Request (= 1.0.13)
+  - TUNetworking/Batch (1.0.13):
+    - AFNetworking (~> 3.0)
+    - TUNetworking/Manager
+    - TUNetworking/Request
+  - TUNetworking/Config (1.0.13):
+    - AFNetworking (~> 3.0)
+    - TUNetworking/Helper
+  - TUNetworking/Helper (1.0.13):
+    - AFNetworking (~> 3.0)
+  - TUNetworking/Manager (1.0.13):
+    - AFNetworking (~> 3.0)
+    - TUNetworking/Helper
+    - TUNetworking/Request
+  - TUNetworking/Request (1.0.13):
+    - AFNetworking (~> 3.0)
+    - TUNetworking/Config
+    - TUNetworking/Helper
+  - TZImagePickerController (1.7.9)
+  - XHPhotoBrowser (1.0.9):
+    - YYWebImage
+  - YYCache (1.0.4)
+  - YYImage (1.0.4):
+    - YYImage/Core (= 1.0.4)
+  - YYImage/Core (1.0.4)
+  - YYText (1.0.7)
+  - YYWebImage (1.0.5):
+    - YYCache
+    - YYImage
+
+DEPENDENCIES:
+  - AFNetworking
+  - Bugtags
+  - ESTabBarController-swift
+  - FXBlurView
+  - KeychainAccess
+  - MJRefresh
+  - ObjectMapper
+  - SVProgressHUD
+  - TUNetworking
+  - TZImagePickerController
+  - XHPhotoBrowser
+  - YYCache
+  - YYImage
+  - YYText
+  - YYWebImage
+
+SPEC CHECKSUMS:
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  Bugtags: bc4e3f55ee72b859380c3b298431dbd4b4075818
+  ESTabBarController-swift: 23011ffbee6cd66a37309f00c7c21c9dd63c17de
+  FXBlurView: db786c2561cb49a09ae98407f52460096ab8a44f
+  KeychainAccess: a986406022dfc7c634c691ad3bec670cc6a32002
+  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
+  ObjectMapper: fb30f71e08470d1e5a20b199fafe1246281db898
+  SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
+  TUNetworking: 0237fe29bf2469818d7bca3403ca846fac72a28b
+  TZImagePickerController: 0a8ff228d287ebdd7d485e8c42a2a932894f1fba
+  XHPhotoBrowser: 3c131e2244891b6bb7ef8da2cf7c92b983cc8238
+  YYCache: 8105b6638f5e849296c71f331ff83891a4942952
+  YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
+  YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
+  YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
+
+PODFILE CHECKSUM: 29450f64decfc930c9d2ec3c9ea736cb82af3b46
+
+COCOAPODS: 1.2.0
