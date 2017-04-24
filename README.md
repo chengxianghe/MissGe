@@ -9,7 +9,7 @@
 
 GitHub：[chengxianghe](https://github.com/chengxianghe) 
 
-###有什么问题请issue我
+### 有什么问题请issue我
 
 ## Version 1.0:
 - 完成项目基本框架
@@ -21,7 +21,7 @@ GitHub：[chengxianghe](https://github.com/chengxianghe)
 
 - GIF
 
-####总体预览图
+#### 总体预览图
 ![image](https://github.com/chengxianghe/watch-gif/blob/master/missge/2017-04-24%2016_46_21.gif?raw=true)
 
 #### Opensource libraries used
