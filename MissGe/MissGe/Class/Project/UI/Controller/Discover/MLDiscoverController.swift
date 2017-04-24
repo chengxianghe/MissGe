@@ -13,6 +13,12 @@ import ObjectMapper
 class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     @IBOutlet var navView: UIView!
+    @IBOutlet var navContentView: UIView!
+    //10
+    @IBOutlet weak var contentLeadingConstraint: NSLayoutConstraint!
+    //10
+    @IBOutlet weak var contentTrailingConstraint: NSLayoutConstraint!
+
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
     
@@ -22,19 +28,20 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIC
     var tagsArray = [MLDiscoverTagModel]()
     var requestCount = 0
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        if self.navView.superview == nil {
-            self.navigationController?.navigationBar.addSubview(self.navView)
-        }
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        
+//        if self.navView.superview == nil {
+//            self.navigationController?.navigationBar.addSubview(self.navView)
+//        }
+//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.navView.frame = CGRect(x: 10, y: 5, width: kScreenWidth - 20, height: 30)
-        self.navigationController?.navigationBar.addSubview(self.navView)
+//        self.navigationController?.navigationBar.addSubview(self.navView)
+        self.navigationItem.titleView = self.navView;
         
         let titleHeight = ceil((kScreenWidth - 20) / 305 * 16)
         let collectionViewLineSpace = collectionViewLayout.minimumLineSpacing
@@ -177,6 +184,17 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIC
     
     @IBAction func popFromSearch(_ segue:UIStoryboardSegue) {
         print(segue.identifier ?? "")
+        print("popFromSearch")
+        contentTrailingConstraint.constant = 50
+        UIView.animate(withDuration: 0.01, animations: { 
+            self.navView.layoutIfNeeded()
+        }) { (f) in
+            self.contentTrailingConstraint.constant = 0
+            UIView.animate(withDuration: 0.5) {
+                self.navView.layoutIfNeeded()
+            }
+        }
+   
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -184,7 +202,7 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIC
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         //DiscoverItemToSubject DiscoverCellToSubject
-        self.navView.removeFromSuperview()
+//        self.navView.removeFromSuperview()
 
         if segue.identifier == "DiscoverItemToSubject" {
             let indexPath = collectionView.indexPath(for: sender as! MLDiscoverHeaderCell)!

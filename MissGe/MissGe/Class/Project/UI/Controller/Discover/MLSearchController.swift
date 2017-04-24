@@ -13,22 +13,40 @@ class MLSearchController: BaseViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var searchBar: UITextField!
     @IBOutlet var searchView: UIView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchContentView: UIView!
     
+    //10
+    @IBOutlet weak var contentLeadingConstraint: NSLayoutConstraint!
+    //10
+    @IBOutlet weak var contentTrailingConstraint: NSLayoutConstraint!
     var dataSource = [String]()
     var currentIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.searchView.frame = CGRect(x: 0, y: 0, width: kScreenWidth, height: 40)
-        self.navigationController?.navigationBar.addSubview(self.searchView)
         
+//        self.searchView.frame = CGRect(x: 0, y: 10, width: kScreenWidth, height: 40)
+        self.navigationItem.titleView = self.searchView
+//        self.searchContentView.frame = CGRect(x: 10, y: 5, width: kScreenWidth + 38, height: 30)
+        self.searchBar.placeholder = ""
         self.searchBar.delegate = self
         self.searchBar.returnKeyType = .search
         
         self.navigationItem.hidesBackButton = true
         
         self.loadData()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        contentLeadingConstraint.constant = 10
+        contentTrailingConstraint.constant = 10
+        UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions.allowUserInteraction, animations: {            
+            self.searchView.layoutIfNeeded()
+            self.searchBar.placeholder = "搜文章"
+
+        }) { (f) in
+
+        }
     }
     
     //MARK: - 数据请求
