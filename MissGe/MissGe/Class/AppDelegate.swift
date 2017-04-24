@@ -207,8 +207,8 @@ class ExampleBouncesContentView: ESTabBarItemContentView {
     }
     
     override func reselectAnimation(animated: Bool, completion: (() -> ())?) {
-        self.bounceAnimation()
-        completion?()
+//        self.bounceAnimation()
+//        completion?()
     }
     
     func bounceAnimation() {
@@ -288,7 +288,7 @@ class ExampleIrregularityContentView: ESTabBarItemContentView, CAAnimationDelega
     }
     
     public override func reselectAnimation(animated: Bool, completion: (() -> ())?) {
-        completion?()
+//        completion?()
     }
     
     public override func deselectAnimation(animated: Bool, completion: (() -> ())?) {
