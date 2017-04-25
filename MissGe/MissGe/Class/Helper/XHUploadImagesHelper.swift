@@ -52,7 +52,7 @@ class XHUploadImagesHelper: NSObject {
         }
         self.completion = nil
         self.progress = nil
-
+        
     }
     
     func removeRequest(_ request: XHUploadImageRequest) {
@@ -67,24 +67,24 @@ class XHUploadImagesHelper: NSObject {
             self.requestReadyArray.remove(at: self.requestReadyArray.index(of: req)!)
         }
     }
-
+    
     
     func addRequest(_ request: XHUploadImageRequest) {
-
-    if (self.requestArray.count < self.maxNum) {
-        self.requestArray.append(request)
-        self.startRequest(request)
         
-    } else {
-        self.requestReadyArray.append(request)
-        
-    }
+        if (self.requestArray.count < self.maxNum) {
+            self.requestArray.append(request)
+            self.startRequest(request)
+            
+        } else {
+            self.requestReadyArray.append(request)
+            
+        }
     }
     
     func startRequest(_ request: XHUploadImageRequest) {
-
-            //        [request cancelRequest];
-            print("*********正在上传图index:\(request.imageIndex) ....")
+        
+        //        [request cancelRequest];
+        print("*********正在上传图index:\(request.imageIndex) ....")
         request.upload(constructingBody: { (formData: AFMultipartFormData) in
             do {
                 try formData.appendPart(withFileURL: URL.init(fileURLWithPath: request.imagePath!), name: "image", fileName: "uploadImg_\(request.imageIndex).jpg", mimeType: "image/jpeg")
@@ -92,41 +92,41 @@ class XHUploadImagesHelper: NSObject {
             catch let error as NSError {
                 print(error)
             }
-                //            [formData appendPartWithFileURL:[NSURL fileURLWithPath:request.imagePath] name:@"file" error:nil];
-            }, progress: { (progress) in
-                print("progressView: \(progress.fractionCompleted)")
-            }, success: { (baseRequest, responseObject) in
-                print("上传成功");
-                self.checkResult(request)
-            }) { (baseRequest, error) in
-                print("上传失败:\(error.localizedDescription)");
-                self.checkResult(request)
+            //            [formData appendPartWithFileURL:[NSURL fileURLWithPath:request.imagePath] name:@"file" error:nil];
+        }, progress: { (progress) in
+            print("progressView: \(progress.fractionCompleted)")
+        }, success: { (baseRequest, responseObject) in
+            print("上传成功");
+            self.checkResult(request)
+        }) { (baseRequest, error) in
+            print("上传失败:\(error.localizedDescription)");
+            self.checkResult(request)
         }
     }
     
     open func uploadImages(images: [String], uploadMode: XHUploadImageMode, progress: XHUploadImageProgress?, completion: XHUploadImageCompletion?) {
         self.uploadImages(images: images, uploadMode: uploadMode, maxTime: TimeInterval(images.count * 60), progress: progress, completion: completion)
     }
- 
+    
     open func uploadImages(images: [String], uploadMode: XHUploadImageMode, maxTime: TimeInterval, progress: XHUploadImageProgress?, completion: XHUploadImageCompletion?) {
         self.requestArray.removeAll()
         self.requestReadyArray.removeAll()
         self.resultModelArray.removeAll()
-
-    
-    self.completion = completion;
-    self.progress = progress;
-    self.mode = uploadMode;
-    self.imageArray = images;
-    self.maxTime = maxTime;
-    self.isEnd = false;
-    
-    // TODO: 根据网络环境 决定 同时上传数量
-    self.maxNum = 3;
-    
-    // 定时回调endUpload
+        
+        
+        self.completion = completion;
+        self.progress = progress;
+        self.mode = uploadMode;
+        self.imageArray = images;
+        self.maxTime = maxTime;
+        self.isEnd = false;
+        
+        // TODO: 根据网络环境 决定 同时上传数量
+        self.maxNum = 3;
+        
+        // 定时回调endUpload
         self.perform(#selector(endUpload), with: nil, afterDelay: maxTime)
-    
+        
         var i = 0
         for str in images {
             let request = XHUploadImageRequest.init()
@@ -136,17 +136,17 @@ class XHUploadImagesHelper: NSObject {
             i = i + 1
         }
         
-    // 先回调一下progress
+        // 先回调一下progress
         self.progress?(self.imageArray.count, self.resultModelArray.count);
     }
     
-
+    
     func checkResult(_ request: XHUploadImageRequest) {
-    
-    if (self.isEnd) {
-        return;
-    }
-    
+        
+        if (self.isEnd) {
+            return;
+        }
+        
         if (self.mode == .retry && request.resultImageUrl == nil) {
             // 失败自动重传
             self.startRequest(request)
@@ -162,12 +162,12 @@ class XHUploadImagesHelper: NSObject {
             self.removeRequest(request)
         }
         
-    // 进度回调
-    self.progress?(self.imageArray.count, self.resultModelArray.count);
-    
-    if (self.resultModelArray.count == self.imageArray.count) {
-        self.endUpload()
-    }
+        // 进度回调
+        self.progress?(self.imageArray.count, self.resultModelArray.count);
+        
+        if (self.resultModelArray.count == self.imageArray.count) {
+            self.endUpload()
+        }
     }
     
     func endUpload() {
@@ -196,7 +196,7 @@ class XHUploadImagesHelper: NSObject {
         self.completion?(successImages,failedImages);
         self.cancelUploadRequest()
     }
-
+    
 }
 
 //mark: - Class: GMBUploadImageModel
@@ -212,7 +212,7 @@ class XHUploadImageRequest: TUUploadRequest {
     var imagePath: String?
     var resultImageUrl: String?  // 接口返回的 图片地址
     var resultImageId: String? // 接口返回的 图片id
-
+    
     override func requestUrl() -> String? {
         let str = "http://t.gexiaojie.com/api.php?&output=json&_app_key=f722d367b8a96655c4f3365739d38d85&_app_secret=30248115015ec6c79d3bed2915f9e4cc&c=upload&a=postUpload&token="
         return str.appending(MLNetConfig.shareInstance.token)
@@ -230,11 +230,11 @@ class XHUploadImageRequest: TUUploadRequest {
          "result":"200",
          "msg":"\u56fe\u50cf\u4e0a\u4f20\u6210\u529f",
          "content":
-             {
-                 "image_name":"uploadImg_0.png",
-                 "url":"http:\/\/img.gexiaojie.com\/post\/2016\/0718\/160718100723P003873V86.png",
-                 "image_id":25339}
-             }
+         {
+         "image_name":"uploadImg_0.png",
+         "url":"http:\/\/img.gexiaojie.com\/post\/2016\/0718\/160718100723P003873V86.png",
+         "image_id":25339}
+         }
          }
          */
         guard let result = self.responseObject as? [String:Any] else {
@@ -253,7 +253,7 @@ class XHUploadImageRequest: TUUploadRequest {
                 self.resultImageId = tempImageId
             }
             print("*********上传图index:\(self.imageIndex) 成功!:\(String(describing: self.resultImageUrl))(id:\(String(describing: self.resultImageId))))")
-//            print("*********上传图index:%ld 成功!:%@(id:%d)", (long)self.imageIndex, self.resultImageUrl, (int)self.resultImageId);
+            //            print("*********上传图index:%ld 成功!:%@(id:%d)", (long)self.imageIndex, self.resultImageUrl, (int)self.resultImageId);
         } else {
             print("*********上传图index:\(self.imageIndex) 失败!:\(String(describing: self.imagePath))")
         }

@@ -169,7 +169,7 @@ class MLPostTopicController: BaseViewController {
             return ""
         }
         
-        let name = "\(NSDate().millisecondTimeDescription())-\(imageData!.count)"
+        let name = NSDate().millisecondTimeDescription().appendingFormat("-size-%d", imageData!.count)
         
         return XHImageCompressHelper.save(imageData: imageData!, withName: name)!;
     }
