@@ -121,6 +121,9 @@
 
 - (NSString *)timeAgoDescription;
 
+/** yyyy-MM-dd HH:mm:ss:SSS */
+- (NSString *)millisecondTimeDescription;
+
 /** yyyy-MM-dd HH:mm:ss */
 - (NSString *)standardTimeDescription;
 

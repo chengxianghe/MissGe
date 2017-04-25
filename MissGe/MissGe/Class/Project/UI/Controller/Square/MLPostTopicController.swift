@@ -132,12 +132,12 @@ class MLPostTopicController: BaseViewController {
                         uploadImages.append(self.setuoUploadImageWithImage(image as! UIImage))
                     }
                     
-                    GMBUploadImagesHelper().uploadImages(uploadImages, uploadMode: UploadMode.ignore, progress: { (totals, completions) in
+                    XHUploadImagesHelper().uploadImages(images: uploadImages, uploadMode: .ignore, progress: { (totals, completions) in
                         print("totals:\(totals) -- completions:\(completions)")
-                        }, completion: { (successImageModel: [GMBUploadImageModel]?, failedImages: [String]?) in
+                        }, completion: { (successImageModel: [XHUploadImageModel]?, failedImages: [String]?) in
                             let ids = successImageModel!.map( { $0.resultImageId } )
                             
-                            self.publishTopic(ids)
+                            self.publishTopic(ids as? [String])
                     })
                     
                 } else {
@@ -163,13 +163,21 @@ class MLPostTopicController: BaseViewController {
             imageData = UIImageJPEGRepresentation(image, 1.0);
         } else {
             // 压缩的
-            imageData = GMBLifeUploadHelper.getUpLoadImageData(image)
+            imageData = XHImageCompressHelper.getUpLoadImageData(originalImage: image)
+        }
+        if imageData == nil {
+            return ""
         }
         
-        return GMBLifeUploadHelper.saveImage(imageData!, withName: nil);
+        let name = "\(NSDate().millisecondTimeDescription())-\(imageData!.count)"
+        
+        return XHImageCompressHelper.save(imageData: imageData!, withName: name)!;
     }
     
     func publishTopic(_ ids: [String]?) {
+        if ids == nil {
+            return
+        }
         self.showLoading("正在发表")
         
         publishRequest.detail = self.textView.text

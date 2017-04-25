@@ -31,6 +31,9 @@
 		1417A9F21EA72E78003931C5 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1417A9F11EA72E78003931C5 /* UIColorExtension.swift */; };
 		1425B48B1EA0B20100ED36A8 /* SafeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1425B48A1EA0B20100ED36A8 /* SafeHelper.swift */; };
 		144B6A0D1EA451A70000BB1B /* TZTestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144B6A0C1EA451A70000BB1B /* TZTestCell.swift */; };
+		1471CB271EAEF28900226C56 /* XHCustomSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1471CB261EAEF28900226C56 /* XHCustomSegue.swift */; };
+		1471CB291EAF0B9600226C56 /* XHUploadImagesHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1471CB281EAF0B9600226C56 /* XHUploadImagesHelper.swift */; };
+		1471CB2B1EAF2A9F00226C56 /* XHImageCompressHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1471CB2A1EAF2A9F00226C56 /* XHImageCompressHelper.swift */; };
 		1488B5D91EA4B0E10096B0BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1488B5D81EA4B0E10096B0BE /* AppDelegate.swift */; };
 		1488B5DD1EA4B8CF0096B0BE /* Agreement.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1488B5DB1EA4B8CF0096B0BE /* Agreement.txt */; };
 		1488B5DE1EA4B8CF0096B0BE /* TagList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1488B5DC1EA4B8CF0096B0BE /* TagList.plist */; };
@@ -123,8 +126,6 @@
 		14D6FF081E9F4AB20038C7D1 /* MLDiscoverTagModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FF071E9F4AB20038C7D1 /* MLDiscoverTagModel.swift */; };
 		14D6FF0A1E9F4F230038C7D1 /* JokeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FF091E9F4F230038C7D1 /* JokeHelper.swift */; };
 		14F53D6A1EA45CD800FBF649 /* UITextView+Placeholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F53D691EA45CD800FBF649 /* UITextView+Placeholder.m */; };
-		14F53D711EA45E4B00FBF649 /* GMBLifeUploadHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F53D6E1EA45E4B00FBF649 /* GMBLifeUploadHelper.m */; };
-		14F53D721EA45E4B00FBF649 /* GMBUploadImagesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F53D701EA45E4B00FBF649 /* GMBUploadImagesHelper.m */; };
 		14F53D761EA4604800FBF649 /* GMBScrollAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F53D751EA4604800FBF649 /* GMBScrollAdView.m */; };
 		14F53D7A1EA460A900FBF649 /* AdvertiseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F53D791EA460A900FBF649 /* AdvertiseView.m */; };
 		14F53D821EA4615F00FBF649 /* IBDesignableOnePixelConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F53D7E1EA4615F00FBF649 /* IBDesignableOnePixelConstant.m */; };
@@ -172,6 +173,9 @@
 		1417A9F11EA72E78003931C5 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		1425B48A1EA0B20100ED36A8 /* SafeHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeHelper.swift; sourceTree = "<group>"; };
 		144B6A0C1EA451A70000BB1B /* TZTestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TZTestCell.swift; sourceTree = "<group>"; };
+		1471CB261EAEF28900226C56 /* XHCustomSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XHCustomSegue.swift; sourceTree = "<group>"; };
+		1471CB281EAF0B9600226C56 /* XHUploadImagesHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XHUploadImagesHelper.swift; sourceTree = "<group>"; };
+		1471CB2A1EAF2A9F00226C56 /* XHImageCompressHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XHImageCompressHelper.swift; sourceTree = "<group>"; };
 		1488B5D81EA4B0E10096B0BE /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1488B5DB1EA4B8CF0096B0BE /* Agreement.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Agreement.txt; sourceTree = "<group>"; };
 		1488B5DC1EA4B8CF0096B0BE /* TagList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TagList.plist; sourceTree = "<group>"; };
@@ -268,10 +272,6 @@
 		14F53D681EA45CD800FBF649 /* UITextView+Placeholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+Placeholder.h"; sourceTree = "<group>"; };
 		14F53D691EA45CD800FBF649 /* UITextView+Placeholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Placeholder.m"; sourceTree = "<group>"; };
 		14F53D6C1EA45D3E00FBF649 /* MissGe-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MissGe-Bridging-Header.h"; sourceTree = "<group>"; };
-		14F53D6D1EA45E4B00FBF649 /* GMBLifeUploadHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMBLifeUploadHelper.h; sourceTree = "<group>"; };
-		14F53D6E1EA45E4B00FBF649 /* GMBLifeUploadHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMBLifeUploadHelper.m; sourceTree = "<group>"; };
-		14F53D6F1EA45E4B00FBF649 /* GMBUploadImagesHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMBUploadImagesHelper.h; sourceTree = "<group>"; };
-		14F53D701EA45E4B00FBF649 /* GMBUploadImagesHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMBUploadImagesHelper.m; sourceTree = "<group>"; };
 		14F53D741EA4604800FBF649 /* GMBScrollAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMBScrollAdView.h; sourceTree = "<group>"; };
 		14F53D751EA4604800FBF649 /* GMBScrollAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMBScrollAdView.m; sourceTree = "<group>"; };
 		14F53D781EA460A900FBF649 /* AdvertiseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdvertiseView.h; sourceTree = "<group>"; };
@@ -534,14 +534,13 @@
 		14D6FE371E9E0FFC0038C7D1 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				14F53D6D1EA45E4B00FBF649 /* GMBLifeUploadHelper.h */,
-				14F53D6E1EA45E4B00FBF649 /* GMBLifeUploadHelper.m */,
-				14F53D6F1EA45E4B00FBF649 /* GMBUploadImagesHelper.h */,
-				14F53D701EA45E4B00FBF649 /* GMBUploadImagesHelper.m */,
 				14D6FE381E9E0FFC0038C7D1 /* PhotoAlbumHelper.swift */,
 				14D6FEEF1E9E17B70038C7D1 /* KeychainTool.swift */,
 				14D6FF091E9F4F230038C7D1 /* JokeHelper.swift */,
 				1425B48A1EA0B20100ED36A8 /* SafeHelper.swift */,
+				1471CB261EAEF28900226C56 /* XHCustomSegue.swift */,
+				1471CB281EAF0B9600226C56 /* XHUploadImagesHelper.swift */,
+				1471CB2A1EAF2A9F00226C56 /* XHImageCompressHelper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -1063,6 +1062,7 @@
 				1425B48B1EA0B20100ED36A8 /* SafeHelper.swift in Sources */,
 				1488B5D91EA4B0E10096B0BE /* AppDelegate.swift in Sources */,
 				14D6FEC61E9E0FFC0038C7D1 /* MLTopicDetailController.swift in Sources */,
+				1471CB291EAF0B9600226C56 /* XHUploadImagesHelper.swift in Sources */,
 				14D6FE8C1E9E0FFC0038C7D1 /* UIViewExt.swift in Sources */,
 				14D6FEB41E9E0FFC0038C7D1 /* MLRegisterController.swift in Sources */,
 				14D6FE901E9E0FFC0038C7D1 /* MLLoginRequest.swift in Sources */,
@@ -1088,6 +1088,7 @@
 				1417A9E21EA72DED003931C5 /* SinaShareHelp.swift in Sources */,
 				1417A9E81EA72DED003931C5 /* WeiXinshareDelegate.swift in Sources */,
 				14D6FEC21E9E0FFC0038C7D1 /* MLUserEditController.swift in Sources */,
+				1471CB2B1EAF2A9F00226C56 /* XHImageCompressHelper.swift in Sources */,
 				14F53D6A1EA45CD800FBF649 /* UITextView+Placeholder.m in Sources */,
 				1417A9E91EA72DED003931C5 /* WeiXinShareHelp.swift in Sources */,
 				14D6FEB81E9E0FFC0038C7D1 /* HomeViewController.swift in Sources */,
@@ -1098,19 +1099,18 @@
 				1417A9E71EA72DED003931C5 /* WeiXinActivity.swift in Sources */,
 				14D6FEAB1E9E0FFC0038C7D1 /* MLHomePageAlbumCell.swift in Sources */,
 				14F53D761EA4604800FBF649 /* GMBScrollAdView.m in Sources */,
-				14F53D711EA45E4B00FBF649 /* GMBLifeUploadHelper.m in Sources */,
 				14D6FEB01E9E0FFC0038C7D1 /* MLTopicCommentCellLayout.swift in Sources */,
 				144B6A0D1EA451A70000BB1B /* TZTestCell.swift in Sources */,
 				14D6FEC31E9E0FFC0038C7D1 /* MLUserFansController.swift in Sources */,
 				14D6FE851E9E0FFC0038C7D1 /* HUDExt.swift in Sources */,
 				1417A9DA1EA72DED003931C5 /* QQShareDelegate.swift in Sources */,
+				1471CB271EAEF28900226C56 /* XHCustomSegue.swift in Sources */,
 				14D6FF0A1E9F4F230038C7D1 /* JokeHelper.swift in Sources */,
 				14D6FF081E9F4AB20038C7D1 /* MLDiscoverTagModel.swift in Sources */,
 				14D6FE9A1E9E0FFC0038C7D1 /* MLHomeFavoriteRequest.swift in Sources */,
 				14D6FE941E9E0FFC0038C7D1 /* HomePageRequest.swift in Sources */,
 				14F53D8D1EA4639B00FBF649 /* NSDateFormatter+Category.m in Sources */,
 				14D6FEA01E9E0FFC0038C7D1 /* MLPostTopicRequest.swift in Sources */,
-				14F53D721EA45E4B00FBF649 /* GMBUploadImagesHelper.m in Sources */,
 				14D6FEAC1E9E0FFC0038C7D1 /* MLHomePageCell.swift in Sources */,
 				14D6FEBA1E9E0FFC0038C7D1 /* MLHomeDetailController.swift in Sources */,
 				14D6FF021E9F174E0038C7D1 /* MLHomePageModel.swift in Sources */,

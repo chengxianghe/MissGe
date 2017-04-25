@@ -3,8 +3,6 @@
 //
 
 #import "UITextView+Placeholder.h"
-#import "GMBLifeUploadHelper.h"
-#import "GMBUploadImagesHelper.h"
 
 #import "GMBScrollAdView.h"
 #import "AdvertiseView.h"

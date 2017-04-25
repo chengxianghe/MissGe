@@ -39,7 +39,7 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIC
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navView.frame = CGRect(x: 10, y: 5, width: kScreenWidth - 20, height: 30)
+        self.navView.frame = CGRect(x: 10, y: 7, width: kScreenWidth - 20, height: 30)
 //        self.navigationController?.navigationBar.addSubview(self.navView)
         self.navigationItem.titleView = self.navView;
         
@@ -182,21 +182,24 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIC
     
     // MARK: - Navigation
     
-    @IBAction func popFromSearch(_ segue:UIStoryboardSegue) {
-        print(segue.identifier ?? "")
-        print("popFromSearch")
-        contentTrailingConstraint.constant = 50
-        UIView.animate(withDuration: 0.01, animations: { 
-            self.navView.layoutIfNeeded()
-        }) { (f) in
-            self.contentTrailingConstraint.constant = 0
-            UIView.animate(withDuration: 0.5) {
-                self.navView.layoutIfNeeded()
-            }
-        }
-   
-    }
-    
+//    @IBAction func popFromSearch(_ segue:UIStoryboardSegue) {
+//        print(segue.identifier ?? "")
+//        print("popFromSearch")
+//        contentTrailingConstraint.constant = 50
+//        contentLeadingConstraint.constant = 10
+//
+//        UIView.animate(withDuration: 0.01, animations: {
+//            self.navView.layoutIfNeeded()
+//        }) { (f) in
+//            self.contentTrailingConstraint.constant = 0
+//            self.contentLeadingConstraint.constant = 0
+//            UIView.animate(withDuration: 0.3) {
+//                self.navView.layoutIfNeeded()
+//            }
+//        }
+//   
+//    }
+
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
@@ -219,7 +222,27 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIC
             vc.tag_id = model.tid
             vc.subjectType = .banner
             vc.path = model.cover
+        } else if segue.identifier == "DiscoverCellToSubject" {
+            let indexPath = tableView.indexPath(for: sender as! MLDiscoverCell)!
+            let model = self.dataSource[(indexPath as NSIndexPath).row]
+            
+            let vc = segue.destination as! MLHomeSubjectController
+            vc.tag_id = model.tid
+            vc.subjectType = .banner
+            vc.path = model.cover
         }
+//        else if segue.identifier == "DiscoverToSearch" {
+//            let vc = segue.destination as! MLSearchController
+//        }
     }
 
+//    override func segueForUnwinding(to toViewController: UIViewController, from fromViewController: UIViewController, identifier: String?) -> UIStoryboardSegue? {
+//        if identifier == "popFromSearch" {
+//            return XHCustomPopSegue(identifier: identifier, source: fromViewController, destination: toViewController, performHandler: { () -> Void in
+//            })
+//        }
+//        
+//        return super.segueForUnwinding(to: toViewController, from: fromViewController, identifier: identifier)!
+//    }
+    
 }

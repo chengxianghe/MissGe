@@ -9,7 +9,7 @@
 import UIKit
 
 class MLSearchController: BaseViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
-
+    
     @IBOutlet weak var searchBar: UITextField!
     @IBOutlet var searchView: UIView!
     @IBOutlet weak var tableView: UITableView!
@@ -25,8 +25,11 @@ class MLSearchController: BaseViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        self.searchView.frame = CGRect(x: 0, y: 10, width: kScreenWidth, height: 40)
+        self.searchView.frame = CGRect(x: 10, y: 7, width: kScreenWidth - 20, height: 30)
         self.navigationItem.titleView = self.searchView
+        self.searchView.setNeedsDisplay()
+        self.searchView.layoutIfNeeded()
+
 //        self.searchContentView.frame = CGRect(x: 10, y: 5, width: kScreenWidth + 38, height: 30)
         self.searchBar.placeholder = ""
         self.searchBar.delegate = self
@@ -40,12 +43,25 @@ class MLSearchController: BaseViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLayoutSubviews() {
         contentLeadingConstraint.constant = 10
         contentTrailingConstraint.constant = 10
-        UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions.allowUserInteraction, animations: {            
+        UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
             self.searchView.layoutIfNeeded()
             self.searchBar.placeholder = "搜文章"
 
         }) { (f) in
+            self.searchBar.becomeFirstResponder()
+        }
+    }
+    
+    @IBAction func onCancelButtonPressed(_ sender: UIButton) {
+//        self.popAction?(sender)
+        self.searchBar.resignFirstResponder()
 
+        contentLeadingConstraint.constant = 0
+        contentTrailingConstraint.constant = -40
+        UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
+            self.searchView.layoutIfNeeded()            
+        }) { (f) in
+            self.navigationController?.popViewController(animated: false)
         }
     }
     
@@ -110,8 +126,9 @@ class MLSearchController: BaseViewController, UITableViewDelegate, UITableViewDa
         } else if segue.destination.isKind(of: MLDiscoverController.classForCoder()) {
             // 点击取消了
             print("点击取消了")
+            
         }
         
     }
-
+    
 }

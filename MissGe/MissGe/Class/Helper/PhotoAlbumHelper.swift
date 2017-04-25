@@ -131,11 +131,11 @@ class PhotoAlbumHelper : NSObject {
     
     /// 保存图片到系统相册
     fileprivate class func saveImageToCameraAlbum(_ image: UIImage, completion: PhotoSaveBlock?) {
-        var assetId: String?;
+//        var assetId: String?;
         // 1. 存储图片到"相机胶卷"
         PHPhotoLibrary.shared().performChanges({ // 这个block里保存一些"修改"性质的代码
             // 返回PHAsset(图片)的字符串标识
-            assetId = PHAssetChangeRequest.creationRequestForAsset(from: image).placeholderForCreatedAsset?.localIdentifier
+            _ = PHAssetChangeRequest.creationRequestForAsset(from: image).placeholderForCreatedAsset?.localIdentifier
             
             }, completionHandler: { (isSuccess, error) in
                 if (error != nil) {
@@ -176,11 +176,11 @@ class PhotoAlbumHelper : NSObject {
     
     /// 保存视频到系统相册
     fileprivate class func saveVideoToCameraAlbum(_ videoFileURL: URL, completion: PhotoSaveBlock?) {
-        var assetId: String?;
+//        var assetId: String?;
         // 1. 存储图片到"相机胶卷"
         PHPhotoLibrary.shared().performChanges({ // 这个block里保存一些"修改"性质的代码
             // 返回PHAsset(图片)的字符串标识
-            assetId = PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: videoFileURL)?.placeholderForCreatedAsset?.localIdentifier
+            _ = PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: videoFileURL)?.placeholderForCreatedAsset?.localIdentifier
             
             }, completionHandler: { (isSuccess, error) in
                 if (error != nil) {

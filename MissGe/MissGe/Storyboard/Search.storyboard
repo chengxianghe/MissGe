@@ -73,23 +73,22 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v4G-Eb-5ik" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="j4s-KV-73Z" userLabel="Exit" sceneMemberID="exit"/>
                 <view contentMode="scaleToFill" id="IPw-CA-eoP">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DHP-zv-TY7">
-                            <rect key="frame" x="280" y="5.5" width="30" height="29"/>
+                            <rect key="frame" x="280" y="0.5" width="30" height="29"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <state key="normal" title="取消">
                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
-                                <segue destination="j4s-KV-73Z" kind="unwind" animates="NO" unwindAction="popFromSearch:" id="dNB-RL-0C2"/>
+                                <action selector="onCancelButtonPressed:" destination="8ye-Uv-Bhn" eventType="touchUpInside" id="3U0-SL-f8W"/>
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LAT-U3-ElD">
-                            <rect key="frame" x="0.0" y="5" width="320" height="30"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search_flag_15x15_" translatesAutoresizingMaskIntoConstraints="NO" id="T9r-Lh-hE0">
                                     <rect key="frame" x="20" y="7.5" width="15" height="15"/>
@@ -98,20 +97,21 @@
                                         <constraint firstAttribute="width" secondItem="T9r-Lh-hE0" secondAttribute="height" multiplier="1:1" id="wA6-qg-bVf"/>
                                     </constraints>
                                 </imageView>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="搜文章" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wjj-IE-VvZ">
-                                    <rect key="frame" x="45" y="4.5" width="265" height="21"/>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="搜文章" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wjj-IE-VvZ">
+                                    <rect key="frame" x="41" y="4.5" width="269" height="21"/>
+                                    <color key="tintColor" red="1" green="0.59999999999999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="YTU-1M-FXO"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                                    <textInputTraits key="textInputTraits" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
                                 </textField>
                             </subviews>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstItem="T9r-Lh-hE0" firstAttribute="leading" secondItem="LAT-U3-ElD" secondAttribute="leading" constant="20" id="5ho-7f-Mkn"/>
                                 <constraint firstItem="Wjj-IE-VvZ" firstAttribute="centerY" secondItem="T9r-Lh-hE0" secondAttribute="centerY" id="Jn3-3a-HDG"/>
-                                <constraint firstItem="Wjj-IE-VvZ" firstAttribute="leading" secondItem="T9r-Lh-hE0" secondAttribute="trailing" constant="10" id="SkP-q5-ZOq"/>
+                                <constraint firstItem="Wjj-IE-VvZ" firstAttribute="leading" secondItem="T9r-Lh-hE0" secondAttribute="trailing" constant="6" id="SkP-q5-ZOq"/>
                                 <constraint firstAttribute="trailing" secondItem="Wjj-IE-VvZ" secondAttribute="trailing" constant="10" id="T95-Cf-xI4"/>
                                 <constraint firstItem="T9r-Lh-hE0" firstAttribute="centerY" secondItem="LAT-U3-ElD" secondAttribute="centerY" id="jG0-Nj-RTc"/>
                             </constraints>
@@ -132,51 +132,12 @@
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="DHP-zv-TY7" firstAttribute="leading" secondItem="LAT-U3-ElD" secondAttribute="trailing" constant="-40" id="0hC-wg-weW"/>
-                        <constraint firstItem="LAT-U3-ElD" firstAttribute="centerY" secondItem="IPw-CA-eoP" secondAttribute="centerY" id="Omc-fp-hrE"/>
-                        <constraint firstItem="LAT-U3-ElD" firstAttribute="top" secondItem="IPw-CA-eoP" secondAttribute="top" constant="5" id="af8-eQ-NKW"/>
-                        <constraint firstAttribute="bottom" secondItem="LAT-U3-ElD" secondAttribute="bottom" constant="5" id="cCs-M7-3IS"/>
+                        <constraint firstItem="LAT-U3-ElD" firstAttribute="top" secondItem="IPw-CA-eoP" secondAttribute="top" id="af8-eQ-NKW"/>
                         <constraint firstItem="LAT-U3-ElD" firstAttribute="leading" secondItem="IPw-CA-eoP" secondAttribute="leading" id="gwf-f7-9Gf"/>
+                        <constraint firstAttribute="bottom" secondItem="LAT-U3-ElD" secondAttribute="bottom" id="iuN-Tx-oeV"/>
                         <constraint firstAttribute="trailing" secondItem="DHP-zv-TY7" secondAttribute="trailing" constant="10" id="mts-Fy-AFD"/>
                         <constraint firstItem="DHP-zv-TY7" firstAttribute="centerY" secondItem="IPw-CA-eoP" secondAttribute="centerY" id="y0f-RB-vd1"/>
                     </constraints>
-                </view>
-                <view contentMode="scaleToFill" id="52B-oo-Haf">
-                    <rect key="frame" x="0.0" y="0.0" width="304" height="33"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search_flag_15x15_" translatesAutoresizingMaskIntoConstraints="NO" id="coZ-FT-kWc">
-                            <rect key="frame" x="20" y="9" width="15" height="15"/>
-                            <constraints>
-                                <constraint firstAttribute="width" secondItem="coZ-FT-kWc" secondAttribute="height" multiplier="1:1" id="N1I-yr-LiA"/>
-                                <constraint firstAttribute="width" constant="15" id="gcv-5v-Ivl"/>
-                            </constraints>
-                        </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="搜文章" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9JA-ab-L0U">
-                            <rect key="frame" x="41" y="6" width="52" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstItem="coZ-FT-kWc" firstAttribute="leading" secondItem="52B-oo-Haf" secondAttribute="leading" constant="20" id="Geh-yF-8rj"/>
-                        <constraint firstItem="9JA-ab-L0U" firstAttribute="leading" secondItem="coZ-FT-kWc" secondAttribute="trailing" constant="6" id="Hzj-Si-RWW"/>
-                        <constraint firstItem="9JA-ab-L0U" firstAttribute="centerY" secondItem="coZ-FT-kWc" secondAttribute="centerY" id="VV6-hJ-zaA"/>
-                        <constraint firstItem="coZ-FT-kWc" firstAttribute="centerY" secondItem="52B-oo-Haf" secondAttribute="centerY" id="bCG-Pp-TLh"/>
-                    </constraints>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                            <real key="value" value="15"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                            <real key="value" value="1"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                            <color key="value" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="isOnePx" value="YES"/>
-                    </userDefinedRuntimeAttributes>
                 </view>
             </objects>
             <point key="canvasLocation" x="353" y="-339"/>

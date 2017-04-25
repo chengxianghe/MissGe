@@ -57,7 +57,7 @@ class MLSettingViewController: UITableViewController {
                     }
             })
         case 2: // 分享APP
-            kJumpToAppStoreDetail(appid: kAppId)
+            _ = kJumpToAppStoreDetail(appid: kAppId)
 //        case 4: // 关于我们
             
         default:

@@ -539,6 +539,10 @@ static const unsigned componentFlags = (NSCalendarUnitYear | NSCalendarUnitMonth
     return [[NSDateFormatter dateFormatterWithFormat:formater] stringFromDate:self];
 }
 
+- (NSString *)millisecondTimeDescription {
+    return [[NSDateFormatter dateFormatterWithFormat:@"yyyy-MM-dd HH:mm:ss:SSS"] stringFromDate:self];
+}
+
 - (NSString *)standardTimeDescription {
     return [[NSDateFormatter defaultDateFormatter] stringFromDate:self];
 }

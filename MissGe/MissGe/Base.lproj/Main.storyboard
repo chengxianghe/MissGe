@@ -327,7 +327,7 @@
                                 <rect key="frame" x="0.0" y="178" width="375" height="130"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Dcu-Pv-n8D" id="q6g-Mk-khr">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="129.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mY4-D4-W0v">
@@ -366,43 +366,45 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B3M-WY-Lp2" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="6nj-2d-uvp">
-                    <rect key="frame" x="0.0" y="0.0" width="346" height="44"/>
+                    <rect key="frame" x="0.0" y="0.0" width="346" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qHa-oo-dAR">
-                            <rect key="frame" x="0.0" y="0.0" width="346" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="346" height="30"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search_flag_15x15_" translatesAutoresizingMaskIntoConstraints="NO" id="zBf-aE-wHz">
-                                    <rect key="frame" x="20" y="14.5" width="15" height="15"/>
+                                    <rect key="frame" x="20" y="7.5" width="15" height="15"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="15" id="tiq-6U-YAI"/>
                                         <constraint firstAttribute="width" secondItem="zBf-aE-wHz" secondAttribute="height" multiplier="1:1" id="yRk-e9-oEf"/>
                                     </constraints>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="搜文章" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="seI-SP-3GG">
-                                    <rect key="frame" x="41" y="11.5" width="52" height="21"/>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="搜文章" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AfY-0G-ykV">
+                                    <rect key="frame" x="41" y="4" width="305" height="21"/>
+                                    <color key="tintColor" red="1" green="0.59999999999999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="21" id="HO4-wx-DI5"/>
+                                    </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
+                                    <textInputTraits key="textInputTraits" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
+                                </textField>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H94-fS-5ea">
-                                    <rect key="frame" x="0.0" y="0.0" width="346" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="346" height="30"/>
                                     <connections>
-                                        <segue destination="PE6-X8-bYR" kind="show" identifier="DiscoverToSearch" animates="NO" id="1vN-us-5Eg">
-                                            <nil key="action"/>
-                                        </segue>
+                                        <segue destination="PE6-X8-bYR" kind="custom" identifier="DiscoverToSearch" customClass="XHCustomPushSegue" customModule="MissGe" customModuleProvider="target" id="1vN-us-5Eg"/>
                                     </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstItem="zBf-aE-wHz" firstAttribute="centerY" secondItem="qHa-oo-dAR" secondAttribute="centerY" id="D83-aC-s8n"/>
-                                <constraint firstItem="seI-SP-3GG" firstAttribute="centerY" secondItem="zBf-aE-wHz" secondAttribute="centerY" id="Erx-0N-oYO"/>
                                 <constraint firstItem="H94-fS-5ea" firstAttribute="leading" secondItem="qHa-oo-dAR" secondAttribute="leading" id="F9V-gH-Za5"/>
                                 <constraint firstItem="zBf-aE-wHz" firstAttribute="leading" secondItem="qHa-oo-dAR" secondAttribute="leading" constant="20" id="I7G-LM-sPh"/>
+                                <constraint firstAttribute="trailing" secondItem="AfY-0G-ykV" secondAttribute="trailing" id="S9N-5a-oi2"/>
                                 <constraint firstAttribute="trailing" secondItem="H94-fS-5ea" secondAttribute="trailing" id="bTn-uV-Zsi"/>
                                 <constraint firstItem="H94-fS-5ea" firstAttribute="top" secondItem="qHa-oo-dAR" secondAttribute="top" id="eF3-Cd-2Um"/>
-                                <constraint firstItem="seI-SP-3GG" firstAttribute="leading" secondItem="zBf-aE-wHz" secondAttribute="trailing" constant="6" id="ror-4Q-ZEy"/>
+                                <constraint firstItem="AfY-0G-ykV" firstAttribute="centerY" secondItem="qHa-oo-dAR" secondAttribute="centerY" id="k81-Mf-Xh5"/>
+                                <constraint firstItem="AfY-0G-ykV" firstAttribute="leading" secondItem="zBf-aE-wHz" secondAttribute="trailing" constant="6" id="skS-SI-rkf"/>
                                 <constraint firstAttribute="bottom" secondItem="H94-fS-5ea" secondAttribute="bottom" id="xOK-mq-Oqa"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
@@ -450,7 +452,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="130"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Kn9-ea-tAM" id="lxi-k1-Bzu">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="129.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qWS-vc-nCT">

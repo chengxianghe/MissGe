@@ -183,7 +183,6 @@ class MLHomeDetailController: BaseViewController {
                             return
                         }
                         let image = requestImage!
-                        let imageData = image.yy_imageDataRepresentation()
                         
                         switch (type) {
                         case .weiBoShare:
