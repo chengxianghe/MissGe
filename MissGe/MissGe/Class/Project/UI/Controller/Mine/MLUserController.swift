@@ -102,7 +102,7 @@ class MLUserController: UITableViewController {
         topicListRequest.page = page
         topicListRequest.uid = self.uid
         topicListRequest.send(success: {[unowned self] (baseRequest, responseObject) in
-            self.showSuccess("加载完成")
+            self.hideHud()
             self.tableView.mj_header.endRefreshing()
             
             guard let artlist = (((responseObject as? NSDictionary)?["content"] as? NSDictionary)?["artlist"]) as? [[String:Any]] else {

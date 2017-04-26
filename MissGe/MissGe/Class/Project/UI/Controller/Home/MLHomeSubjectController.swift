@@ -84,7 +84,7 @@ class MLHomeSubjectController: BaseViewController, UITableViewDelegate, UITableV
         subjectRequest.subjectType = subjectType
         subjectRequest.send(success: {[unowned self] (baseRequest, responseObject) in
             
-            self.showSuccess("加载完成")
+            self.hideHud()
             self.tableView.mj_header.endRefreshing()
             
             let result = (responseObject as! NSDictionary)["content"] as! NSDictionary

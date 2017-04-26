@@ -115,7 +115,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         let tabBarController = ESTabBarController()
         tabBarController.delegate = delegate
         tabBarController.title = "Irregularity"
-//        tabBarController.tabBar.shadowImage = UIImage(named: "tabbar_transparent")
+        tabBarController.tabBar.shadowImage = UIImage(named: "tabbar_transparent")
         tabBarController.tabBar.backgroundImage = UIImage(named: "tabbar_bg_nor")?.stretchableImage(withLeftCapWidth: 10, topCapHeight: 10)
         tabBarController.shouldHijackHandler = {
             tabbarController, viewController, index in

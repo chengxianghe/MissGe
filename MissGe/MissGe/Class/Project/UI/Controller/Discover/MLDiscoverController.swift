@@ -119,7 +119,7 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIC
     
     func finishedAllRequest() {
         if self.requestCount == 2 {
-            self.showSuccess("加载完成")
+            self.hideHud()
             self.tableView.mj_header.endRefreshing()
             self.tableView.reloadData()
             self.requestCount = 0

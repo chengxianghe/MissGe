@@ -71,12 +71,10 @@ class XHImageCompressHelper {
     static func save(image tempImage: UIImage, withName imageName: String) -> String? {
         var imageData: Data? = nil
         
-        if(tempImage.isKind(of: UIImage.classForCoder())) {
-            //优先使用UIImageJPEGRepresentation
-            imageData = UIImageJPEGRepresentation(tempImage, 1);
-            if (imageData == nil) {
-                imageData = UIImagePNGRepresentation(tempImage);
-            }
+        //优先使用UIImageJPEGRepresentation
+        imageData = UIImageJPEGRepresentation(tempImage, 1);
+        if (imageData == nil) {
+            imageData = UIImagePNGRepresentation(tempImage);
         }
         
         if (imageData == nil) {

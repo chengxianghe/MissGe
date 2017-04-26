@@ -171,7 +171,11 @@ class MLPostTopicController: BaseViewController {
         
         let name = NSDate().millisecondTimeDescription().appendingFormat("-size-%d", imageData!.count)
         
-        return XHImageCompressHelper.save(imageData: imageData!, withName: name)!;
+        if let str = XHImageCompressHelper.save(imageData: imageData!, withName: name) {
+            return str
+        }
+        
+        return ""
     }
     
     func publishTopic(_ ids: [String]?) {

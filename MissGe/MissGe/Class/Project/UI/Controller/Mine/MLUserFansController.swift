@@ -46,7 +46,7 @@ class MLUserFansController: BaseViewController, UITableViewDelegate, UITableView
         }
         
         request.send(success: {[unowned self] (baseRequest, responseObject) in
-            self.showSuccess("加载完成")
+            self.hideHud()
             
             guard let blacklist = ((responseObject as? NSDictionary)?["content"] as? NSDictionary)?["blacklist"] as? [[String:Any]] else {
                 return

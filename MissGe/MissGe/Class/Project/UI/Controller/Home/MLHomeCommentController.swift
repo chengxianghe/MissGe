@@ -57,7 +57,7 @@ class MLHomeCommentController: BaseViewController, UITableViewDelegate, UITableV
         commentListRequest.page = page
         commentListRequest.aid = aid
         commentListRequest.send(success: {[unowned self] (baseRequest, responseObject) in
-            self.showSuccess("加载完成")
+            self.hideHud()
             self.tableView.mj_header.endRefreshing()
             
             var modelArray: [MLTopicCommentModel]? = nil

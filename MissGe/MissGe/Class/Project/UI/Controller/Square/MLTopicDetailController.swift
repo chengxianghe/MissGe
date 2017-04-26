@@ -108,7 +108,7 @@ class MLTopicDetailController: BaseViewController, UITableViewDelegate, UITableV
         commentListRequest.page = page
         commentListRequest.pid = "\(self.topic.joke.pid)"
         commentListRequest.send(success: {[unowned self] (baseRequest, responseObject) in
-            self.showSuccess("加载完成")
+            self.hideHud()
             self.tableView.mj_header.endRefreshing()
             
             var modelArray: [MLTopicCommentModel]? = nil
