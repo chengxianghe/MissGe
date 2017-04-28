@@ -37,6 +37,7 @@
 		1488B5D91EA4B0E10096B0BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1488B5D81EA4B0E10096B0BE /* AppDelegate.swift */; };
 		1488B5DD1EA4B8CF0096B0BE /* Agreement.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1488B5DB1EA4B8CF0096B0BE /* Agreement.txt */; };
 		1488B5DE1EA4B8CF0096B0BE /* TagList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1488B5DC1EA4B8CF0096B0BE /* TagList.plist */; };
+		14BC8ED41EB304F700933E85 /* infoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14BC8ED61EB304F700933E85 /* infoPlist.strings */; };
 		14D6FE151E9E0DEE0038C7D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14D6FE131E9E0DEE0038C7D1 /* Main.storyboard */; };
 		14D6FE171E9E0DEE0038C7D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14D6FE161E9E0DEE0038C7D1 /* Assets.xcassets */; };
 		14D6FE1A1E9E0DEE0038C7D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14D6FE181E9E0DEE0038C7D1 /* LaunchScreen.storyboard */; };
@@ -179,6 +180,8 @@
 		1488B5D81EA4B0E10096B0BE /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1488B5DB1EA4B8CF0096B0BE /* Agreement.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Agreement.txt; sourceTree = "<group>"; };
 		1488B5DC1EA4B8CF0096B0BE /* TagList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TagList.plist; sourceTree = "<group>"; };
+		14BC8ED51EB304F700933E85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/infoPlist.strings; sourceTree = "<group>"; };
+		14BC8ED71EB304F900933E85 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/infoPlist.strings; sourceTree = "<group>"; };
 		14D6FE0C1E9E0DEE0038C7D1 /* MissGe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MissGe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14D6FE141E9E0DEE0038C7D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		14D6FE161E9E0DEE0038C7D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -445,6 +448,7 @@
 				14D6FE161E9E0DEE0038C7D1 /* Assets.xcassets */,
 				14F53D6C1EA45D3E00FBF649 /* MissGe-Bridging-Header.h */,
 				14D6FE1B1E9E0DEE0038C7D1 /* Info.plist */,
+				14BC8ED61EB304F700933E85 /* infoPlist.strings */,
 			);
 			path = MissGe;
 			sourceTree = "<group>";
@@ -963,6 +967,7 @@
 				14D6FEE61E9E171A0038C7D1 /* Account.storyboard in Resources */,
 				14D6FEED1E9E171A0038C7D1 /* TopicDetail.storyboard in Resources */,
 				1417A9E41EA72DED003931C5 /* README.txt in Resources */,
+				14BC8ED41EB304F700933E85 /* infoPlist.strings in Resources */,
 				14D6FE841E9E0FFC0038C7D1 /* error@2x.png in Resources */,
 				1488B5DE1EA4B8CF0096B0BE /* TagList.plist in Resources */,
 			);
@@ -1127,6 +1132,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		14BC8ED61EB304F700933E85 /* infoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				14BC8ED51EB304F700933E85 /* Base */,
+				14BC8ED71EB304F900933E85 /* en */,
+			);
+			name = infoPlist.strings;
+			sourceTree = "<group>";
+		};
 		14D6FE131E9E0DEE0038C7D1 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

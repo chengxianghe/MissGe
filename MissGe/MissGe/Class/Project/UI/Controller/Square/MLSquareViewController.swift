@@ -180,63 +180,28 @@ class MLSquareViewController: BaseViewController, UITableViewDelegate, UITableVi
 }
 
 extension MLSquareViewController: MLSquareCellDelegate {
-
-    func topicCellDidClickShare(_ cell: MLTopicCell) {
-        
-        let model = cell.layout.joke
-
-        ShareManager.manager().showShareViewWithBlock({[weak cell] (type) -> () in
-            guard let _cell = cell else {
-                return
-            }
-   
-            let title = model?.content ?? "";
-            let describ = model?.content ?? "";
-            
-            var image: UIImage? = nil
-            if (_cell.statusView.picViews?.count)! > 0 {
-                image = _cell.statusView.picViews![0].image
-            }
-            
-            
-            var result = false
-            
-            switch (type) {
-            case .weiBoShare:
-                print("分享到新浪微博");
-                result = SinaShareHelp.currentHelp().shareText(title, shareImage: image, url: "")
-            case .weiXinFriendsShare:
-                print("分享到朋友圈");
-                //    weixin
-                if image != nil {
-                    result = WeiXinShareHelp.currentHelp().sendImageData(image, InScene: WXSceneTimeline)
-                } else {
-                    result = WeiXinShareHelp.currentHelp().sendText(describ, InScene: WXSceneTimeline)
+    
+    func topicCellDidClickOther(_ cell: MLTopicCell) {
+        if MLNetConfig.isUserLogin() && MLNetConfig.shareInstance.userId == cell.layout.joke.uid {
+            // 删除
+            MLRequestHelper.deleteTopicWith(cell.layout.joke.pid, succeed: {[weak self] (base, res) in
+                guard let _self = self else {
+                    return
                 }
-            case .weiXinShare:
-                print("分享到微信好友");
-                if image != nil {
-                    result = WeiXinShareHelp.currentHelp().sendImageData(image, InScene: WXSceneSession)
-                } else {
-                   result = WeiXinShareHelp.currentHelp().sendText(describ, InScene: WXSceneSession)
+                _self.showSuccess("已删除")
+                let index = _self.dataSource.index(of: cell.layout)!
+                _self.dataSource.remove(at: index)
+                _self.tableView.deleteRows(at: [IndexPath.init(row: index, section: 0)], with: .automatic)
+            }, failed: {[weak self] (base, error) in
+                guard let _self = self else {
+                    return
                 }
-            case .weiXinFavoriteShare:
-                print("分享到微信收藏");
-                if image != nil {
-                    result = WeiXinShareHelp.currentHelp().sendImageData(image, InScene: WXSceneFavorite)
-                } else {
-                   result = WeiXinShareHelp.currentHelp().sendText(describ, InScene: WXSceneFavorite)
-                }
-            case .qZoneShare:
-                print("分享到QQ空间");
-                result = QQShareHelp.currentHelp().sendLinkUrlToQZone(title, description: describ, imageUrl: "", url: "www.baidu.com")
-            case .qqShare:
-                print("分享到QQ");
-                result = QQShareHelp.currentHelp().sendImage(image, title: title, desc: describ)
-            }
-            
-            print(result)
-        })
+                _self.showError("删除失败\n\(error.localizedDescription)")
+            })
+        } else {
+            // 举报
+            self.showSuccess("已举报")
+        }
     }
     
     func topicCellDidClickIcon(_ cell: MLTopicCell) {

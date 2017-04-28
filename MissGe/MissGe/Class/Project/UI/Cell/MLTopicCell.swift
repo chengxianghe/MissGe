@@ -202,20 +202,79 @@ extension MLSquareCellDelegate {
         print("cellDidClickOther")
     }
     
+//    func topicCellDidClickShare(_ cell: MLTopicCell) {
+//        print("cellDidClickShare")
+//        
+//        //    OSMessage *message = [[OSMessage alloc] init];
+//        //    message.title = model.wbody;
+//        //    message.desc = [NSString stringWithFormat:@"来自%@的分享", model.user_name];
+//        //
+//        //    [[TWShareView shareView] showShareViewWithMessage:message completionHandler:^(OSMessage *message, NSError *error) {
+//        //    if (!error) {
+//        //    [self showSuccess:@"分享成功"];
+//        //    } else {
+//        //    [self showError:error.localizedDescription];
+//        //    }
+//        //    }];
+//    }
+
     func topicCellDidClickShare(_ cell: MLTopicCell) {
         print("cellDidClickShare")
+
+        let model = cell.layout.joke
         
-        //    OSMessage *message = [[OSMessage alloc] init];
-        //    message.title = model.wbody;
-        //    message.desc = [NSString stringWithFormat:@"来自%@的分享", model.user_name];
-        //
-        //    [[TWShareView shareView] showShareViewWithMessage:message completionHandler:^(OSMessage *message, NSError *error) {
-        //    if (!error) {
-        //    [self showSuccess:@"分享成功"];
-        //    } else {
-        //    [self showError:error.localizedDescription];
-        //    }
-        //    }];
+        ShareManager.manager().showShareViewWithBlock({[weak cell] (type) -> () in
+            guard let _cell = cell else {
+                return
+            }
+            
+            let title = model?.content ?? "";
+            let describ = model?.content ?? "";
+            
+            var image: UIImage? = nil
+            if (_cell.statusView.picViews?.count)! > 0 {
+                image = _cell.statusView.picViews![0].image
+            }
+            
+            
+            var result = false
+            
+            switch (type) {
+            case .weiBoShare:
+                print("分享到新浪微博");
+                result = SinaShareHelp.currentHelp().shareText(title, shareImage: image, url: "")
+            case .weiXinFriendsShare:
+                print("分享到朋友圈");
+                //    weixin
+                if image != nil {
+                    result = WeiXinShareHelp.currentHelp().sendImageData(image, InScene: WXSceneTimeline)
+                } else {
+                    result = WeiXinShareHelp.currentHelp().sendText(describ, InScene: WXSceneTimeline)
+                }
+            case .weiXinShare:
+                print("分享到微信好友");
+                if image != nil {
+                    result = WeiXinShareHelp.currentHelp().sendImageData(image, InScene: WXSceneSession)
+                } else {
+                    result = WeiXinShareHelp.currentHelp().sendText(describ, InScene: WXSceneSession)
+                }
+            case .weiXinFavoriteShare:
+                print("分享到微信收藏");
+                if image != nil {
+                    result = WeiXinShareHelp.currentHelp().sendImageData(image, InScene: WXSceneFavorite)
+                } else {
+                    result = WeiXinShareHelp.currentHelp().sendText(describ, InScene: WXSceneFavorite)
+                }
+            case .qZoneShare:
+                print("分享到QQ空间");
+                result = QQShareHelp.currentHelp().sendLinkUrlToQZone(title, description: describ, imageUrl: "", url: "www.baidu.com")
+            case .qqShare:
+                print("分享到QQ");
+                result = QQShareHelp.currentHelp().sendImage(image, title: title, desc: describ)
+            }
+            
+            print(result)
+        })
     }
 
 }
@@ -391,6 +450,7 @@ class MLSquareCellBodyView: UIView {
     func setInfo(_ layout: MLTopicCellLayout) {
         self.layout = layout;
         
+        self.setOtherTitle()
         self.setHeight(layout.height);
         contentView.setTop(layout.marginTop);
         contentView.setHeight(layout.height - layout.marginTop - layout.marginBottom - kSquareCellBottomImageHeight);
@@ -429,6 +489,14 @@ class MLSquareCellBodyView: UIView {
         
 //        top += layout.toolbarHeight
         bottomImageView.frame.origin.y = layout.height - kSquareCellBottomImageHeight - layout.marginBottom
+    }
+    
+    func setOtherTitle() {
+        if MLNetConfig.isUserLogin() && MLNetConfig.shareInstance.userId == self.layout.joke.uid {
+            otherButton.setTitle("删除", for: .normal)
+        } else {
+            otherButton.setTitle("举报", for: .normal)
+        }
     }
     
     func _setImageView() {

@@ -1,0 +1,10 @@
+/* 
+  infoPlist.strings
+  MissGe
+
+  Created by chengxianghe on 2017/4/28.
+  Copyright © 2017年 cn. All rights reserved.
+ */
+CFBundleDisplayName = "MissGe";
+NSCameraUsageDescription = "Please allow camera access";
+NSPhotoLibraryUsageDescription = "Please allow photo access";

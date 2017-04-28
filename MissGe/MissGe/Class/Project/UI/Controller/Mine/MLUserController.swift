@@ -263,6 +263,28 @@ class MLUserController: UITableViewController {
 
 extension MLUserController: MLSquareCellDelegate {
     
+    func topicCellDidClickOther(_ cell: MLTopicCell) {
+        if MLNetConfig.isUserLogin() && MLNetConfig.shareInstance.userId == cell.layout.joke.uid {
+            // 删除
+            MLRequestHelper.deleteTopicWith(cell.layout.joke.pid, succeed: {[weak self] (base, res) in
+                guard let _self = self else {
+                    return
+                }
+                _self.showSuccess("已删除")
+                let index = _self.dataSource.index(of: cell.layout)!
+                _self.dataSource.remove(at: index)
+                _self.tableView.deleteRows(at: [IndexPath.init(row: index, section: 0)], with: .automatic)
+                }, failed: {[weak self] (base, error) in
+                    guard let _self = self else {
+                        return
+                    }
+                    _self.showError("删除失败\n\(error.localizedDescription)")
+            })
+        } else {
+            // 举报
+            self.showSuccess("已举报")
+        }
+    }
     
     /// 点击了评论
     func topicCellDidClickComment(_ cell: MLTopicCell) {
