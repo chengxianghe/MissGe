@@ -81,7 +81,7 @@ class MLSquareModel : Mappable {
 		verify_img_width     <- map["verify_img_width"]
 		verify_img_height    <- map["verify_img_height"]
 		subject              <- map["subject"]
-		content              <- map["content"]
+		content              <- (map["content"], transfromOfEmojiAndString())
 		thumb                <- map["thumb"]
 		thumb_small          <- map["thumb_small"]
 //		add_date             <- (map["add_date"], transfromOfDateStringCustom())

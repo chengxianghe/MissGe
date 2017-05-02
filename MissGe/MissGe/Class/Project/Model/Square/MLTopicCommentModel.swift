@@ -76,7 +76,7 @@ class MLTopicCommentModel : Mappable {
 		verify_img_width     <- map["verify_img_width"]
 		verify_img_height    <- map["verify_img_height"]
 		subject              <- map["subject"]
-		content              <- map["content"]
+		content              <- (map["content"], transfromOfEmojiAndString())
 		status               <- map["status"]
 		type                 <- map["type"]
 		date                 <- map["date"]

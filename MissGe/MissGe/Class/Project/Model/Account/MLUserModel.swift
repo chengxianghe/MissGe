@@ -50,7 +50,7 @@ class MLUserModel: Mappable {
     func mapping(map: Map) {
         username            <- map["username"]
         nickname            <- map["nickname"]
-        autograph           <- map["autograph"]
+        autograph           <- (map["autograph"], transfromOfEmojiAndString())
         uid                 <- map["uid"]
         verify_img_width    <- map["verify_img_width"]
         verify_img_height   <- map["verify_img_height"]
@@ -142,3 +142,16 @@ func transfromOfBoolAndString() -> TransformOf<Bool, String> {
     })
 }
 
+func transfromOfEmojiAndString() -> TransformOf<String, String> {
+    return TransformOf<String, String>.init(fromJSON: { (JSON) -> String? in
+        if let str = JSON {
+            return str.emojiUnescapedString
+        }
+        return nil
+    }, toJSON: { (result) -> String? in
+        if let result = result {
+            return result.emojiEscapedString
+        }
+        return nil
+    })
+}

@@ -38,6 +38,8 @@
 		1488B5DD1EA4B8CF0096B0BE /* Agreement.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1488B5DB1EA4B8CF0096B0BE /* Agreement.txt */; };
 		1488B5DE1EA4B8CF0096B0BE /* TagList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1488B5DC1EA4B8CF0096B0BE /* TagList.plist */; };
 		14BC8ED41EB304F700933E85 /* infoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14BC8ED61EB304F700933E85 /* infoPlist.strings */; };
+		14CD20991EB869E700F0B920 /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CD20971EB869E700F0B920 /* Emoji.swift */; };
+		14CD209A1EB869E700F0B920 /* String+Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CD20981EB869E700F0B920 /* String+Emoji.swift */; };
 		14D6FE151E9E0DEE0038C7D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14D6FE131E9E0DEE0038C7D1 /* Main.storyboard */; };
 		14D6FE171E9E0DEE0038C7D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14D6FE161E9E0DEE0038C7D1 /* Assets.xcassets */; };
 		14D6FE1A1E9E0DEE0038C7D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14D6FE181E9E0DEE0038C7D1 /* LaunchScreen.storyboard */; };
@@ -182,6 +184,8 @@
 		1488B5DC1EA4B8CF0096B0BE /* TagList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TagList.plist; sourceTree = "<group>"; };
 		14BC8ED51EB304F700933E85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/infoPlist.strings; sourceTree = "<group>"; };
 		14BC8ED71EB304F900933E85 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/infoPlist.strings; sourceTree = "<group>"; };
+		14CD20971EB869E700F0B920 /* Emoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
+		14CD20981EB869E700F0B920 /* String+Emoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Emoji.swift"; sourceTree = "<group>"; };
 		14D6FE0C1E9E0DEE0038C7D1 /* MissGe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MissGe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14D6FE141E9E0DEE0038C7D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		14D6FE161E9E0DEE0038C7D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -420,6 +424,15 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		14CD20961EB869E700F0B920 /* Emoji */ = {
+			isa = PBXGroup;
+			children = (
+				14CD20971EB869E700F0B920 /* Emoji.swift */,
+				14CD20981EB869E700F0B920 /* String+Emoji.swift */,
+			);
+			path = Emoji;
+			sourceTree = "<group>";
+		};
 		14D6FE031E9E0DEE0038C7D1 = {
 			isa = PBXGroup;
 			children = (
@@ -538,6 +551,7 @@
 		14D6FE371E9E0FFC0038C7D1 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				14CD20961EB869E700F0B920 /* Emoji */,
 				14D6FE381E9E0FFC0038C7D1 /* PhotoAlbumHelper.swift */,
 				14D6FEEF1E9E17B70038C7D1 /* KeychainTool.swift */,
 				14D6FF091E9F4F230038C7D1 /* JokeHelper.swift */,
@@ -1067,6 +1081,7 @@
 				1425B48B1EA0B20100ED36A8 /* SafeHelper.swift in Sources */,
 				1488B5D91EA4B0E10096B0BE /* AppDelegate.swift in Sources */,
 				14D6FEC61E9E0FFC0038C7D1 /* MLTopicDetailController.swift in Sources */,
+				14CD209A1EB869E700F0B920 /* String+Emoji.swift in Sources */,
 				1471CB291EAF0B9600226C56 /* XHUploadImagesHelper.swift in Sources */,
 				14D6FE8C1E9E0FFC0038C7D1 /* UIViewExt.swift in Sources */,
 				14D6FEB41E9E0FFC0038C7D1 /* MLRegisterController.swift in Sources */,
@@ -1094,6 +1109,7 @@
 				1417A9E81EA72DED003931C5 /* WeiXinshareDelegate.swift in Sources */,
 				14D6FEC21E9E0FFC0038C7D1 /* MLUserEditController.swift in Sources */,
 				1471CB2B1EAF2A9F00226C56 /* XHImageCompressHelper.swift in Sources */,
+				14CD20991EB869E700F0B920 /* Emoji.swift in Sources */,
 				14F53D6A1EA45CD800FBF649 /* UITextView+Placeholder.m in Sources */,
 				1417A9E91EA72DED003931C5 /* WeiXinShareHelp.swift in Sources */,
 				14D6FEB81E9E0FFC0038C7D1 /* HomeViewController.swift in Sources */,

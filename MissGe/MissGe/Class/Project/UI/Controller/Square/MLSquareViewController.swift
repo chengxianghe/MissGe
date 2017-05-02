@@ -164,14 +164,18 @@ class MLSquareViewController: BaseViewController, UITableViewDelegate, UITableVi
         if segue.identifier == "TopicToDetail" {
             let vc = segue.destination as! MLTopicDetailController
             vc.topic = sender as! MLTopicCellLayout
+            vc.delegate = self
         } else if segue.identifier == "TopicToUser" {
             let vc = segue.destination as! MLUserController
             vc.uid = "\((sender as! MLTopicCellLayout).joke.uid)"
         } else if segue.identifier == "SquareToPublish" {
             let vc = (segue.destination as! UINavigationController).topViewController as! MLPostTopicController
             vc.postType = PostTopicType.postTopic
-            vc.dismissClosure = {(isSucceed) in
+            vc.dismissClosure = {[weak self] (isSucceed) in
                 print("SquareToPublish \(isSucceed)");
+                if isSucceed {
+                    self?.tableView.mj_header.beginRefreshing()
+                }
             }
         }
 
@@ -179,7 +183,18 @@ class MLSquareViewController: BaseViewController, UITableViewDelegate, UITableVi
 
 }
 
-extension MLSquareViewController: MLSquareCellDelegate {
+extension MLSquareViewController: MLSquareCellDelegate, MLTopicDetailControllerDelegate {
+    
+    func topicCellDidClickOtherFromDetail(_ topic: MLTopicCellLayout!) {
+        // 删除
+        let arr = self.dataSource.filter({ $0.joke.pid == topic.joke.pid })
+        self.showSuccess("已删除")
+        if arr.count > 0 {
+            let index = self.dataSource.index(of: arr.first!)!
+            self.dataSource.remove(at: index)
+            self.tableView.deleteRows(at: [IndexPath.init(row: index, section: 0)], with: .automatic)
+        }
+    }
     
     func topicCellDidClickOther(_ cell: MLTopicCell) {
         if MLNetConfig.isUserLogin() && MLNetConfig.shareInstance.userId == cell.layout.joke.uid {

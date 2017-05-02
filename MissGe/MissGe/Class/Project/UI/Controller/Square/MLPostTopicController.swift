@@ -92,6 +92,10 @@ class MLPostTopicController: BaseViewController {
             self.wordNumberLabel.text = "剩余\(140 - self.textView.text.length)字"
         }
         
+        if postType != .postTopic {
+            collectionView.isHidden = true
+        }
+        
     }
     
     @IBAction func onUserProtocolBtnClick(_ sender: UIButton) {
@@ -117,8 +121,13 @@ class MLPostTopicController: BaseViewController {
     }
     
     @IBAction func onPublishBtnClick(_ sender: UIButton) {
-        if (self.textView.text.length > 0 && self.textView.text.length < 140) {
-
+        var checkRight = false
+        if postType != .postTopic {
+            checkRight = self.textView.text.length > 0 && self.textView.text.length < 140
+        } else {
+            checkRight = (self.textView.text.length > 0 && self.textView.text.length < 140) || selectedPhotos.count > 0
+        }
+        if (checkRight) {
             if postType == .postTopicComment {
                 self.publishTopicComment()
             } else if (postType == .articleComment) {
@@ -144,9 +153,7 @@ class MLPostTopicController: BaseViewController {
                     self.publishTopic(nil);
                 }
             }
-            
         }
-        
     }
 
     
@@ -179,12 +186,10 @@ class MLPostTopicController: BaseViewController {
     }
     
     func publishTopic(_ ids: [String]?) {
-        if ids == nil {
-            return
-        }
+    
         self.showLoading("正在发表")
         
-        publishRequest.detail = self.textView.text
+        publishRequest.detail = self.textView.text.emojiEscapedString
         publishRequest.anonymous = self.hiddenNameSwitch.isOn ? 1 : 0;
         publishRequest.ids = ids
         
@@ -200,7 +205,7 @@ class MLPostTopicController: BaseViewController {
     func publishTopicComment() {
         self.showLoading("正在发表")
         
-        commentTopicRequest.detail = self.textView.text
+        commentTopicRequest.detail = self.textView.text.emojiEscapedString
         commentTopicRequest.anonymous = self.hiddenNameSwitch.isOn ? 1 : 0;
         commentTopicRequest.tid = tid
         commentTopicRequest.quote = quote
@@ -217,7 +222,7 @@ class MLPostTopicController: BaseViewController {
     func publishArticleComment() {
         self.showLoading("正在发表")
         
-        commentArticleRequest.detail = self.textView.text
+        commentArticleRequest.detail = self.textView.text.emojiEscapedString
         commentArticleRequest.aid = aid
         commentArticleRequest.cid = cid
 

@@ -12,9 +12,14 @@ import YYText
 import XHPhotoBrowser
 import ObjectMapper
 
+protocol MLTopicDetailControllerDelegate {
+    func topicCellDidClickOtherFromDetail(_ topic: MLTopicCellLayout!);
+}
+
 class MLTopicDetailController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     var topic: MLTopicCellLayout!
+    var delegate: MLTopicDetailControllerDelegate?
     
     fileprivate var dataSource = [MLTopicCommentCellLayout]()
     fileprivate let topicDetailRequest = MLTopicDetailRequest()
@@ -313,6 +318,28 @@ extension MLTopicDetailController: MLTopicCommentCellDelegate {
 }
 
 extension MLTopicDetailController: MLSquareCellDelegate {
+    
+    func topicCellDidClickOther(_ cell: MLTopicCell) {
+        if MLNetConfig.isUserLogin() && MLNetConfig.shareInstance.userId == cell.layout.joke.uid {
+            // 删除
+            MLRequestHelper.deleteTopicWith(cell.layout.joke.pid, succeed: {[weak self] (base, res) in
+                guard let _self = self else {
+                    return
+                }
+                _self.delegate?.topicCellDidClickOtherFromDetail(_self.topic)
+                _self.navigationController?.popViewController(animated: true)
+                
+                }, failed: {[weak self] (base, error) in
+                    guard let _self = self else {
+                        return
+                    }
+                    _self.showError("删除失败\n\(error.localizedDescription)")
+            })
+        } else {
+            // 举报
+            self.showSuccess("已举报")
+        }
+    }
     
     func topicCellDidClickIcon(_ cell: MLTopicCell) {
         if !MLNetConfig.isUserLogin() {
