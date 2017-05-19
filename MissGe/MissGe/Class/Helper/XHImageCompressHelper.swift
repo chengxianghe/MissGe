@@ -45,6 +45,21 @@ class XHImageCompressHelper {
     }
     
     /**
+     *  根据一张原图返回一张上传规格的图片Data
+     *
+     *  @param originalImage 原图
+     *  @param maxSize       默认限制大小200k
+     *
+     *  @return 图片Data
+     */
+    class func getUpLoadImageData(originalImageData: Data) -> Data? {
+        if let image = UIImage.init(data: originalImageData) {
+            return self.getUpLoadImageData(originalImage: image)
+        }
+        return nil
+    }
+    
+    /**
      *  指定图片大小
      *
      *  @param originalImage  图片
@@ -83,12 +98,14 @@ class XHImageCompressHelper {
    
         return self.save(imageData: imageData!, withName: imageName)
     }
+    
     static func save(imageData: Data, withName imageName: String) -> String? {
         let fileManager = FileManager.default
 
-        let documentsDirectory = NSTemporaryDirectory();//[paths objectAtIndex:0];
+        let documentsDirectory = NSTemporaryDirectory();//[paths objectAtIndex:0]; 包含了'/'
         // Now we get the full path to the file
-        let fullPathToFileFirst = documentsDirectory.appendingFormat("/%@", "commentSizeImages");
+        
+        let fullPathToFileFirst = documentsDirectory.appendingFormat("%@", documentsDirectory.hasSuffix("/") ? "commentSizeImages" : "/commentSizeImages", "commentSizeImages");
 
         var isDir: ObjCBool = false
         let existed = fileManager.fileExists(atPath: fullPathToFileFirst, isDirectory: &isDir)

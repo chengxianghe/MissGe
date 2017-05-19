@@ -382,7 +382,7 @@ class MLSquareCellBodyView: UIView {
         
         picViews = [UIImageView]()
         for _ in 0..<9 {
-            let imageView = UIImageView()
+            let imageView = YYAnimatedImageView()
             imageView.frame.size = CGSize(width: 100, height: 100);
             imageView.isHidden = true;
             imageView.clipsToBounds = true;

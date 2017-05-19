@@ -146,6 +146,11 @@ class MLSquareViewController: BaseViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.count
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        self.performSegue(withIdentifier: "TopicToDetail", sender: dataSource[indexPath.row])
+    }
 
     
     override func didReceiveMemoryWarning() {
@@ -258,6 +263,7 @@ extension MLSquareViewController: MLSquareCellDelegate, MLTopicDetailControllerD
         v.fromItemIndex = Int(index)
         v.toolBarShowStyle = .show
         v.showCloseButton = false
+//        v.blurEffectBackground = false
         v.show(inContaioner: self.tabBarController!.view, animated: true, completion: nil)
     }
     

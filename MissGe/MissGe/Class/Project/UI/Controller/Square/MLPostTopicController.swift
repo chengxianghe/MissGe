@@ -81,7 +81,6 @@ class MLPostTopicController: BaseViewController {
         print("collectionViewLineSpace:\(collectionViewLineSpace) -- collectionViewItemSpace:\(collectionViewItemSpace)")
         let collectionViewH = headerCellWidth
         
-        publishViewHeightConstraint.constant = 190 + collectionViewH
         
         self.textView.placeholder = "说点什么吧"
         self.wordNumberLabel.text = "剩余\(140 - self.textView.text.length)字"
@@ -94,6 +93,9 @@ class MLPostTopicController: BaseViewController {
         
         if postType != .postTopic {
             collectionView.isHidden = true
+            publishViewHeightConstraint.constant = 190
+        } else {
+            publishViewHeightConstraint.constant = 190 + collectionViewH
         }
         
     }
@@ -137,17 +139,21 @@ class MLPostTopicController: BaseViewController {
                 if selectedPhotos.count > 0 {
                     // selectedPhotos [UIImage]
                     self.showLoading("正在上传图片...")
-                    for image in selectedPhotos {
-                        uploadImages.append(self.setuoUploadImageWithImage(image as! UIImage))
+                    for assest in selectedAssets {
+                            XHImageGifHelper.getImageDataWithAsset(asset: assest as AnyObject, completion: { (isGif, data, error) in
+                                if error == nil && data != nil {
+                                    self.uploadImages.append(self.setuoUploadImageWithImageData(data, isGif: isGif))
+                                }
+                                if self.uploadImages.count == self.selectedAssets.count {
+                                    self.realUpload()
+                                }
+                            })
                     }
+//                    for image in selectedPhotos {
+//                        uploadImages.append(self.setuoUploadImageWithImage(image as! UIImage))
+//                    }
                     
-                    XHUploadImagesHelper().uploadImages(images: uploadImages, uploadMode: .ignore, progress: { (totals, completions) in
-                        print("totals:\(totals) -- completions:\(completions)")
-                        }, completion: { (successImageModel: [XHUploadImageModel]?, failedImages: [String]?) in
-                            let ids = successImageModel!.map( { $0.resultImageId } )
-                            
-                            self.publishTopic(ids as? [String])
-                    })
+
                     
                 } else {
                     self.publishTopic(nil);
@@ -156,30 +162,74 @@ class MLPostTopicController: BaseViewController {
         }
     }
 
+    func realUpload() {
+        XHUploadImagesHelper().uploadImages(images: uploadImages, uploadMode: .ignore, progress: { (totals, completions) in
+            print("totals:\(totals) -- completions:\(completions)")
+        }, completion: { (successImageModel: [XHUploadImageModel]?, failedImages: [XHUploadImageModel]?) in
+            let ids = successImageModel!.map( { $0.resultImageId } )
+            
+            self.publishTopic(ids as? [String])
+        })
+    }
+    
+    
+//    /**
+//     *  返回图片完整路径
+//     *  压缩图约为原图的 1/4
+//     */
+//    func setuoUploadImageWithImage(_ image: UIImage) -> String {
+//        
+//        var imageData: Data? = nil
+//        
+//        if (self.isSelectOriginalPhoto) {
+//            // 原图
+//            imageData = UIImageJPEGRepresentation(image, 1.0);
+//        } else {
+//            // 压缩的
+//            imageData = XHImageCompressHelper.getUpLoadImageData(originalImage: image)
+//        }
+//        if imageData == nil {
+//            return ""
+//        }
+//        
+//        let name = NSDate().millisecondTimeDescription().appendingFormat("-size-%d", imageData!.count)
+//        
+//        if let str = XHImageCompressHelper.save(imageData: imageData!, withName: name) {
+//            return str
+//        }
+//        
+//        return ""
+//    }
     
     /**
      *  返回图片完整路径
      *  压缩图约为原图的 1/4
      */
-    func setuoUploadImageWithImage(_ image: UIImage) -> String {
-        
-        var imageData: Data? = nil
-        
-        if (self.isSelectOriginalPhoto) {
-            // 原图
-            imageData = UIImageJPEGRepresentation(image, 1.0);
-        } else {
-            // 压缩的
-            imageData = XHImageCompressHelper.getUpLoadImageData(originalImage: image)
-        }
+    func setuoUploadImageWithImageData(_ imageData: Data?, isGif: Bool) -> String {
         if imageData == nil {
             return ""
         }
         
-        let name = NSDate().millisecondTimeDescription().appendingFormat("-size-%d", imageData!.count)
+        var data: Data! = imageData!
         
-        if let str = XHImageCompressHelper.save(imageData: imageData!, withName: name) {
-            return str
+        var name = NSDate().millisecondTimeDescription().appendingFormat("-size-%d", data.count)
+        name.append(isGif ? ".gif" : ".jpg")
+        
+        if isGif {
+            if let str = XHImageCompressHelper.save(imageData: data, withName: name) {
+                return str
+            }
+        } else {
+            if !self.isSelectOriginalPhoto {
+                // 压缩的
+                if let tempData = XHImageCompressHelper.getUpLoadImageData(originalImageData: data) {
+                    data = tempData
+                }
+            }
+            
+            if let str = XHImageCompressHelper.save(imageData: data, withName: name) {
+                return str
+            }
         }
         
         return ""
@@ -310,6 +360,7 @@ class MLPostTopicController: BaseViewController {
             } else { // preview photos / 预览照片
                 let imagePickerVc = TZImagePickerController.init(selectedAssets: selectedAssets, selectedPhotos: selectedPhotos, index: (indexPath as NSIndexPath).row)
                 imagePickerVc?.allowPickingOriginalPhoto = true;
+                imagePickerVc?.allowPickingGif = true
                 imagePickerVc?.isSelectOriginalPhoto = isSelectOriginalPhoto;
                 imagePickerVc?.didFinishPickingPhotosHandle = ({ (photos: [UIImage]?, assets: [Any]?, isSelectOriginalPhoto: Bool) in
                     self.selectedPhotos = NSMutableArray.init(array: photos!)
@@ -383,7 +434,7 @@ extension MLPostTopicController: TZImagePickerControllerDelegate, UIImagePickerC
     
     func takePhoto() {
         let authStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
-        if ((authStatus == AVAuthorizationStatus.restricted || authStatus == AVAuthorizationStatus.denied) && kiOS8Later()) {
+        if ((authStatus == AVAuthorizationStatus.restricted || authStatus == AVAuthorizationStatus.denied) && kiOS7Later()) {
             // 无权限 做一个友好的提示
             let actionSheet = UIAlertController(title: "无法使用相机", message: "请在iPhone的'设置-隐私-相机'中允许访问相机", preferredStyle: .alert)
             let actionSet = UIAlertAction.init(title: "设置", style: UIAlertActionStyle.default, handler: { (action) in
@@ -401,6 +452,25 @@ extension MLPostTopicController: TZImagePickerControllerDelegate, UIImagePickerC
             
             //            let alert = UIAlertView(title: "无法使用相机", message:, delegate:self, cancelButtonTitle:"取消", otherButtonTitles:"设置", nil);
             //            alert.show()
+        }  else if (TZImageManager.authorizationStatus() == 2) { // 已被拒绝，没有相册权限，将无法保存拍的照片
+            let actionSheet = UIAlertController(title: "无法访问相册", message: "请在iPhone的'设置-隐私-相册'中允许访问相册", preferredStyle: .alert)
+            let actionSet = UIAlertAction.init(title: "设置", style: UIAlertActionStyle.default, handler: { (action) in
+                if (kiOS8Later()) {
+                    UIApplication.shared.openURL(URL(string:UIApplicationOpenSettingsURLString)!)
+                } else {
+                    // [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=Privacy&path=Photos"]];
+                }
+            })
+            let actionCancel = UIAlertAction(title: "取消", style: UIAlertActionStyle.cancel, handler: nil)
+            actionSheet.addAction(actionSet)
+            actionSheet.addAction(actionCancel)
+            
+            self.present(actionSheet, animated: true, completion: nil)
+        } else if (TZImageManager.authorizationStatus() == 0) { // 正在弹框询问用户是否允许访问相册，监听权限状态
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { // .seconds(1)
+                // your code here
+                return self.takePhoto()
+            }
         } else { // 调用相机
             let sourceType = UIImagePickerControllerSourceType.camera;
             if (UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)) {
@@ -446,7 +516,8 @@ extension MLPostTopicController: TZImagePickerControllerDelegate, UIImagePickerC
                         
                         _self.selectedAssets.add((assetModel?.asset)!)
                         _self.selectedPhotos.add(image)
-                        _self.collectionView.reloadData()
+//                        _self.collectionView.reloadData()
+                        _self.refreshCollectionViewHeight()
                     })
                 })
             })
@@ -469,7 +540,8 @@ extension MLPostTopicController: TZImagePickerControllerDelegate, UIImagePickerC
         // 1.如果你需要将拍照按钮放在外面，不要传这个参数
         imagePickerVc?.selectedAssets = selectedAssets; // optional, 可选的
         imagePickerVc?.allowTakePicture = false; // 在内部显示拍照按钮
-        
+        imagePickerVc?.allowPickingGif = true; // 可以选择gif
+
         // 2. Set the appearance
         // 2. 在这里设置imagePickerVc的外观
         // imagePickerVc.navigationBar.barTintColor = [UIColor greenColor];
@@ -478,7 +550,7 @@ extension MLPostTopicController: TZImagePickerControllerDelegate, UIImagePickerC
         
         // 3. Set allow picking video & photo & originalPhoto or not
         // 3. 设置是否可以选择视频/图片/原图
-        imagePickerVc?.allowPickingVideo = false;
+        imagePickerVc?.allowPickingVideo = true;
         imagePickerVc?.allowPickingImage = true;
         imagePickerVc?.allowPickingOriginalPhoto = true;
         
@@ -491,6 +563,18 @@ extension MLPostTopicController: TZImagePickerControllerDelegate, UIImagePickerC
         //        imagePickerVc.didFinishPickingPhotosHandle
         
         
+        imagePickerVc?.didFinishPickingGifImageHandle = {[weak self] (animatedImage: UIImage?, sourceAssets: Any?) in
+            guard let _self = self else {
+                return
+            }
+            _self.selectedPhotos.add(animatedImage!)
+            _self.selectedAssets.add(sourceAssets!)
+            _self.isSelectOriginalPhoto = imagePickerVc!.isSelectOriginalPhoto;
+            //    _layout.itemCount = _selectedPhotos.count;
+            //            _self.collectionView.reloadData()
+            _self.refreshCollectionViewHeight()
+        }
+        
         imagePickerVc?.didFinishPickingPhotosHandle = {[weak self] (photos: [UIImage]?, assets: [Any]?, isSelectOriginalPhoto: Bool) in
             guard let _self = self else {
                 return
@@ -499,7 +583,7 @@ extension MLPostTopicController: TZImagePickerControllerDelegate, UIImagePickerC
             _self.selectedAssets = NSMutableArray(array: assets!)
             _self.isSelectOriginalPhoto = isSelectOriginalPhoto;
             //    _layout.itemCount = _selectedPhotos.count;
-            _self.collectionView.reloadData()
+//            _self.collectionView.reloadData()
             _self.refreshCollectionViewHeight()
         }
         

@@ -17,7 +17,7 @@ enum XHUploadImageMode: UInt {
     case ignore
 }
 
-typealias XHUploadImageCompletion = (_ successImageUrls: [XHUploadImageModel]?, _ failedImages: [String]?) -> Void
+typealias XHUploadImageCompletion = (_ successImageUrls: [XHUploadImageModel]?, _ failedImages: [XHUploadImageModel]?) -> Void
 
 typealias XHUploadImageProgress = (_ totals: NSInteger, _ completions: NSInteger) -> Void
 
@@ -86,13 +86,19 @@ class XHUploadImagesHelper: NSObject {
         //        [request cancelRequest];
         print("*********正在上传图index:\(request.imageIndex) ....")
         request.upload(constructingBody: { (formData: AFMultipartFormData) in
-            do {
-                try formData.appendPart(withFileURL: URL.init(fileURLWithPath: request.imagePath!), name: "image", fileName: "uploadImg_\(request.imageIndex).jpg", mimeType: "image/jpeg")
-            }
-            catch let error as NSError {
-                print(error)
-            }
-            //            [formData appendPartWithFileURL:[NSURL fileURLWithPath:request.imagePath] name:@"file" error:nil];
+            
+//            if request.imageData != nil {
+//                formData.appendPart(withFileData: request.imageData!, name: "image", fileName: "uploadImg_\(request.imageIndex).gif", mimeType: "image/gif")
+//            } else if request.imagePath != nil {
+                do {
+                    try formData.appendPart(withFileURL: URL.init(fileURLWithPath: request.imagePath!), name: "image", fileName: request.name, mimeType: request.isGif ? "image/gif" : "image/jpeg")
+                }
+                catch let error as NSError {
+                    print(error)
+                }
+//            } else {
+//                print("上传的图片没有数据imagePath、imageData不可都为nil")
+//            }
         }, progress: { (progress) in
             print("progressView: \(progress.fractionCompleted)")
         }, success: { (baseRequest, responseObject) in
@@ -132,6 +138,8 @@ class XHUploadImagesHelper: NSObject {
             let request = XHUploadImageRequest.init()
             request.imagePath = str
             request.imageIndex = i
+            request.name = (str as NSString).lastPathComponent
+            request.isGif = (str as NSString).pathExtension.uppercased() == "GIF"
             self.addRequest(request)
             i = i + 1
         }
@@ -182,14 +190,14 @@ class XHUploadImagesHelper: NSObject {
         }
         
         var successImages = [XHUploadImageModel]()
-        var failedImages = [String]()
+        var failedImages = [XHUploadImageModel]()
         
         for model in resultModelArray {
             
             if (model.resultImageUrl != nil) {
                 successImages.append(model)
             } else {
-                failedImages.append(model.imagePath!)
+                failedImages.append(model)
             }
         }
         
@@ -207,9 +215,14 @@ class XHUploadImageModel: NSObject {
     var resultImageId: String? // 接口返回的 图片id
 }
 
+
+/// imageData和imagePath不可都为nil
 class XHUploadImageRequest: TUUploadRequest {
     var imageIndex: Int = 0
-    var imagePath: String?
+    var isGif: Bool = false
+    var name: String = ""
+    var imagePath: String? // 上传的普通图片路径
+//    var imageData: Data? // 上传的gif图片data
     var resultImageUrl: String?  // 接口返回的 图片地址
     var resultImageId: String? // 接口返回的 图片id
     

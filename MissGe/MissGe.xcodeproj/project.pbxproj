@@ -38,6 +38,7 @@
 		1488B5DD1EA4B8CF0096B0BE /* Agreement.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1488B5DB1EA4B8CF0096B0BE /* Agreement.txt */; };
 		1488B5DE1EA4B8CF0096B0BE /* TagList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1488B5DC1EA4B8CF0096B0BE /* TagList.plist */; };
 		14BC8ED41EB304F700933E85 /* infoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14BC8ED61EB304F700933E85 /* infoPlist.strings */; };
+		14C446041ECD650D0014DF0E /* XHImageGifHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C446031ECD650D0014DF0E /* XHImageGifHelper.swift */; };
 		14CD20991EB869E700F0B920 /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CD20971EB869E700F0B920 /* Emoji.swift */; };
 		14CD209A1EB869E700F0B920 /* String+Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CD20981EB869E700F0B920 /* String+Emoji.swift */; };
 		14D6FE151E9E0DEE0038C7D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14D6FE131E9E0DEE0038C7D1 /* Main.storyboard */; };
@@ -184,6 +185,7 @@
 		1488B5DC1EA4B8CF0096B0BE /* TagList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TagList.plist; sourceTree = "<group>"; };
 		14BC8ED51EB304F700933E85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/infoPlist.strings; sourceTree = "<group>"; };
 		14BC8ED71EB304F900933E85 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/infoPlist.strings; sourceTree = "<group>"; };
+		14C446031ECD650D0014DF0E /* XHImageGifHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XHImageGifHelper.swift; sourceTree = "<group>"; };
 		14CD20971EB869E700F0B920 /* Emoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
 		14CD20981EB869E700F0B920 /* String+Emoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Emoji.swift"; sourceTree = "<group>"; };
 		14D6FE0C1E9E0DEE0038C7D1 /* MissGe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MissGe.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -559,6 +561,7 @@
 				1471CB261EAEF28900226C56 /* XHCustomSegue.swift */,
 				1471CB281EAF0B9600226C56 /* XHUploadImagesHelper.swift */,
 				1471CB2A1EAF2A9F00226C56 /* XHImageCompressHelper.swift */,
+				14C446031ECD650D0014DF0E /* XHImageGifHelper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -1045,6 +1048,7 @@
 				14D6FE891E9E0FFC0038C7D1 /* StringExtensions.swift in Sources */,
 				14F53D831EA4615F00FBF649 /* TUIBButton.m in Sources */,
 				14D6FE9C1E9E0FFC0038C7D1 /* MLMineRequest.swift in Sources */,
+				14C446041ECD650D0014DF0E /* XHImageGifHelper.swift in Sources */,
 				14D6FE981E9E0FFC0038C7D1 /* MLHomeCommentRequest.swift in Sources */,
 				14D6FEA11E9E0FFC0038C7D1 /* MLSquareRequest.swift in Sources */,
 				14D6FEB31E9E0FFC0038C7D1 /* MLLoginController.swift in Sources */,
