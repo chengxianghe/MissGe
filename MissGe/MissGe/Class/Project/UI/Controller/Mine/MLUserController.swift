@@ -256,7 +256,6 @@ class MLUserController: UITableViewController {
             vc.uid = self.uid
             vc.isFans = false
         }
-
     }
 
 }

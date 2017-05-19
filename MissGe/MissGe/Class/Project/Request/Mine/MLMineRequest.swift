@@ -62,7 +62,13 @@ class MLMineFavoriteRequest: MLBaseRequest {
         print("requestHandleResult -- \(self.classForCoder)")
     }
     
-
+    override func requestVerifyResult() -> Bool {
+        guard let dict = self.responseObject as? NSDictionary else {
+            return false
+        }
+        
+        return (dict["result"] as? String) == "200"
+    }
 }
 
 //我的评论

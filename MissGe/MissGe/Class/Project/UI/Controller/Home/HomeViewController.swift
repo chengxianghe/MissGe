@@ -233,12 +233,12 @@ class HomeViewController: BaseViewController, ScrollDrectionChangeProtocol, UITa
         
         let model = self.dataSource[(indexPath as NSIndexPath).row] as MLHomePageModel
         
-        if model.type == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "MLHomePageCell") as? MLHomePageCell
+        if model.type == 5 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MLHomePageAlbumCell") as? MLHomePageAlbumCell
             cell?.setInfo(self.dataSource[(indexPath as NSIndexPath).row]);
             return cell!
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "MLHomePageAlbumCell") as? MLHomePageAlbumCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MLHomePageCell") as? MLHomePageCell
             cell?.setInfo(self.dataSource[(indexPath as NSIndexPath).row]);
             return cell!
         }
@@ -248,16 +248,16 @@ class HomeViewController: BaseViewController, ScrollDrectionChangeProtocol, UITa
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let model = self.dataSource[(indexPath as NSIndexPath).row]
-        if model.type == 1 {
-            self.performSegue(withIdentifier: "HomeCellToDetail", sender: model.tid)
-        } else {
+        if model.type == 5 {
             self.performSegue(withIdentifier: "HomeAlbumCellToDetail", sender: model)
+        } else {
+            self.performSegue(withIdentifier: "HomeCellToDetail", sender: model.tid)
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let model = self.dataSource[(indexPath as NSIndexPath).row] as MLHomePageModel
-        if model.type != 1 {
+        if model.type == 5 {
             return MLHomePageAlbumCell.height(model)
         }
         return 100

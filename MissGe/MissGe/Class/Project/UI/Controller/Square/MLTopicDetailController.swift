@@ -25,7 +25,7 @@ class MLTopicDetailController: BaseViewController, UITableViewDelegate, UITableV
     fileprivate let topicDetailRequest = MLTopicDetailRequest()
     fileprivate let commentListRequest = MLTopicCommentListRequest()
     fileprivate var currentIndex = 0
-    fileprivate var tableView: TUBaseTableView!
+    fileprivate var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +34,7 @@ class MLTopicDetailController: BaseViewController, UITableViewDelegate, UITableV
         self.title = "评论详情"
         
         self.automaticallyAdjustsScrollViewInsets = false
-        self.tableView = TUBaseTableView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height - 64), style: UITableViewStyle.plain)
+        self.tableView = UITableView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height - 64), style: UITableViewStyle.plain)
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.backgroundColor = UIColor.groupTableViewBackground
@@ -219,8 +219,44 @@ class MLTopicDetailController: BaseViewController, UITableViewDelegate, UITableV
             
             return
         }
-        
-        self.performSegue(withIdentifier: "TopicDetailToPublish", sender: self.dataSource[(indexPath as NSIndexPath).row])
+        if indexPath.section == 1 {
+            let layout = self.dataSource[indexPath.row]
+            let isSelf = MLNetConfig.isUserLogin() && MLNetConfig.shareInstance.userId == layout.joke.uid
+            self.actionSheet(nil, message: nil, firstTitlt: "回复", firstHandler: {[weak self] in
+                guard let _self = self else {
+                    return
+                }
+                _self.performSegue(withIdentifier: "TopicDetailToPublish", sender: layout)
+            }, destructiveTitlt: isSelf ? "删除" : "举报", destructiveHandler: {[weak self] in
+                guard let _self = self else {
+                    return
+                }
+                if isSelf {
+                   _self.deleteComment(layout: layout)
+                } else {
+                    // 举报
+                    _self.showSuccess("已举报")
+                }
+            }, cancelTitle: "取消", cancelHandler: nil)
+        }
+    }
+    
+    func deleteComment(layout: MLTopicCommentCellLayout) {
+        // 删除
+        MLRequestHelper.deleteTopicWith(layout.joke.pid, succeed: {[weak self] (base, res) in
+            guard let _self = self else {
+                return
+            }
+            _self.showSuccess("删除成功")
+            let index = _self.dataSource.index(of: layout)!
+            _self.dataSource.remove(at: index)
+            _self.tableView.deleteRows(at: [IndexPath.init(row: index, section: 1)], with: .bottom)
+            }, failed: {[weak self] (base, error) in
+                guard let _self = self else {
+                    return
+                }
+                _self.showError("删除失败\n\(error.localizedDescription)")
+        })
     }
     
     override func didReceiveMemoryWarning() {
@@ -241,6 +277,12 @@ class MLTopicDetailController: BaseViewController, UITableViewDelegate, UITableV
         } else if segue.identifier == "TopicDetailToPublish" {
             let vc = (segue.destination as! UINavigationController).topViewController as! MLPostTopicController
             vc.postType = PostTopicType.postTopicComment
+            vc.dismissClosure = {[weak self] (isActionSucceed: Bool) in
+                if isActionSucceed {
+                    // 评论成功 刷新
+                    self?.tableView.mj_header.beginRefreshing()
+                }
+            }
             if sender == nil || !(sender! as AnyObject).isKind(of: MLTopicCommentCellLayout.classForCoder()) {
                 vc.tid = "\(self.topic.joke.pid)"
             } else {

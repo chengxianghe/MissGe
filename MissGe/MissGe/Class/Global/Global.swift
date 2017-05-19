@@ -125,6 +125,10 @@ func kLoadNib(_ nibName: String!) -> AnyObject? {
 }
 
 func kLoadVCFromSB(_ vc: String?, stroyBoard: String?) -> UIViewController? {
+    return kLoad(viewController: vc, fromSB: stroyBoard)
+}
+
+func kLoad(viewController vc: String?, fromSB stroyBoard: String?) -> UIViewController? {
     let sb = stroyBoard == nil ? UIStoryboard(name: "Main", bundle: nil) : UIStoryboard(name: stroyBoard!, bundle: nil)
     
     if vc == nil {

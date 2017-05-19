@@ -115,6 +115,24 @@ class MLMineViewController: UITableViewController {
         let row = indexPath.row
         
         switch sec {
+        case 1:
+            if !MLNetConfig.isUserLogin() {
+                let goLogin = UIAlertAction.init(title: "去登录", style: UIAlertActionStyle.default, handler: {[weak self] (action) in
+                    let loginVCNav = kLoadVCFromSB(nil, stroyBoard: "Account")!
+                    self?.present(loginVCNav, animated: true, completion: nil)
+                })
+                
+                let cancel = UIAlertAction.init(title: "取消", style: UIAlertActionStyle.cancel, handler: nil)
+                self.showAlert("您还未登录", message: nil, actions: [cancel, goLogin])
+                
+                return
+            }
+            if row == 0 { // 收藏
+                self.performSegue(withIdentifier: "MineToFavorite", sender: nil)
+            } else if row == 1 { // 评论
+                self.performSegue(withIdentifier: "MineToComment", sender: nil)
+            }
+            
         case 3:
             if row == 0 { // 设置
                 print("设置")
@@ -185,7 +203,6 @@ class MLMineViewController: UITableViewController {
             let vc = segue.destination as! MLUserController
             vc.uid = MLNetConfig.shareInstance.userId
         }
-        
     }
 
 }

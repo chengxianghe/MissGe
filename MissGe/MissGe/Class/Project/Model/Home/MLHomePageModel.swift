@@ -39,7 +39,7 @@ class MLHomePageModel : Mappable {
     var model: Int = 0
     var is_special: Bool = false
     
-    /** 1 普通文章， 5 美图*/
+    /** 1 普通文章， 5 美图 4问答*/
     var type: Int = 0
     
     // subject

@@ -107,6 +107,7 @@ class MLHomeDetailController: BaseViewController {
     }
 
     func updateData() {
+        self.title = detailModel?.title
         self.likeLabel.text = String(format: "%d", detailModel?.like ?? 0)
         self.favoriteButton.isSelected = (detailModel?.is_collect)!
         print("is_collect:\(String(describing: detailModel?.is_collect)), \(String(describing: detailModel?.is_special))")
@@ -123,6 +124,7 @@ class MLHomeDetailController: BaseViewController {
             self.nextAid = nil
         }
         
+        //http://t.gexiaojie.com/index.php?m=mobile&c=explorer&a=article&aid=5677
         let url = "http://t.gexiaojie.com/index.php?m=mobile&c=explorer&a=article&aid=\(self.aid ?? "")"
         self.webView.load(URLRequest(url: URL(string: url)!))
     }

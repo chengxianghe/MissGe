@@ -10,7 +10,6 @@ import UIKit
 
 extension UIViewController {
     
-    @available(iOS 8.0, *)
     
     /// 提供默认的'done' action
     ///
@@ -47,7 +46,6 @@ extension UIViewController {
         showAlert(title, message: message, actions: [done,cancel])
     }
     
-    @available(iOS 8.0, *)
     func showAlert(_ title: String?, message: String?, actions: [UIAlertAction]?) {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
@@ -60,7 +58,20 @@ extension UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
 
-    @available(iOS 8.0, *)
+    
+    func actionSheet(_ title: String?, message: String?, firstTitlt: String, firstHandler:(() -> Void)?, destructiveTitlt: String, destructiveHandler:(() -> Void)?, cancelTitle: String = "Cancel", cancelHandler:(() -> Void)?) {
+        let first = UIAlertAction(title: firstTitlt, style: .default) { (action) in
+            firstHandler?()
+        }
+        let destructive = UIAlertAction(title: destructiveTitlt, style: .destructive) { (action) in
+            destructiveHandler?()
+        }
+        let cancel = UIAlertAction(title: cancelTitle, style: .cancel) { (action) in
+            cancelHandler?()
+        }
+        showActionSheet(title, message: message, actions: [first, destructive, cancel])
+    }
+    
     func showActionSheet(_ title: String?, message: String?, actions: [UIAlertAction]?) {
         
         let actionSheet = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.actionSheet)

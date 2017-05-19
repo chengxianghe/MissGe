@@ -38,6 +38,9 @@
 		1488B5DD1EA4B8CF0096B0BE /* Agreement.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1488B5DB1EA4B8CF0096B0BE /* Agreement.txt */; };
 		1488B5DE1EA4B8CF0096B0BE /* TagList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1488B5DC1EA4B8CF0096B0BE /* TagList.plist */; };
 		14BC8ED41EB304F700933E85 /* infoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14BC8ED61EB304F700933E85 /* infoPlist.strings */; };
+		14C1DA121ECE930500517155 /* MLMineFavoriteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C1DA111ECE930500517155 /* MLMineFavoriteController.swift */; };
+		14C1DA141ECE952600517155 /* PhotoBrowser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14C1DA131ECE952600517155 /* PhotoBrowser.storyboard */; };
+		14C1DA161ECE98AC00517155 /* MLMineCommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C1DA151ECE98AC00517155 /* MLMineCommentController.swift */; };
 		14C446041ECD650D0014DF0E /* XHImageGifHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C446031ECD650D0014DF0E /* XHImageGifHelper.swift */; };
 		14CD20991EB869E700F0B920 /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CD20971EB869E700F0B920 /* Emoji.swift */; };
 		14CD209A1EB869E700F0B920 /* String+Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CD20981EB869E700F0B920 /* String+Emoji.swift */; };
@@ -185,6 +188,9 @@
 		1488B5DC1EA4B8CF0096B0BE /* TagList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TagList.plist; sourceTree = "<group>"; };
 		14BC8ED51EB304F700933E85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/infoPlist.strings; sourceTree = "<group>"; };
 		14BC8ED71EB304F900933E85 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/infoPlist.strings; sourceTree = "<group>"; };
+		14C1DA111ECE930500517155 /* MLMineFavoriteController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLMineFavoriteController.swift; sourceTree = "<group>"; };
+		14C1DA131ECE952600517155 /* PhotoBrowser.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PhotoBrowser.storyboard; sourceTree = "<group>"; };
+		14C1DA151ECE98AC00517155 /* MLMineCommentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLMineCommentController.swift; sourceTree = "<group>"; };
 		14C446031ECD650D0014DF0E /* XHImageGifHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XHImageGifHelper.swift; sourceTree = "<group>"; };
 		14CD20971EB869E700F0B920 /* Emoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
 		14CD20981EB869E700F0B920 /* String+Emoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Emoji.swift"; sourceTree = "<group>"; };
@@ -759,6 +765,8 @@
 				14D6FE7B1E9E0FFC0038C7D1 /* MLUserController.swift */,
 				14D6FE7C1E9E0FFC0038C7D1 /* MLUserEditController.swift */,
 				14D6FE7D1E9E0FFC0038C7D1 /* MLUserFansController.swift */,
+				14C1DA111ECE930500517155 /* MLMineFavoriteController.swift */,
+				14C1DA151ECE98AC00517155 /* MLMineCommentController.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -787,6 +795,7 @@
 				14D6FEE31E9E171A0038C7D1 /* Subject.storyboard */,
 				14D6FEE41E9E171A0038C7D1 /* TopicDetail.storyboard */,
 				14D6FEE51E9E171A0038C7D1 /* User.storyboard */,
+				14C1DA131ECE952600517155 /* PhotoBrowser.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -965,6 +974,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14C1DA141ECE952600517155 /* PhotoBrowser.storyboard in Resources */,
 				1417A9DD1EA72DED003931C5 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				14D6FEE81E9E171A0038C7D1 /* HomeDetail.storyboard in Resources */,
 				14D6FEEC1E9E171A0038C7D1 /* Subject.storyboard in Resources */,
@@ -1124,7 +1134,9 @@
 				1417A9E71EA72DED003931C5 /* WeiXinActivity.swift in Sources */,
 				14D6FEAB1E9E0FFC0038C7D1 /* MLHomePageAlbumCell.swift in Sources */,
 				14F53D761EA4604800FBF649 /* GMBScrollAdView.m in Sources */,
+				14C1DA121ECE930500517155 /* MLMineFavoriteController.swift in Sources */,
 				14D6FEB01E9E0FFC0038C7D1 /* MLTopicCommentCellLayout.swift in Sources */,
+				14C1DA161ECE98AC00517155 /* MLMineCommentController.swift in Sources */,
 				144B6A0D1EA451A70000BB1B /* TZTestCell.swift in Sources */,
 				14D6FEC31E9E0FFC0038C7D1 /* MLUserFansController.swift in Sources */,
 				14D6FE851E9E0FFC0038C7D1 /* HUDExt.swift in Sources */,

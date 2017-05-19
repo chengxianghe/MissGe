@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="l4O-7p-jbJ">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Photo Browser Controller-->
+        <scene sceneID="HEl-k6-XTx">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="l4O-7p-jbJ" customClass="XHPhotoBrowserController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Y6b-IZ-mpe"/>
+                        <viewControllerLayoutGuide type="bottom" id="3JN-N6-vOH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="V5c-tp-PFy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <segue destination="hBt-yT-nu9" kind="show" identifier="HomeAlbumToComment" id="11q-MO-kmK">
+                            <nil key="action"/>
+                        </segue>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="soQ-Y7-nWe" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="617" y="-1497"/>
+        </scene>
+        <!--HomeComment-->
+        <scene sceneID="MNL-p2-k7V">
+            <objects>
+                <viewControllerPlaceholder storyboardName="HomeComment" id="hBt-yT-nu9" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TL2-vX-8mJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1251" y="-1498"/>
+        </scene>
+    </scenes>
+</document>

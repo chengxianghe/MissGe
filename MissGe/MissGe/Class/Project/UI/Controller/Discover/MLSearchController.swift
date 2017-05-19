@@ -31,29 +31,36 @@ class MLSearchController: BaseViewController, UITableViewDelegate, UITableViewDa
         self.searchView.layoutIfNeeded()
 
 //        self.searchContentView.frame = CGRect(x: 10, y: 5, width: kScreenWidth + 38, height: 30)
-        self.searchBar.placeholder = ""
+//        self.searchBar.placeholder = ""
         self.searchBar.delegate = self
         self.searchBar.returnKeyType = .search
-        
+        self.searchBar.contentVerticalAlignment = .center;
+        //iOS10 UITextField输入中文后文字下沉
+        //xib中不设置BorderStyle，使用代码设置UITextField的BorderStyle。
+        self.searchBar.borderStyle = .none;
+
         self.navigationItem.hidesBackButton = true
+        
+        contentLeadingConstraint.constant = 10
+        contentTrailingConstraint.constant = 10
+     
+        UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
+            self.searchView.layoutIfNeeded()
+//            self.searchBar.placeholder = "搜文章"
+        }) { (f) in
+            self.searchBar.becomeFirstResponder()
+        }
         
         self.loadData()
     }
     
-    override func viewDidLayoutSubviews() {
-        contentLeadingConstraint.constant = 10
-        contentTrailingConstraint.constant = 10
-        UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
-            self.searchView.layoutIfNeeded()
-            self.searchBar.placeholder = "搜文章"
-
-        }) { (f) in
-            self.searchBar.becomeFirstResponder()
-        }
-    }
+//    override func viewDidLayoutSubviews() {
+//  
+//    }
     
     @IBAction func onCancelButtonPressed(_ sender: UIButton) {
 //        self.popAction?(sender)
+        self.searchBar.text = nil
         self.searchBar.resignFirstResponder()
 
         contentLeadingConstraint.constant = 0
