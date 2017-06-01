@@ -11,6 +11,7 @@
 
 #import "TUIBButton.h"
 #import "IBDesignableOnePixelConstant.h"
+#import "TUIBTextField.h"
 
 //bug类
 #import <Bugtags/Bugtags.h>

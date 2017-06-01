@@ -132,6 +132,7 @@
 		14D6FF061E9F2C130038C7D1 /* MLTopicCommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FF051E9F2C130038C7D1 /* MLTopicCommentModel.swift */; };
 		14D6FF081E9F4AB20038C7D1 /* MLDiscoverTagModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FF071E9F4AB20038C7D1 /* MLDiscoverTagModel.swift */; };
 		14D6FF0A1E9F4F230038C7D1 /* JokeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FF091E9F4F230038C7D1 /* JokeHelper.swift */; };
+		14ECBAC81EDFFD3F0090156A /* TUIBTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 14ECBAC71EDFFD3F0090156A /* TUIBTextField.m */; };
 		14F53D6A1EA45CD800FBF649 /* UITextView+Placeholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F53D691EA45CD800FBF649 /* UITextView+Placeholder.m */; };
 		14F53D761EA4604800FBF649 /* GMBScrollAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F53D751EA4604800FBF649 /* GMBScrollAdView.m */; };
 		14F53D7A1EA460A900FBF649 /* AdvertiseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F53D791EA460A900FBF649 /* AdvertiseView.m */; };
@@ -284,6 +285,8 @@
 		14D6FF051E9F2C130038C7D1 /* MLTopicCommentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLTopicCommentModel.swift; sourceTree = "<group>"; };
 		14D6FF071E9F4AB20038C7D1 /* MLDiscoverTagModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLDiscoverTagModel.swift; sourceTree = "<group>"; };
 		14D6FF091E9F4F230038C7D1 /* JokeHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JokeHelper.swift; sourceTree = "<group>"; };
+		14ECBAC61EDFFD3F0090156A /* TUIBTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUIBTextField.h; sourceTree = "<group>"; };
+		14ECBAC71EDFFD3F0090156A /* TUIBTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUIBTextField.m; sourceTree = "<group>"; };
 		14F53D681EA45CD800FBF649 /* UITextView+Placeholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+Placeholder.h"; sourceTree = "<group>"; };
 		14F53D691EA45CD800FBF649 /* UITextView+Placeholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Placeholder.m"; sourceTree = "<group>"; };
 		14F53D6C1EA45D3E00FBF649 /* MissGe-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MissGe-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -834,6 +837,15 @@
 			path = Square;
 			sourceTree = "<group>";
 		};
+		14ECBAC51EDFFD3F0090156A /* TUIBTextField */ = {
+			isa = PBXGroup;
+			children = (
+				14ECBAC61EDFFD3F0090156A /* TUIBTextField.h */,
+				14ECBAC71EDFFD3F0090156A /* TUIBTextField.m */,
+			);
+			path = TUIBTextField;
+			sourceTree = "<group>";
+		};
 		14F53D661EA45C9A00FBF649 /* UITextView */ = {
 			isa = PBXGroup;
 			children = (
@@ -864,6 +876,7 @@
 		14F53D7B1EA4615F00FBF649 /* IBDesignable */ = {
 			isa = PBXGroup;
 			children = (
+				14ECBAC51EDFFD3F0090156A /* TUIBTextField */,
 				14F53D7C1EA4615F00FBF649 /* TUConstant */,
 				14F53D7F1EA4615F00FBF649 /* TUIBButton */,
 			);
@@ -1110,6 +1123,7 @@
 				14D6FEC01E9E0FFC0038C7D1 /* MLSettingViewController.swift in Sources */,
 				14D6FEB51E9E0FFC0038C7D1 /* MLDiscoverController.swift in Sources */,
 				14D6FEBF1E9E0FFC0038C7D1 /* MLProtocolViewController.swift in Sources */,
+				14ECBAC81EDFFD3F0090156A /* TUIBTextField.m in Sources */,
 				14D6FE8A1E9E0FFC0038C7D1 /* UIViewBlurExt.swift in Sources */,
 				14D6FEA81E9E0FFC0038C7D1 /* ScrollDrectionChangeProtocol.swift in Sources */,
 				14D6FE8F1E9E0FFC0038C7D1 /* PhotoAlbumHelper.swift in Sources */,

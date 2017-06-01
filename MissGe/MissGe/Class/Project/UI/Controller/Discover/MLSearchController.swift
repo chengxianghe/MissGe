@@ -10,7 +10,7 @@ import UIKit
 
 class MLSearchController: BaseViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
-    @IBOutlet weak var searchBar: UITextField!
+    @IBOutlet weak var searchBar: TUIBTextField!
     @IBOutlet var searchView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchContentView: UIView!
