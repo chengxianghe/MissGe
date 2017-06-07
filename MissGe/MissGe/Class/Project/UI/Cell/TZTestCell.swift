@@ -7,29 +7,28 @@
 //
 
 import UIKit
-import TZImagePickerController
+import TU_TZImagePickerController
 import AssetsLibrary
 
 class TZTestCell: UICollectionViewCell {
     var imageView: UIImageView!
     var videoImageView: UIImageView!
-    
+    var gifLable: UILabel!
     var deleteBtn: UIButton!
-    var row: NSInteger = 0 {
-        didSet {
-            self.deleteBtn.tag = row;
-        }
-    }
-    var asset: AnyObject? {
-        willSet{
-            if (newValue?.isKind(of: PHAsset.classForCoder()))! {
-                let phAsset: PHAsset = newValue as! PHAsset
-                self.videoImageView.isHidden = phAsset.mediaType != PHAssetMediaType.video;
+    var deleteClickClosure: kBlankActionClosure?
 
-            } else if (newValue?.isKind(of: ALAsset.classForCoder()))! {
-                let alAsset = newValue as! ALAsset;
-                let type = alAsset.value(forProperty: ALAssetPropertyType) as! String
-                self.videoImageView.isHidden = type != ALAssetTypeVideo
+    var model: TZAssetModel? {
+        willSet{
+            if newValue?.type == TZAssetModelMediaTypePhotoGif {
+                self.gifLable.isHidden = false
+                self.videoImageView.isHidden = true
+            } else if newValue?.type == TZAssetModelMediaTypeVideo {
+                self.gifLable.isHidden = true
+                self.videoImageView.isHidden = false
+
+            } else {
+                self.gifLable.isHidden = true
+                self.videoImageView.isHidden = true
             }
         }
     }
@@ -49,12 +48,21 @@ class TZTestCell: UICollectionViewCell {
         videoImageView.isHidden = true
         self.addSubview(videoImageView)
 
-        
+        gifLable = UILabel();
+        gifLable.text = "GIF";
+        gifLable.textColor = UIColor.white;
+        gifLable.backgroundColor = UIColor(white: 0, alpha: 0.800);
+        gifLable.textAlignment = NSTextAlignment.center;
+        gifLable.font = UIFont.systemFont(ofSize: 10)
+        gifLable.frame = CGRect.init(x: self.tz_width - 25, y: self.tz_height - 14, width: 25, height: 14)
+        self.addSubview(gifLable)
+
         deleteBtn = UIButton()
         deleteBtn.setImage(UIImage.init(named: "photo_delete"), for: .normal)
         deleteBtn.frame = CGRect.init(x: self.tz_width - 36, y: 0, width: 36, height: 36);
         deleteBtn.imageEdgeInsets = UIEdgeInsetsMake(-10, 0, 0, -10);
         deleteBtn.alpha = 0.6;
+        deleteBtn.addTarget(self, action: #selector(onDeleteBtnPressed(sender:)), for: UIControlEvents.touchUpInside)
         self.addSubview(deleteBtn)
         
     }
@@ -66,33 +74,11 @@ class TZTestCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         imageView.frame = self.bounds;
-        let width = self.tz_width / 3.0;
+        let width = self.xh_width / 3.0;
         videoImageView.frame = CGRect(x: width, y: width, width: width, height: width);
-    
     }
     
-    func snapshotView() -> UIView {
-        
-        let snapshotView = UIView()
-        
-        var cellSnapshotView: UIView! = nil
-        
-        if self.responds(to: #selector(snapshotView(afterScreenUpdates:))) {
-            cellSnapshotView = self.snapshotView(afterScreenUpdates: false)
-        } else {
-            let size = CGSize(width: self.bounds.size.width + 20, height: self.bounds.size.height + 20);
-            UIGraphicsBeginImageContextWithOptions(size, self.isOpaque, 0);
-            self.layer.render(in: UIGraphicsGetCurrentContext()!)
-            let cellSnapshotImage = UIGraphicsGetImageFromCurrentImageContext();
-            UIGraphicsEndImageContext();
-            cellSnapshotView = UIImageView(image: cellSnapshotImage)
-        }
-        
-        
-        snapshotView.frame = CGRect(x: 0, y: 0, width: cellSnapshotView.frame.size.width, height: cellSnapshotView.frame.size.height);
-        cellSnapshotView.frame = CGRect(x: 0, y: 0, width: cellSnapshotView.frame.size.width, height: cellSnapshotView.frame.size.height);
-        
-        snapshotView.addSubview(cellSnapshotView)
-        return snapshotView;
+    func onDeleteBtnPressed(sender: UIButton) {
+        self.deleteClickClosure?(sender)
     }
 }

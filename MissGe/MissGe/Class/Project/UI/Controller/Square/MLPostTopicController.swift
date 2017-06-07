@@ -9,7 +9,8 @@
 import UIKit
 import Photos
 import AssetsLibrary
-import TZImagePickerController
+import TU_TZImagePickerController
+import YYImage
 
 typealias PublishDismissClosure = (_ isActionSucceed: Bool) -> Void;
 
@@ -65,6 +66,7 @@ class MLPostTopicController: BaseViewController {
     
     var selectedPhotos = NSMutableArray()
     var selectedAssets = NSMutableArray()
+    var selectedModels = NSMutableArray()
     var uploadImages = [String]()
     var isSelectOriginalPhoto = false
     
@@ -298,16 +300,18 @@ class MLPostTopicController: BaseViewController {
         
         
         cell.videoImageView.isHidden = true;
-        if ((indexPath as NSIndexPath).row == selectedPhotos.count) {
+        if (indexPath.row == selectedPhotos.count) {
             cell.imageView.image = UIImage(named: "AlbumAddBtn");
             cell.deleteBtn.isHidden = true;
+            cell.gifLable.isHidden = true;
         } else {
-            cell.imageView.image = selectedPhotos[(indexPath as NSIndexPath).row] as? UIImage;
-            cell.asset = selectedAssets[(indexPath as NSIndexPath).row] as AnyObject;
+            cell.imageView.image = selectedPhotos[indexPath.row] as? UIImage;
+            cell.model = selectedModels[indexPath.row] as? TZAssetModel;
             cell.deleteBtn.isHidden = false;
         }
-        cell.deleteBtn.tag = (indexPath as NSIndexPath).row;
-        cell.deleteBtn.addTarget(self, action: #selector(MLPostTopicController.deleteBtnClik(_:)), for: UIControlEvents.touchUpInside)
+        cell.deleteClickClosure = {[weak self] (sender: AnyObject?) in
+            self?.deleteBtnClik(indexPath: indexPath)
+        }
         return cell;
         
     }
@@ -358,13 +362,24 @@ class MLPostTopicController: BaseViewController {
                 vc.model = model;
                 self.present(vc, animated: true, completion: nil)
             } else { // preview photos / 预览照片
+//                var selectedModels = [TZAssetModel]();
+//                for asset in selectedAssets {
+//                    if asset {
+//                        let model = TZAssetModel.init(asset: asset, type: TZAssetModelMediaTypePhotoGif, timeLength: "")
+//                        selectedModels.append(model)
+//                    }
+//                }
+                
                 let imagePickerVc = TZImagePickerController.init(selectedAssets: selectedAssets, selectedPhotos: selectedPhotos, index: (indexPath as NSIndexPath).row)
                 imagePickerVc?.allowPickingOriginalPhoto = true;
                 imagePickerVc?.allowPickingGif = true
                 imagePickerVc?.isSelectOriginalPhoto = isSelectOriginalPhoto;
-                imagePickerVc?.didFinishPickingPhotosHandle = ({ (photos: [UIImage]?, assets: [Any]?, isSelectOriginalPhoto: Bool) in
+                imagePickerVc?.selectedModels = self.selectedModels;
+                imagePickerVc?.didFinishPickingPhotosHandle = ({ (models: [TZAssetModel]?, photos: [UIImage]?, assets: [Any]?, isSelectOriginalPhoto: Bool) in
                     self.selectedPhotos = NSMutableArray.init(array: photos!)
                     self.selectedAssets = NSMutableArray.init(array: assets!)
+                    self.selectedModels = NSMutableArray.init(array: models!)
+
                     self.isSelectOriginalPhoto = isSelectOriginalPhoto;
                     //                    self.collectionViewLayout.itemCount = self.selectedPhotos.count;
                     self.collectionView.reloadData()
@@ -418,14 +433,14 @@ extension MLPostTopicController: TZImagePickerControllerDelegate, UIImagePickerC
         }
     }
     
-    func deleteBtnClik(_ sender: UIButton) {
+    func deleteBtnClik(indexPath: IndexPath) {
         
-        selectedPhotos.removeObject(at: sender.tag)
-        selectedAssets.removeObject(at: sender.tag)
+        selectedPhotos.removeObject(at: indexPath.row)
+        selectedAssets.removeObject(at: indexPath.row)
+        selectedModels.removeObject(at: indexPath.row)
         //    _layout.itemCount = _selectedPhotos.count;
         
         collectionView.performBatchUpdates({
-            let indexPath = IndexPath.init(item: sender.tag, section: 0)
             self.collectionView.deleteItems(at: [indexPath])
         }) { (finished) in
             self.refreshCollectionViewHeight()
@@ -516,6 +531,7 @@ extension MLPostTopicController: TZImagePickerControllerDelegate, UIImagePickerC
                         
                         _self.selectedAssets.add((assetModel?.asset)!)
                         _self.selectedPhotos.add(image)
+                        _self.selectedModels.add(assetModel!)
 //                        _self.collectionView.reloadData()
                         _self.refreshCollectionViewHeight()
                     })
@@ -537,8 +553,9 @@ extension MLPostTopicController: TZImagePickerControllerDelegate, UIImagePickerC
         // MARK: - 四类个性化设置，这些参数都可以不传，此时会走默认设置
         imagePickerVc?.isSelectOriginalPhoto = isSelectOriginalPhoto;
         
-        // 1.如果你需要将拍照按钮放在外面，不要传这个参数
+        // 1.如果你需要将拍照按钮放在外面，不要传这个参数 
         imagePickerVc?.selectedAssets = selectedAssets; // optional, 可选的
+        imagePickerVc?.selectedModels = selectedModels; // optional, 可选的
         imagePickerVc?.allowTakePicture = false; // 在内部显示拍照按钮
         imagePickerVc?.allowPickingGif = true; // 可以选择gif
 
@@ -563,24 +580,25 @@ extension MLPostTopicController: TZImagePickerControllerDelegate, UIImagePickerC
         //        imagePickerVc.didFinishPickingPhotosHandle
         
         
-        imagePickerVc?.didFinishPickingGifImageHandle = {[weak self] (animatedImage: UIImage?, sourceAssets: Any?) in
-            guard let _self = self else {
-                return
-            }
-            _self.selectedPhotos.add(animatedImage!)
-            _self.selectedAssets.add(sourceAssets!)
-            _self.isSelectOriginalPhoto = imagePickerVc!.isSelectOriginalPhoto;
-            //    _layout.itemCount = _selectedPhotos.count;
-            //            _self.collectionView.reloadData()
-            _self.refreshCollectionViewHeight()
-        }
+//        imagePickerVc?.didFinishPickingGifImageHandle = {[weak self] (animatedImage: UIImage?, sourceAssets: Any?) in
+//            guard let _self = self else {
+//                return
+//            }
+//            _self.selectedPhotos.add(animatedImage!)
+//            _self.selectedAssets.add(sourceAssets!)
+//            _self.isSelectOriginalPhoto = imagePickerVc!.isSelectOriginalPhoto;
+//            //    _layout.itemCount = _selectedPhotos.count;
+//            //            _self.collectionView.reloadData()
+//            _self.refreshCollectionViewHeight()
+//        }
         
-        imagePickerVc?.didFinishPickingPhotosHandle = {[weak self] (photos: [UIImage]?, assets: [Any]?, isSelectOriginalPhoto: Bool) in
+        imagePickerVc?.didFinishPickingPhotosHandle = {[weak self] (models: [TZAssetModel]?, photos: [UIImage]?, assets: [Any]?, isSelectOriginalPhoto: Bool) in
             guard let _self = self else {
                 return
             }
             _self.selectedPhotos = NSMutableArray(array: photos!)
             _self.selectedAssets = NSMutableArray(array: assets!)
+            _self.selectedModels = NSMutableArray(array: models!)
             _self.isSelectOriginalPhoto = isSelectOriginalPhoto;
             //    _layout.itemCount = _selectedPhotos.count;
 //            _self.collectionView.reloadData()

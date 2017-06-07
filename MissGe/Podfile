@@ -17,7 +17,8 @@ target "MissGe" do
     
     pod 'SVProgressHUD'
     pod 'FXBlurView'
-    pod 'TZImagePickerController'
+#    pod 'TZImagePickerController'
+    pod 'TU_TZImagePickerController', :git => 'https://github.com/chengxianghe/TU_TZImagePickerController.git', :branch => 'YYImage_ImagePicker'
     pod 'XHPhotoBrowser'
 #   pod 'SnapKit'
 
