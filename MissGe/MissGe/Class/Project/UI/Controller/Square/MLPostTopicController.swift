@@ -131,6 +131,12 @@ class MLPostTopicController: BaseViewController {
         } else {
             checkRight = (self.textView.text.length > 0 && self.textView.text.length < 140) || selectedPhotos.count > 0
         }
+        
+        if self.textView.text.emojiEscapedString.length <= 0 {
+            self.showError("请输入内容")
+            return;
+        }
+        
         if (checkRight) {
             if postType == .postTopicComment {
                 self.publishTopicComment()
