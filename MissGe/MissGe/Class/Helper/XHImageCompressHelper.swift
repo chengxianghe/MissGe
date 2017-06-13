@@ -17,13 +17,19 @@ class XHImageCompressHelper {
      *
      *  @return 图片Data
      */
-    class func getUpLoadImageData(originalImage: UIImage, MaxDataSize maxSize: UInt = 200 * 1024) -> Data? {
+    class func getUpLoadImageData(originalImage: UIImage, isOriginalPhoto: Bool, MaxDataSize maxSize: UInt = 200 * 1024) -> Data? {
         
-        guard var imageData = UIImageJPEGRepresentation(originalImage, 1) else {
+        guard let imageData = UIImageJPEGRepresentation(originalImage, 1) else {
             return nil
         }
         
+        if isOriginalPhoto {
+            return imageData
+        }
+        
         let sizeB = UInt(imageData.count)
+        
+        var data = imageData;
         
         // 对图片大小进行压缩--
         if sizeB > maxSize {
@@ -35,28 +41,12 @@ class XHImageCompressHelper {
             //        imageData = UIImageJPEGRepresentation(cutImage, scale);
             
             //UIImageJPEGRepresentation方法比UIImagePNGRepresentation耗时短 而且文件更小
-            
-            if let data = UIImageJPEGRepresentation(originalImage, scale) {
-                imageData = data
+            if let tempData = UIImageJPEGRepresentation(originalImage, scale) {
+                data = tempData
             }
         }
         
-        return imageData;    
-    }
-    
-    /**
-     *  根据一张原图返回一张上传规格的图片Data
-     *
-     *  @param originalImage 原图
-     *  @param maxSize       默认限制大小200k
-     *
-     *  @return 图片Data
-     */
-    class func getUpLoadImageData(originalImageData: Data) -> Data? {
-        if let image = UIImage.init(data: originalImageData) {
-            return self.getUpLoadImageData(originalImage: image)
-        }
-        return nil
+        return data;
     }
     
     /**

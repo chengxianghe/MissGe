@@ -89,8 +89,11 @@ class MLPostTopicController: BaseViewController {
         
 //        self.textView.selectedRange = NSMakeRange(0, 0);
         
-        self.textView.textDidChange = { (text: String?) in
-            self.wordNumberLabel.text = "剩余\(140 - self.textView.text.length)字"
+        self.textView.textDidChange = {[weak self] (text: String?) in
+            guard let _self = self else {
+                return
+            }
+            _self.wordNumberLabel.text = "剩余\(140 - _self.textView.text.length)字"
         }
         
         if postType != .postTopic {
@@ -119,12 +122,17 @@ class MLPostTopicController: BaseViewController {
     
     func dismissPost(_ isPostSuccess: Bool) {
         self.view.endEditing(true)
-        self.dismiss(animated: true) {
-            self.dismissClosure?(isPostSuccess);
+        self.dismiss(animated: true) {[weak self] in
+            guard let _self = self else {
+                return
+            }
+            _self.dismissClosure?(isPostSuccess);
         }
     }
     
     @IBAction func onPublishBtnClick(_ sender: UIButton) {
+        self.textView.resignFirstResponder()
+        
         var checkRight = false
         if postType != .postTopic {
             checkRight = self.textView.text.length > 0 && self.textView.text.length < 140
@@ -132,7 +140,7 @@ class MLPostTopicController: BaseViewController {
             checkRight = (self.textView.text.length > 0 && self.textView.text.length < 140) || selectedPhotos.count > 0
         }
         
-        if self.textView.text.emojiEscapedString.length <= 0 {
+        if self.textView.text.length <= 0 {
             self.showError("请输入内容")
             return;
         }
@@ -147,22 +155,28 @@ class MLPostTopicController: BaseViewController {
                 if selectedPhotos.count > 0 {
                     // selectedPhotos [UIImage]
                     self.showLoading("正在上传图片...")
-                    for assest in selectedAssets {
-                            XHImageGifHelper.getImageDataWithAsset(asset: assest as AnyObject, completion: { (isGif, data, error) in
-                                if error == nil && data != nil {
-                                    self.uploadImages.append(self.setuoUploadImageWithImageData(data, isGif: isGif))
+                    var i: Int = 0;
+                    for tzModel in selectedModels {
+                        let model = tzModel as! TZAssetModel
+                        if model.type == TZAssetModelMediaTypePhotoGif {
+                            XHImageGifHelper.getImageDataWithAsset(asset: model.asset as AnyObject, completion: {[weak self] (isGif, data, error) in
+                                guard let _self = self else {
+                                    return
                                 }
-                                if self.uploadImages.count == self.selectedAssets.count {
-                                    self.realUpload()
+                                if error == nil && data != nil {
+                                    _self.uploadImages.append(_self.setuoUploadImageWithImageData(data, isGif: isGif))
+                                }
+                                i += 1;
+                                if i == _self.selectedModels.count {
+                                    _self.realUpload()
                                 }
                             })
-                    }
-//                    for image in selectedPhotos {
-//                        uploadImages.append(self.setuoUploadImageWithImage(image as! UIImage))
-//                    }
-                    
 
-                    
+                        } else {
+                            i += 1;
+                            self.uploadImages.append(self.setuoUploadImageWithImage((selectedPhotos[i] as! UIImage)))
+                        }
+                    }
                 } else {
                     self.publishTopic(nil);
                 }
@@ -181,65 +195,42 @@ class MLPostTopicController: BaseViewController {
     }
     
     
-//    /**
-//     *  返回图片完整路径
-//     *  压缩图约为原图的 1/4
-//     */
-//    func setuoUploadImageWithImage(_ image: UIImage) -> String {
-//        
-//        var imageData: Data? = nil
-//        
-//        if (self.isSelectOriginalPhoto) {
-//            // 原图
-//            imageData = UIImageJPEGRepresentation(image, 1.0);
-//        } else {
-//            // 压缩的
-//            imageData = XHImageCompressHelper.getUpLoadImageData(originalImage: image)
-//        }
-//        if imageData == nil {
-//            return ""
-//        }
-//        
-//        let name = NSDate().millisecondTimeDescription().appendingFormat("-size-%d", imageData!.count)
-//        
-//        if let str = XHImageCompressHelper.save(imageData: imageData!, withName: name) {
-//            return str
-//        }
-//        
-//        return ""
-//    }
-    
     /**
      *  返回图片完整路径
      *  压缩图约为原图的 1/4
+     */
+    func setuoUploadImageWithImage(_ image: UIImage) -> String {
+        var imageData: Data? = nil
+        
+        imageData = XHImageCompressHelper.getUpLoadImageData(originalImage: image, isOriginalPhoto: self.isSelectOriginalPhoto)
+        
+        if imageData == nil {
+            return ""
+        }
+        
+        let name = NSDate().millisecondTimeDescription().appendingFormat("-size-%d.jpg", imageData!.count)
+        
+        if let str = XHImageCompressHelper.save(imageData: imageData!, withName: name) {
+            return str
+        }
+        
+        return ""
+    }
+
+    /**
+     *  返回gif图片完整路径
      */
     func setuoUploadImageWithImageData(_ imageData: Data?, isGif: Bool) -> String {
         if imageData == nil {
             return ""
         }
-        
         var data: Data! = imageData!
         
-        var name = NSDate().millisecondTimeDescription().appendingFormat("-size-%d", data.count)
-        name.append(isGif ? ".gif" : ".jpg")
+        let name = NSDate().millisecondTimeDescription().appendingFormat("-size-%d.gif", data.count)
         
-        if isGif {
-            if let str = XHImageCompressHelper.save(imageData: data, withName: name) {
-                return str
-            }
-        } else {
-            if !self.isSelectOriginalPhoto {
-                // 压缩的
-                if let tempData = XHImageCompressHelper.getUpLoadImageData(originalImageData: data) {
-                    data = tempData
-                }
-            }
-            
-            if let str = XHImageCompressHelper.save(imageData: data, withName: name) {
-                return str
-            }
+        if let str = XHImageCompressHelper.save(imageData: data, withName: name) {
+            return str
         }
-        
         return ""
     }
     

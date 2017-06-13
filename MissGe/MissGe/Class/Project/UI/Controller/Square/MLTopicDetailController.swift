@@ -49,8 +49,11 @@ class MLTopicDetailController: BaseViewController, UITableViewDelegate, UITableV
 
         if !MLNetConfig.isUserLogin() {
             let goLogin = UIAlertAction.init(title: "去登录", style: UIAlertActionStyle.default, handler: {[weak self] (action) in
+                guard let _self = self else {
+                    return
+                }
                 let loginVCNav = kLoadVCFromSB(nil, stroyBoard: "Account")!
-                self?.present(loginVCNav, animated: true, completion: nil)
+                _self.present(loginVCNav, animated: true, completion: nil)
             })
             
             let cancel = UIAlertAction.init(title: "取消", style: UIAlertActionStyle.cancel, handler: nil)
@@ -66,19 +69,25 @@ class MLTopicDetailController: BaseViewController, UITableViewDelegate, UITableV
     //MARK: - 刷新
     func configRefresh() {
         
-        self.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {[unowned self] () -> Void in
-            if self.tableView.mj_footer.isRefreshing() {
+        self.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {[weak self] () -> Void in
+            guard let _self = self else {
                 return
             }
-            self.loadData(1)
-            })
+            if _self.tableView.mj_footer.isRefreshing() {
+                return
+            }
+            _self.loadData(1)
+        })
         
-        self.tableView.mj_footer = MJRefreshAutoNormalFooter(refreshingBlock: {[unowned self] () -> Void in
-            if self.tableView.mj_header.isRefreshing() {
+        self.tableView.mj_footer = MJRefreshAutoNormalFooter(refreshingBlock: {[weak self] () -> Void in
+            guard let _self = self else {
                 return
             }
-            self.loadData(self.currentIndex + 1)
-            })
+            if _self.tableView.mj_header.isRefreshing() {
+                return
+            }
+            _self.loadData(_self.currentIndex + 1)
+        })
         
         (self.tableView.mj_footer as! MJRefreshAutoNormalFooter).huaBanFooterConfig()
         (self.tableView.mj_header as! MJRefreshNormalHeader).huaBanHeaderConfig()
@@ -93,28 +102,36 @@ class MLTopicDetailController: BaseViewController, UITableViewDelegate, UITableV
         if page == 1 {
             // 刷新详情
             topicDetailRequest.pid = "\(self.topic.joke.pid)"
-            topicDetailRequest.send(success: {[unowned self] (baseRequest, responseObject) in
-                self.tableView.mj_header.endRefreshing()
+            topicDetailRequest.send(success: {[weak self] (baseRequest, responseObject) in
+                guard let _self = self else {
+                    return
+                }
+                _self.tableView.mj_header.endRefreshing()
                 
                 let squareModel = MLSquareModel(JSON: (responseObject as! NSDictionary)["content"] as! [String:Any])
                 if squareModel != nil {
-                    self.topic = MLTopicCellLayout(model: squareModel!)
-                    self.tableView.reloadSections(IndexSet.init(integer: 0), with: UITableViewRowAnimation.fade)
+                    _self.topic = MLTopicCellLayout(model: squareModel!)
+                    _self.tableView.reloadSections(IndexSet.init(integer: 0), with: UITableViewRowAnimation.fade)
                 }
                 
-            }) { (baseRequest, error) in
-                self.tableView.mj_header.endRefreshing()                
+            }) {[weak self] (baseRequest, error) in
+                guard let _self = self else {
+                    return
+                }
+                _self.tableView.mj_header.endRefreshing()
                 print(error)
             }
 
         }
         
-        
         commentListRequest.page = page
         commentListRequest.pid = "\(self.topic.joke.pid)"
-        commentListRequest.send(success: {[unowned self] (baseRequest, responseObject) in
-            self.hideHud()
-            self.tableView.mj_header.endRefreshing()
+        commentListRequest.send(success: {[weak self] (baseRequest, responseObject) in
+            guard let _self = self else {
+                return
+            }
+            _self.hideHud()
+            _self.tableView.mj_header.endRefreshing()
             
             var modelArray: [MLTopicCommentModel]? = nil
             if let list = ((responseObject as! NSDictionary)["content"] as! NSDictionary)["repostlist"] as? [[String:Any]] {
@@ -127,35 +144,38 @@ class MLTopicDetailController: BaseViewController, UITableViewDelegate, UITableV
             
             if array != nil && array!.count > 0 {
                 if page == 1 {
-                    self.dataSource.removeAll()
-                    self.dataSource.append(contentsOf: array!)
-                    self.tableView.reloadData()
+                    _self.dataSource.removeAll()
+                    _self.dataSource.append(contentsOf: array!)
+                    _self.tableView.reloadData()
                 } else {
-                    self.tableView.beginUpdates()
-                    let lastItem = self.dataSource.count
-                    self.dataSource.append(contentsOf: array!)
-                    let indexPaths = (lastItem..<self.dataSource.count).map { IndexPath(row: $0, section: 1) }
-                    self.tableView.insertRows(at: indexPaths, with: UITableViewRowAnimation.fade)
-                    self.tableView.endUpdates()
+                    _self.tableView.beginUpdates()
+                    let lastItem = _self.dataSource.count
+                    _self.dataSource.append(contentsOf: array!)
+                    let indexPaths = (lastItem..<_self.dataSource.count).map { IndexPath(row: $0, section: 1) }
+                    _self.tableView.insertRows(at: indexPaths, with: UITableViewRowAnimation.fade)
+                    _self.tableView.endUpdates()
                 }
                 
                 if array!.count < 20 {
-                    self.tableView.mj_footer.endRefreshingWithNoMoreData()
+                    _self.tableView.mj_footer.endRefreshingWithNoMoreData()
                 } else {
-                    self.currentIndex = page
-                    self.tableView.mj_footer.endRefreshing()
+                    _self.currentIndex = page
+                    _self.tableView.mj_footer.endRefreshing()
                 }
             } else {
                 if page == 1 {
-                    self.dataSource.removeAll()
-                    self.tableView.reloadData()
+                    _self.dataSource.removeAll()
+                    _self.tableView.reloadData()
                 }
-                self.tableView.mj_footer.endRefreshingWithNoMoreData()
+                _self.tableView.mj_footer.endRefreshingWithNoMoreData()
             }
             
-        }) { (baseRequest, error) in
-            self.tableView.mj_header.endRefreshing()
-            self.tableView.mj_footer.endRefreshing()
+        }) {[weak self] (baseRequest, error) in
+            guard let _self = self else {
+                return
+            }
+            _self.tableView.mj_header.endRefreshing()
+            _self.tableView.mj_footer.endRefreshing()
             
             print(error)
         }
@@ -210,8 +230,11 @@ class MLTopicDetailController: BaseViewController, UITableViewDelegate, UITableV
         tableView.deselectRow(at: indexPath, animated: true)
         if !MLNetConfig.isUserLogin() {
             let goLogin = UIAlertAction.init(title: "去登录", style: UIAlertActionStyle.default, handler: {[weak self] (action) in
+                guard let _self = self else {
+                    return
+                }
                 let loginVCNav = kLoadVCFromSB(nil, stroyBoard: "Account")!
-                self?.present(loginVCNav, animated: true, completion: nil)
+                _self.present(loginVCNav, animated: true, completion: nil)
             })
             
             let cancel = UIAlertAction.init(title: "取消", style: UIAlertActionStyle.cancel, handler: nil)
@@ -278,9 +301,12 @@ class MLTopicDetailController: BaseViewController, UITableViewDelegate, UITableV
             let vc = (segue.destination as! UINavigationController).topViewController as! MLPostTopicController
             vc.postType = PostTopicType.postTopicComment
             vc.dismissClosure = {[weak self] (isActionSucceed: Bool) in
+                guard let _self = self else {
+                    return
+                }
                 if isActionSucceed {
                     // 评论成功 刷新
-                    self?.tableView.mj_header.beginRefreshing()
+                    _self.tableView.mj_header.beginRefreshing()
                 }
             }
             if sender == nil || !(sender! as AnyObject).isKind(of: MLTopicCommentCellLayout.classForCoder()) {
@@ -330,8 +356,11 @@ extension MLTopicDetailController: MLTopicCommentCellDelegate {
         
         if !MLNetConfig.isUserLogin() {
             let goLogin = UIAlertAction.init(title: "去登录", style: UIAlertActionStyle.default, handler: {[weak self] (action) in
+                guard let _self = self else {
+                    return
+                }
                 let loginVCNav = kLoadVCFromSB(nil, stroyBoard: "Account")!
-                self?.present(loginVCNav, animated: true, completion: nil)
+                _self.present(loginVCNav, animated: true, completion: nil)
             })
             
             let cancel = UIAlertAction.init(title: "取消", style: UIAlertActionStyle.cancel, handler: nil)
@@ -364,30 +393,41 @@ extension MLTopicDetailController: MLSquareCellDelegate {
     func topicCellDidClickOther(_ cell: MLTopicCell) {
         if MLNetConfig.isUserLogin() && MLNetConfig.shareInstance.userId == cell.layout.joke.uid {
             // 删除
-            MLRequestHelper.deleteTopicWith(cell.layout.joke.pid, succeed: {[weak self] (base, res) in
-                guard let _self = self else {
-                    return
-                }
-                _self.delegate?.topicCellDidClickOtherFromDetail(_self.topic)
-                _self.navigationController?.popViewController(animated: true)
-                
-                }, failed: {[weak self] (base, error) in
+            self.alert(title: "提示", message: "确定要删除", doneTitlt: "确定", doneHandler: {
+                MLRequestHelper.deleteTopicWith(cell.layout.joke.pid, succeed: {[weak self] (base, res) in
                     guard let _self = self else {
                         return
                     }
-                    _self.showError("删除失败\n\(error.localizedDescription)")
-            })
+                    
+                    _self.navigationController?.popViewController(animated: true)
+                    DispatchQueue.main.asyncAfter(deadline: (DispatchTime.now() + .milliseconds(300)), execute: {
+                        // Do something
+                        _self.delegate?.topicCellDidClickOtherFromDetail(_self.topic)
+                    })
+                    
+                    }, failed: {[weak self] (base, error) in
+                        guard let _self = self else {
+                            return
+                        }
+                        _self.showError("删除失败\n\(error.localizedDescription)")
+                })
+            }, cancelTitle: "取消", cancelHandler: nil)
         } else {
             // 举报
-            self.showSuccess("已举报")
+            self.alert(title: "提示", message: "确定要举报", doneTitlt: "确定", doneHandler: {[weak self] in
+                self?.showSuccess("已举报")
+            }, cancelTitle: "取消", cancelHandler: nil)
         }
     }
     
     func topicCellDidClickIcon(_ cell: MLTopicCell) {
         if !MLNetConfig.isUserLogin() {
             let goLogin = UIAlertAction.init(title: "去登录", style: UIAlertActionStyle.default, handler: {[weak self] (action) in
+                guard let _self = self else {
+                    return
+                }
                 let loginVCNav = kLoadVCFromSB(nil, stroyBoard: "Account")!
-                self?.present(loginVCNav, animated: true, completion: nil)
+                _self.present(loginVCNav, animated: true, completion: nil)
             })
             
             let cancel = UIAlertAction.init(title: "取消", style: UIAlertActionStyle.cancel, handler: nil)
@@ -401,8 +441,11 @@ extension MLTopicDetailController: MLSquareCellDelegate {
     func topicCellDidClickName(_ cell: MLTopicCell) {
         if !MLNetConfig.isUserLogin() {
             let goLogin = UIAlertAction.init(title: "去登录", style: UIAlertActionStyle.default, handler: {[weak self] (action) in
+                guard let _self = self else {
+                    return
+                }
                 let loginVCNav = kLoadVCFromSB(nil, stroyBoard: "Account")!
-                self?.present(loginVCNav, animated: true, completion: nil)
+                _self.present(loginVCNav, animated: true, completion: nil)
             })
             
             let cancel = UIAlertAction.init(title: "取消", style: UIAlertActionStyle.cancel, handler: nil)
