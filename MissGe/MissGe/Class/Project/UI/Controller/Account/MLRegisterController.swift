@@ -41,6 +41,9 @@ class MLRegisterController: BaseViewController, UITextFieldDelegate {
     @IBOutlet weak var verificationCodeButton: UIButton!
     @IBOutlet weak var userAllowProtocolButton: UIButton!
     
+    fileprivate var timer: Timer?
+    fileprivate var endDate: TimeInterval?
+
     fileprivate let registerRequest = MLRegisterRequest()
     
     override func viewDidLoad() {
@@ -105,7 +108,11 @@ class MLRegisterController: BaseViewController, UITextFieldDelegate {
                 
             }) { (baseRequest, error) in
                 sender.isEnabled = true
-                self.showError("注册失败\n\(error.localizedDescription)")
+                guard let err = error as? NSError else {
+                    self.showError("注册失败\n\(error.localizedDescription)")
+                    return
+                }
+                self.showError("注册失败\n\(String(describing: err.userInfo["msg"]))")
                 print(error)
             }
         } else {
@@ -131,7 +138,49 @@ class MLRegisterController: BaseViewController, UITextFieldDelegate {
     
     @IBAction func onVerificationCodeBtnClick(_ sender: UIButton) {
 //        self.onViewClick()
+        if self.phoneTextField.text?.length == 0 {
+            self.showMessage("请输入手机号")
+            return
+        }
         
+        sender.isUserInteractionEnabled = false
+        self.showLoading("正在加载...")
+        
+        let request = MLRegisterCheckVerificationCodeRequest()
+        request.send(success: { (baseRequest, responseObject) in
+            self.showSuccess("验证码发送成功")
+            self.startTimer()
+        }) { (baseRequest, error) in
+            sender.isUserInteractionEnabled = true
+            self.showError("发送验证码失败\n\(error.localizedDescription)")
+            print(error)
+        }
+        
+    }
+    
+    func startTimer() {
+        self.stopTimer()
+        self.endDate = Date().timeIntervalSince1970 + 61;
+        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timerHandler), userInfo: nil, repeats: true)
+    }
+    
+    func stopTimer() {
+        self.timer?.invalidate()
+        self.timer = nil;
+    }
+    
+    func timerHandler() {
+
+        let date = Date().timeIntervalSince1970
+        let time = self.endDate! - date;
+        if (time <= 0) {
+            self.stopTimer()
+            self.verificationCodeButton.isUserInteractionEnabled = true;
+            self.verificationCodeButton.setTitle("再次发送验证码", for: .normal)
+    
+        } else {
+            self.verificationCodeButton.setTitle(String(format: "%02d s", time), for: .normal)
+        }
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
