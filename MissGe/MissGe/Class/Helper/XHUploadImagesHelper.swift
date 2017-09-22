@@ -178,7 +178,7 @@ class XHUploadImagesHelper: NSObject {
         }
     }
     
-    func endUpload() {
+    @objc func endUpload() {
         // 全部完成
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(endUpload), object: nil)
         

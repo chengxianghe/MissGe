@@ -59,9 +59,9 @@ extension String {
     */
     func detectLanguage() -> String? {
         if self.length > 4 {
-            let tagger = NSLinguisticTagger(tagSchemes:[NSLinguisticTagSchemeLanguage], options: 0)
+            let tagger = NSLinguisticTagger(tagSchemes:[NSLinguisticTagScheme.language], options: 0)
             tagger.string = self
-            return tagger.tag(at: 0, scheme: NSLinguisticTagSchemeLanguage, tokenRange: nil, sentenceRange: nil)
+            return tagger.tag(at: 0, scheme: NSLinguisticTagScheme.language, tokenRange: nil, sentenceRange: nil).map { $0.rawValue }
         }
         return nil
     }
@@ -73,9 +73,9 @@ extension String {
      */
     func detectScript() -> String? {
         if self.length > 1 {
-            let tagger = NSLinguisticTagger(tagSchemes:[NSLinguisticTagSchemeScript], options: 0)
+            let tagger = NSLinguisticTagger(tagSchemes:[NSLinguisticTagScheme.script], options: 0)
             tagger.string = self
-            return tagger.tag(at: 0, scheme: NSLinguisticTagSchemeScript, tokenRange: nil, sentenceRange: nil)
+            return tagger.tag(at: 0, scheme: NSLinguisticTagScheme.script, tokenRange: nil, sentenceRange: nil).map { $0.rawValue }
         }
         return nil
     }
@@ -203,7 +203,7 @@ extension String {
         let results = hashtagDetector?.matches(in: self, options: NSRegularExpression.MatchingOptions.withoutAnchoringBounds, range: NSMakeRange(0, self.utf16.count)).map { $0 }
         
         return results?.map({
-            (self as NSString).substring(with: $0.rangeAt(1))
+            (self as NSString).substring(with: $0.range(at: 1))
         })
     }
     
@@ -228,7 +228,7 @@ extension String {
         let results = hashtagDetector?.matches(in: self, options: NSRegularExpression.MatchingOptions.withoutAnchoringBounds, range: NSMakeRange(0, self.utf16.count)).map { $0 }
         
         return results?.map({
-            (self as NSString).substring(with: $0.rangeAt(1))
+            (self as NSString).substring(with: $0.range(at: 1))
         })
     }
     
@@ -321,7 +321,7 @@ extension String {
         if (text == nil || text!.length == 0) {
             return CGSize.zero;
         }
-        let attrs = [NSFontAttributeName : font]
+        let attrs = [NSAttributedStringKey.font : font]
         
         let rect = text!.boundingRect(with: maxSize, options:NSStringDrawingOptions.usesLineFragmentOrigin, attributes:attrs, context:nil)
         

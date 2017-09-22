@@ -27,6 +27,22 @@ class MLSearchController: BaseViewController, UITableViewDelegate, UITableViewDa
         
         self.searchView.frame = CGRect(x: 10, y: 7, width: kScreenWidth - 20, height: 30)
         self.navigationItem.titleView = self.searchView
+        
+        if #available(iOS 11.0, *) {
+
+        let container = self.searchView!;
+        self.searchBar.translatesAutoresizingMaskIntoConstraints = false;
+
+        // 给searchBar添加约束
+        NSLayoutConstraint.activate([
+            self.searchBar.topAnchor.constraint(equalTo: container.topAnchor), // 顶部约束/
+            self.searchBar.leftAnchor.constraint(equalTo: container.leftAnchor, constant:-25*kScreenOneScale), // 左边距约束
+            self.searchBar.rightAnchor.constraint(equalTo: container.rightAnchor, constant:0), // 右边距约束
+           self.searchBar.bottomAnchor.constraint(equalTo: container.bottomAnchor), // 底部约束
+            self.searchBar.centerXAnchor.constraint(equalTo: container.centerXAnchor, constant:0), // 横向中心约束
+            //                                              [self.searchBar.widthAnchor constraintEqualToAnchor:container.widthAnchor constant:width] // 宽度约束
+            ]);
+        }
         self.searchView.setNeedsDisplay()
         self.searchView.layoutIfNeeded()
 
@@ -44,13 +60,15 @@ class MLSearchController: BaseViewController, UITableViewDelegate, UITableViewDa
         contentLeadingConstraint.constant = 10
         contentTrailingConstraint.constant = 10
      
+        if #available(iOS 11.0, *) {
+        } else {
         UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
             self.searchView.layoutIfNeeded()
 //            self.searchBar.placeholder = "搜文章"
         }) { (f) in
             self.searchBar.becomeFirstResponder()
         }
-        
+        }
         self.loadData()
     }
     
@@ -63,12 +81,16 @@ class MLSearchController: BaseViewController, UITableViewDelegate, UITableViewDa
         self.searchBar.text = nil
         self.searchBar.resignFirstResponder()
 
+        if #available(iOS 11.0, *) {
+        } else {
         contentLeadingConstraint.constant = 0
         contentTrailingConstraint.constant = -40
         UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
             self.searchView.layoutIfNeeded()            
         }) { (f) in
             self.navigationController?.popViewController(animated: false)
+            }
+            
         }
     }
     

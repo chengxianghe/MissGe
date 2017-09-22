@@ -419,7 +419,7 @@ class MLSquareCellBodyView: UIView {
         
     }
     
-    func tapIcon(sender: UITapGestureRecognizer) {
+    @objc func tapIcon(sender: UITapGestureRecognizer) {
         //let sender = sender as! UITapGestureRecognizer
         if (sender.state == UIGestureRecognizerState.ended) {
             let p = sender.location(in: iconImageView)
@@ -432,7 +432,7 @@ class MLSquareCellBodyView: UIView {
         }
     }
     
-    func tapImage(sender: UITapGestureRecognizer) {
+    @objc func tapImage(sender: UITapGestureRecognizer) {
         if (sender.state == UIGestureRecognizerState.ended) {
             let imageView = sender.view! as! UIImageView
             let p = sender.location(in: imageView)
@@ -443,7 +443,7 @@ class MLSquareCellBodyView: UIView {
 
     }
     
-    func clickOther(sender: UIButton) {
+    @objc func clickOther(sender: UIButton) {
         self.cell.delegate?.topicCellDidClickOther(self.cell)
     }
     
@@ -733,19 +733,19 @@ class MLTopicCellToolbarView: UIView {
     }
     
     //MARK: Action
-    func pressOnLike(sender: UITapGestureRecognizer) {
+    @objc func pressOnLike(sender: UITapGestureRecognizer) {
         self.cell?.delegate?.topicCellDidClickLike(self.cell!)
 
     }
-    func pressOnFavorite(sender: UITapGestureRecognizer) {
+    @objc func pressOnFavorite(sender: UITapGestureRecognizer) {
         self.cell?.delegate?.topicCellDidClickFavorite(self.cell!)
 
     }
-    func pressOnShare(sender: UITapGestureRecognizer) {
+    @objc func pressOnShare(sender: UITapGestureRecognizer) {
         self.cell?.delegate?.topicCellDidClickShare(self.cell!)
 
     }
-    func pressOnComment(sender: UITapGestureRecognizer) {
+    @objc func pressOnComment(sender: UITapGestureRecognizer) {
         self.cell?.delegate?.topicCellDidClickComment(self.cell!)
     }
     

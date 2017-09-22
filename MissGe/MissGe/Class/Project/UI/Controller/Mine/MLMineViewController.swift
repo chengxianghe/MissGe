@@ -45,7 +45,7 @@ class MLMineViewController: UITableViewController {
         }
     }
     
-    func loginSuccessed() {
+    @objc func loginSuccessed() {
         self.tableView.tableFooterView?.setHeight(50 + 20)
 
         self.userEditButton.isHidden = false
@@ -59,7 +59,7 @@ class MLMineViewController: UITableViewController {
 
     }
     
-    func logoutSuccessed() {
+    @objc func logoutSuccessed() {
         self.tableView.tableFooterView?.setHeight(0)
 
         self.userEditButton.isHidden = true

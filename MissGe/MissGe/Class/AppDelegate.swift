@@ -27,8 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         navigationBarAppearance.isTranslucent = false
         
         navigationBarAppearance.tintColor = kColorFromHexA(0xffffff)
-        navigationBarAppearance.titleTextAttributes = [NSFontAttributeName:UIFont.boldSystemFont(ofSize: 17),
-                                                       NSForegroundColorAttributeName:kColorFromHexA(0xffffff)]
+        navigationBarAppearance.titleTextAttributes = [NSAttributedStringKey.font:UIFont.boldSystemFont(ofSize: 17),
+                                                       NSAttributedStringKey.foregroundColor:kColorFromHexA(0xffffff)]
         
         self.configThird()
         

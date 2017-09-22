@@ -169,7 +169,7 @@ class MLRegisterController: BaseViewController, UITextFieldDelegate {
         self.timer = nil;
     }
     
-    func timerHandler() {
+    @objc func timerHandler() {
 
         let date = Date().timeIntervalSince1970
         let time = self.endDate! - date;

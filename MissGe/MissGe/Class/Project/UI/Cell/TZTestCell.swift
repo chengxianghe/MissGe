@@ -78,7 +78,7 @@ class TZTestCell: UICollectionViewCell {
         videoImageView.frame = CGRect(x: width, y: width, width: width, height: width);
     }
     
-    func onDeleteBtnPressed(sender: UIButton) {
+    @objc func onDeleteBtnPressed(sender: UIButton) {
         self.deleteClickClosure?(sender)
     }
 }

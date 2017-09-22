@@ -12,8 +12,8 @@ import SVProgressHUD
 extension SVProgressHUD {
     static func JCHUDConfig() {
         SVProgressHUD.setMinimumDismissTimeInterval(1.0)
-        SVProgressHUD.setSuccessImage(UIImage(named: "success"))
-        SVProgressHUD.setErrorImage(UIImage(named: "error"))
+        SVProgressHUD.setSuccessImage(UIImage(named: "success")!)
+        SVProgressHUD.setErrorImage(UIImage(named: "error")!)
     }
 }
 

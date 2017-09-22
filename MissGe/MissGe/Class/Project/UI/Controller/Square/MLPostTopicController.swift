@@ -445,7 +445,7 @@ extension MLPostTopicController: TZImagePickerControllerDelegate, UIImagePickerC
     }
     
     func takePhoto() {
-        let authStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+        let authStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
         if ((authStatus == AVAuthorizationStatus.restricted || authStatus == AVAuthorizationStatus.denied) && kiOS7Later()) {
             // 无权限 做一个友好的提示
             let actionSheet = UIAlertController(title: "无法使用相机", message: "请在iPhone的'设置-隐私-相机'中允许访问相机", preferredStyle: .alert)

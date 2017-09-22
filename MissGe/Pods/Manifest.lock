@@ -14,15 +14,15 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - Bugtags (2.3.2):
-    - Bugtags/Core (= 2.3.2)
-  - Bugtags/Core (2.3.2)
-  - ESTabBarController-swift (2.4)
+  - Bugtags (2.4.0):
+    - Bugtags/Core (= 2.4.0)
+  - Bugtags/Core (2.4.0)
+  - ESTabBarController-swift (2.5)
   - FXBlurView (1.6.4)
-  - KeychainAccess (3.0.2)
+  - KeychainAccess (3.1.0)
   - MJRefresh (3.1.12)
-  - ObjectMapper (2.2.7)
-  - SVProgressHUD (2.1.2)
+  - ObjectMapper (3.0.0)
+  - SVProgressHUD (2.2.1)
   - TU_TZImagePickerController (1.0.0):
     - YYImage
   - TUNetworking (1.0.13):
@@ -89,13 +89,13 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  Bugtags: 2ec94ad18b279ce00073ccc7a42cbd4870704882
-  ESTabBarController-swift: af496895039ba10ae60bf825473c45f23fc5c8b6
+  Bugtags: 916b3dcbc4e495f96206ac35546aa196c9ed2132
+  ESTabBarController-swift: 8daa432f2a9be8ebd25101dc46c84472fd760512
   FXBlurView: db786c2561cb49a09ae98407f52460096ab8a44f
-  KeychainAccess: a986406022dfc7c634c691ad3bec670cc6a32002
+  KeychainAccess: 94c5540b32eabf7bc32bfb976a268e8ea05fd6da
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
-  ObjectMapper: 65abcfd9a61cf7396cbd14a4fb22fddfcc46577e
-  SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
+  ObjectMapper: 92230db59bf8f341a5c3a3cf0b9fbdde3cf0d87f
+  SVProgressHUD: db27c54e6e18bc903341661fc9feb55e04905cc4
   TU_TZImagePickerController: ce13e4be41647e97f2a389e0d771c26688010865
   TUNetworking: 0237fe29bf2469818d7bca3403ca846fac72a28b
   XHPhotoBrowser: 3c131e2244891b6bb7ef8da2cf7c92b983cc8238

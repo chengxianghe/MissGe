@@ -29,7 +29,6 @@
 		1417A9ED1EA72E1F003931C5 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1417A9EC1EA72E1F003931C5 /* libz.tbd */; };
 		1417A9EF1EA72E33003931C5 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1417A9EE1EA72E33003931C5 /* libstdc++.tbd */; };
 		1417A9F21EA72E78003931C5 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1417A9F11EA72E78003931C5 /* UIColorExtension.swift */; };
-		1425B48B1EA0B20100ED36A8 /* SafeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1425B48A1EA0B20100ED36A8 /* SafeHelper.swift */; };
 		144B6A0D1EA451A70000BB1B /* TZTestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144B6A0C1EA451A70000BB1B /* TZTestCell.swift */; };
 		1471CB271EAEF28900226C56 /* XHCustomSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1471CB261EAEF28900226C56 /* XHCustomSegue.swift */; };
 		1471CB291EAF0B9600226C56 /* XHUploadImagesHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1471CB281EAF0B9600226C56 /* XHUploadImagesHelper.swift */; };
@@ -179,7 +178,6 @@
 		1417A9EC1EA72E1F003931C5 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		1417A9EE1EA72E33003931C5 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		1417A9F11EA72E78003931C5 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
-		1425B48A1EA0B20100ED36A8 /* SafeHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeHelper.swift; sourceTree = "<group>"; };
 		144B6A0C1EA451A70000BB1B /* TZTestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TZTestCell.swift; sourceTree = "<group>"; };
 		1471CB261EAEF28900226C56 /* XHCustomSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XHCustomSegue.swift; sourceTree = "<group>"; };
 		1471CB281EAF0B9600226C56 /* XHUploadImagesHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XHUploadImagesHelper.swift; sourceTree = "<group>"; };
@@ -566,7 +564,6 @@
 				14D6FE381E9E0FFC0038C7D1 /* PhotoAlbumHelper.swift */,
 				14D6FEEF1E9E17B70038C7D1 /* KeychainTool.swift */,
 				14D6FF091E9F4F230038C7D1 /* JokeHelper.swift */,
-				1425B48A1EA0B20100ED36A8 /* SafeHelper.swift */,
 				1471CB261EAEF28900226C56 /* XHCustomSegue.swift */,
 				1471CB281EAF0B9600226C56 /* XHUploadImagesHelper.swift */,
 				1471CB2A1EAF2A9F00226C56 /* XHImageCompressHelper.swift */,
@@ -953,7 +950,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = cn;
 				TargetAttributes = {
 					14D6FE0B1E9E0DEE0038C7D1 = {
@@ -1105,7 +1102,6 @@
 				14D6FEC51E9E0FFC0038C7D1 /* MLSquareViewController.swift in Sources */,
 				14D6FE951E9E0FFC0038C7D1 /* MLAPPStartRequest.swift in Sources */,
 				14D6FEAA1E9E0FFC0038C7D1 /* MLDiscoverHeaderCell.swift in Sources */,
-				1425B48B1EA0B20100ED36A8 /* SafeHelper.swift in Sources */,
 				1488B5D91EA4B0E10096B0BE /* AppDelegate.swift in Sources */,
 				14D6FEC61E9E0FFC0038C7D1 /* MLTopicDetailController.swift in Sources */,
 				14CD209A1EB869E700F0B920 /* String+Emoji.swift in Sources */,
@@ -1218,7 +1214,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1226,7 +1224,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1269,7 +1271,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1277,7 +1281,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1326,7 +1334,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MissGe/MissGe-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1352,7 +1360,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.itwu.MissGe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MissGe/MissGe-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

@@ -243,7 +243,7 @@ class MLTopicCommentCellBodyView: UIView {
     }
     
     
-    func tapIcon(sender: UITapGestureRecognizer) {
+    @objc func tapIcon(sender: UITapGestureRecognizer) {
         //let sender = sender as! UITapGestureRecognizer
         if (sender.state == UIGestureRecognizerState.ended) {
             let p = sender.location(in: iconImageView)

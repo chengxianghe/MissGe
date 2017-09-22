@@ -143,11 +143,11 @@ class ShareManager: NSObject,UITableViewDelegate {
     }
     
     // 不能直接selector调用 会默认传参...
-    func tapHideShareView() {
+    @objc func tapHideShareView() {
         self.hideShareView()
     }
     
-    func shareBtClicked(_ btn: UIButton) {
+    @objc func shareBtClicked(_ btn: UIButton) {
         self.hideShareView { (finished) in
             self.shareBlock?(ShareType(rawValue: btn.tag - 2000)!)
         }
