@@ -80,7 +80,7 @@ typedef NS_ENUM(NSUInteger, XHSingleTapOption) {
  *  @param index        当前图片的index
  *  @param deleteBlock  删除操作的闭包(更新内部UI)
  */
-- (void)xh_photoBrowserDidTapDelete:(XHPhotoBrowser * _Nonnull)photoBrowser photoAtIndex:(NSInteger)index deleteBlock:(void(^)())deleteBlock;
+- (void)xh_photoBrowserDidTapDelete:(XHPhotoBrowser * _Nonnull)photoBrowser photoAtIndex:(NSInteger)index deleteBlock:(void(^)(void))deleteBlock;
 
 /**
  *  单击相册图片的回调
@@ -205,6 +205,16 @@ typedef NS_ENUM(NSUInteger, XHSingleTapOption) {
  *  是否正在展示Browser
  */
 @property (nonatomic, assign, readonly) BOOL isPresented;
+
+/**
+ *  适配iPhone X 是否全屏展示（包含安全区域，只在iPhone X上生效）默认 YES
+ */
+@property (nonatomic, assign) BOOL isFullScreen;
+
+/**
+ *  适配iPhone X 是否全屏展示按钮文字（包含安全区域，只在iPhone X上生效）默认 NO
+ */
+@property (nonatomic, assign) BOOL isFullScreenWord;
 
 #pragma mark - 初始化
 

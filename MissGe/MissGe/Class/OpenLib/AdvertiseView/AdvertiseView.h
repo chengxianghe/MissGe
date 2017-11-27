@@ -13,7 +13,7 @@ static NSString *const adUrl = @"ad_image_url";
 static NSString *const adImage = @"ad_image";
 static NSString *const pushNotiName = @"push_to_root";
 
-typedef void(^AdBlock)();
+typedef void(^AdBlock)(void);
 
 @interface AdvertiseView : UIView
 

@@ -14,43 +14,44 @@ static NSString *const kLayerAnimationKey = @"yytest.fade";
 
 @implementation XHPhotoBrowserCell
 
-- (instancetype)init {
-    self = super.init;
-    if (!self) return nil;
-    self.delegate = self;
-    self.bouncesZoom = YES;
-    self.maximumZoomScale = 3;
-    self.multipleTouchEnabled = YES;
-    self.alwaysBounceVertical = NO;
-    self.showsVerticalScrollIndicator = YES;
-    self.showsHorizontalScrollIndicator = NO;
-    self.frame = [UIScreen mainScreen].bounds;
-    
-    _imageContainerView = [UIView new];
-    _imageContainerView.clipsToBounds = YES;
-    [self addSubview:_imageContainerView];
-   
-    _imageView = [YYAnimatedImageView new];
-    _imageView.clipsToBounds = YES;
-    _imageView.backgroundColor = [UIColor colorWithWhite:1.000 alpha:0.500];
-    [_imageContainerView addSubview:_imageView];
-    
-    _progressLayer = [CAShapeLayer layer];
-    CGRect frame = _progressLayer.frame;
-    frame.size = CGSizeMake(40, 40);
-    _progressLayer.frame = frame;
-    _progressLayer.cornerRadius = 20;
-    _progressLayer.backgroundColor = [UIColor colorWithWhite:0.000 alpha:0.500].CGColor;
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectInset(_progressLayer.bounds, 7, 7) cornerRadius:(40 / 2 - 7)];
-    _progressLayer.path = path.CGPath;
-    _progressLayer.fillColor = [UIColor clearColor].CGColor;
-    _progressLayer.strokeColor = [UIColor whiteColor].CGColor;
-    _progressLayer.lineWidth = 4;
-    _progressLayer.lineCap = kCALineCapRound;
-    _progressLayer.strokeStart = 0;
-    _progressLayer.strokeEnd = 0;
-    _progressLayer.hidden = YES;
-    [self.layer addSublayer:_progressLayer];
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.delegate = self;
+        self.bouncesZoom = YES;
+        self.maximumZoomScale = 3;
+        self.multipleTouchEnabled = YES;
+        self.alwaysBounceVertical = NO;
+        self.showsVerticalScrollIndicator = YES;
+        self.showsHorizontalScrollIndicator = NO;
+        self.frame = frame;
+        
+        _imageContainerView = [UIView new];
+        _imageContainerView.clipsToBounds = YES;
+        [self addSubview:_imageContainerView];
+        
+        _imageView = [YYAnimatedImageView new];
+        _imageView.clipsToBounds = YES;
+        _imageView.backgroundColor = [UIColor colorWithWhite:1.000 alpha:0.500];
+        [_imageContainerView addSubview:_imageView];
+        
+        _progressLayer = [CAShapeLayer layer];
+        CGRect progressFrame = _progressLayer.frame;
+        progressFrame.size = CGSizeMake(40, 40);
+        _progressLayer.frame = progressFrame;
+        _progressLayer.cornerRadius = 20;
+        _progressLayer.backgroundColor = [UIColor colorWithWhite:0.000 alpha:0.500].CGColor;
+        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectInset(_progressLayer.bounds, 7, 7) cornerRadius:(40 / 2 - 7)];
+        _progressLayer.path = path.CGPath;
+        _progressLayer.fillColor = [UIColor clearColor].CGColor;
+        _progressLayer.strokeColor = [UIColor whiteColor].CGColor;
+        _progressLayer.lineWidth = 4;
+        _progressLayer.lineCap = kCALineCapRound;
+        _progressLayer.strokeStart = 0;
+        _progressLayer.strokeEnd = 0;
+        _progressLayer.hidden = YES;
+        [self.layer addSublayer:_progressLayer];
+    }
     return self;
 }
 

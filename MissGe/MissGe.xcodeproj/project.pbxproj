@@ -29,6 +29,7 @@
 		1417A9ED1EA72E1F003931C5 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1417A9EC1EA72E1F003931C5 /* libz.tbd */; };
 		1417A9EF1EA72E33003931C5 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1417A9EE1EA72E33003931C5 /* libstdc++.tbd */; };
 		1417A9F21EA72E78003931C5 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1417A9F11EA72E78003931C5 /* UIColorExtension.swift */; };
+		143AA8F01F989E1300E05D0F /* TUSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143AA8EF1F989E1300E05D0F /* TUSearchBar.swift */; };
 		144B6A0D1EA451A70000BB1B /* TZTestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144B6A0C1EA451A70000BB1B /* TZTestCell.swift */; };
 		1471CB271EAEF28900226C56 /* XHCustomSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1471CB261EAEF28900226C56 /* XHCustomSegue.swift */; };
 		1471CB291EAF0B9600226C56 /* XHUploadImagesHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1471CB281EAF0B9600226C56 /* XHUploadImagesHelper.swift */; };
@@ -98,7 +99,6 @@
 		14D6FEB41E9E0FFC0038C7D1 /* MLRegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE6B1E9E0FFC0038C7D1 /* MLRegisterController.swift */; };
 		14D6FEB51E9E0FFC0038C7D1 /* MLDiscoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE6D1E9E0FFC0038C7D1 /* MLDiscoverController.swift */; };
 		14D6FEB61E9E0FFC0038C7D1 /* MLDiscoverMoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE6E1E9E0FFC0038C7D1 /* MLDiscoverMoreController.swift */; };
-		14D6FEB71E9E0FFC0038C7D1 /* MLSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE6F1E9E0FFC0038C7D1 /* MLSearchController.swift */; };
 		14D6FEB81E9E0FFC0038C7D1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE711E9E0FFC0038C7D1 /* HomeViewController.swift */; };
 		14D6FEB91E9E0FFC0038C7D1 /* MLHomeCommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE721E9E0FFC0038C7D1 /* MLHomeCommentController.swift */; };
 		14D6FEBA1E9E0FFC0038C7D1 /* MLHomeDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE731E9E0FFC0038C7D1 /* MLHomeDetailController.swift */; };
@@ -119,7 +119,6 @@
 		14D6FEE81E9E171A0038C7D1 /* HomeDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14D6FEDF1E9E171A0038C7D1 /* HomeDetail.storyboard */; };
 		14D6FEE91E9E171A0038C7D1 /* Protocol.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14D6FEE01E9E171A0038C7D1 /* Protocol.storyboard */; };
 		14D6FEEA1E9E171A0038C7D1 /* Publish.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14D6FEE11E9E171A0038C7D1 /* Publish.storyboard */; };
-		14D6FEEB1E9E171A0038C7D1 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14D6FEE21E9E171A0038C7D1 /* Search.storyboard */; };
 		14D6FEEC1E9E171A0038C7D1 /* Subject.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14D6FEE31E9E171A0038C7D1 /* Subject.storyboard */; };
 		14D6FEED1E9E171A0038C7D1 /* TopicDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14D6FEE41E9E171A0038C7D1 /* TopicDetail.storyboard */; };
 		14D6FEEE1E9E171A0038C7D1 /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14D6FEE51E9E171A0038C7D1 /* User.storyboard */; };
@@ -178,6 +177,7 @@
 		1417A9EC1EA72E1F003931C5 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		1417A9EE1EA72E33003931C5 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		1417A9F11EA72E78003931C5 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		143AA8EF1F989E1300E05D0F /* TUSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUSearchBar.swift; sourceTree = "<group>"; };
 		144B6A0C1EA451A70000BB1B /* TZTestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TZTestCell.swift; sourceTree = "<group>"; };
 		1471CB261EAEF28900226C56 /* XHCustomSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XHCustomSegue.swift; sourceTree = "<group>"; };
 		1471CB281EAF0B9600226C56 /* XHUploadImagesHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XHUploadImagesHelper.swift; sourceTree = "<group>"; };
@@ -250,7 +250,6 @@
 		14D6FE6B1E9E0FFC0038C7D1 /* MLRegisterController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLRegisterController.swift; sourceTree = "<group>"; };
 		14D6FE6D1E9E0FFC0038C7D1 /* MLDiscoverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLDiscoverController.swift; sourceTree = "<group>"; };
 		14D6FE6E1E9E0FFC0038C7D1 /* MLDiscoverMoreController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLDiscoverMoreController.swift; sourceTree = "<group>"; };
-		14D6FE6F1E9E0FFC0038C7D1 /* MLSearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLSearchController.swift; sourceTree = "<group>"; };
 		14D6FE711E9E0FFC0038C7D1 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		14D6FE721E9E0FFC0038C7D1 /* MLHomeCommentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLHomeCommentController.swift; sourceTree = "<group>"; };
 		14D6FE731E9E0FFC0038C7D1 /* MLHomeDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLHomeDetailController.swift; sourceTree = "<group>"; };
@@ -271,7 +270,6 @@
 		14D6FEDF1E9E171A0038C7D1 /* HomeDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = HomeDetail.storyboard; sourceTree = "<group>"; };
 		14D6FEE01E9E171A0038C7D1 /* Protocol.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Protocol.storyboard; sourceTree = "<group>"; };
 		14D6FEE11E9E171A0038C7D1 /* Publish.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Publish.storyboard; sourceTree = "<group>"; };
-		14D6FEE21E9E171A0038C7D1 /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		14D6FEE31E9E171A0038C7D1 /* Subject.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Subject.storyboard; sourceTree = "<group>"; };
 		14D6FEE41E9E171A0038C7D1 /* TopicDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TopicDetail.storyboard; sourceTree = "<group>"; };
 		14D6FEE51E9E171A0038C7D1 /* User.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
@@ -422,6 +420,14 @@
 				1417A9F11EA72E78003931C5 /* UIColorExtension.swift */,
 			);
 			path = Color;
+			sourceTree = "<group>";
+		};
+		143AA8EE1F989DFB00E05D0F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				143AA8EF1F989E1300E05D0F /* TUSearchBar.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		1488B5DA1EA4B8CF0096B0BE /* Resource */ = {
@@ -672,6 +678,7 @@
 		14D6FE551E9E0FFC0038C7D1 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				143AA8EE1F989DFB00E05D0F /* View */,
 				14D6FE561E9E0FFC0038C7D1 /* Base */,
 				14D6FE5D1E9E0FFC0038C7D1 /* Cell */,
 				14D6FE671E9E0FFC0038C7D1 /* Controller */,
@@ -738,7 +745,6 @@
 			children = (
 				14D6FE6D1E9E0FFC0038C7D1 /* MLDiscoverController.swift */,
 				14D6FE6E1E9E0FFC0038C7D1 /* MLDiscoverMoreController.swift */,
-				14D6FE6F1E9E0FFC0038C7D1 /* MLSearchController.swift */,
 			);
 			path = Discover;
 			sourceTree = "<group>";
@@ -791,7 +797,6 @@
 				14D6FEDF1E9E171A0038C7D1 /* HomeDetail.storyboard */,
 				14D6FEE01E9E171A0038C7D1 /* Protocol.storyboard */,
 				14D6FEE11E9E171A0038C7D1 /* Publish.storyboard */,
-				14D6FEE21E9E171A0038C7D1 /* Search.storyboard */,
 				14D6FEE31E9E171A0038C7D1 /* Subject.storyboard */,
 				14D6FEE41E9E171A0038C7D1 /* TopicDetail.storyboard */,
 				14D6FEE51E9E171A0038C7D1 /* User.storyboard */,
@@ -999,7 +1004,6 @@
 				1488B5DD1EA4B8CF0096B0BE /* Agreement.txt in Resources */,
 				14D6FEE71E9E171A0038C7D1 /* HomeComment.storyboard in Resources */,
 				1417A9E61EA72DED003931C5 /* WeiXinActivity.strings in Resources */,
-				14D6FEEB1E9E171A0038C7D1 /* Search.storyboard in Resources */,
 				14D6FEE91E9E171A0038C7D1 /* Protocol.storyboard in Resources */,
 				14D6FEE61E9E171A0038C7D1 /* Account.storyboard in Resources */,
 				14D6FEED1E9E171A0038C7D1 /* TopicDetail.storyboard in Resources */,
@@ -1019,13 +1023,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MissGe-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D074402B43708EFC9CEA36FB /* [CP] Embed Pods Frameworks */ = {
@@ -1034,9 +1041,38 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MissGe/Pods-MissGe-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/ESTabBarController-swift/ESTabBarController_swift.framework",
+				"${BUILT_PRODUCTS_DIR}/FXBlurView/FXBlurView.framework",
+				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/TUNetworking/TUNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/TU_TZImagePickerController/TU_TZImagePickerController.framework",
+				"${BUILT_PRODUCTS_DIR}/XHPhotoBrowser/XHPhotoBrowser.framework",
+				"${BUILT_PRODUCTS_DIR}/YYCache/YYCache.framework",
+				"${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework",
+				"${BUILT_PRODUCTS_DIR}/YYText/YYText.framework",
+				"${BUILT_PRODUCTS_DIR}/YYWebImage/YYWebImage.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ESTabBarController_swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FXBlurView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TUNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TU_TZImagePickerController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XHPhotoBrowser.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCache.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYText.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYWebImage.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1049,9 +1085,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MissGe/Pods-MissGe-resources.sh",
+				"${PODS_ROOT}/Bugtags/Bugtags.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1085,7 +1124,6 @@
 				14D6FE881E9E0FFC0038C7D1 /* NormalHeaderExt.swift in Sources */,
 				14D6FE8B1E9E0FFC0038C7D1 /* UIViewCornerExt.swift in Sources */,
 				14D6FEAF1E9E0FFC0038C7D1 /* MLTopicCommentCell.swift in Sources */,
-				14D6FEB71E9E0FFC0038C7D1 /* MLSearchController.swift in Sources */,
 				1417A9B51EA70CE9003931C5 /* TUBaseTableViewCell.swift in Sources */,
 				14D6FEB91E9E0FFC0038C7D1 /* MLHomeCommentController.swift in Sources */,
 				14D6FE931E9E0FFC0038C7D1 /* MLDiscoverRequest.swift in Sources */,
@@ -1153,6 +1191,7 @@
 				1417A9DA1EA72DED003931C5 /* QQShareDelegate.swift in Sources */,
 				1471CB271EAEF28900226C56 /* XHCustomSegue.swift in Sources */,
 				14D6FF0A1E9F4F230038C7D1 /* JokeHelper.swift in Sources */,
+				143AA8F01F989E1300E05D0F /* TUSearchBar.swift in Sources */,
 				14D6FF081E9F4AB20038C7D1 /* MLDiscoverTagModel.swift in Sources */,
 				14D6FE9A1E9E0FFC0038C7D1 /* MLHomeFavoriteRequest.swift in Sources */,
 				14D6FE941E9E0FFC0038C7D1 /* HomePageRequest.swift in Sources */,
@@ -1323,7 +1362,7 @@
 					"$(PROJECT_DIR)/MissGe/Share/QQ",
 				);
 				INFOPLIST_FILE = MissGe/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1350,7 +1389,7 @@
 					"$(PROJECT_DIR)/MissGe/Share/QQ",
 				);
 				INFOPLIST_FILE = MissGe/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

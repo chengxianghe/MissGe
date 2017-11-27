@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "XHPhotoBrowser.h"
 
-typedef void(^XHPhotoBrowserControllerOnMoreBlock)();
+typedef void(^XHPhotoBrowserControllerOnMoreBlock)(void);
 
 @interface XHPhotoBrowserController : UIViewController
 
@@ -17,6 +17,9 @@ typedef void(^XHPhotoBrowserControllerOnMoreBlock)();
 
 /** 是否在viewDidload时加载图片浏览器(默认YES) */
 @property (nonatomic, assign) BOOL showBrowserWhenDidload;
+
+/** 一直显示状态栏(默认YES，横屏的时候跟随系统，推荐iPhone X上设置为YES) */
+@property (nonatomic, assign) BOOL alwaysShowStatusBar;
 
 /** 初始化数据 */
 @property (nonatomic, strong, nullable) NSArray<__kindof id <XHPhotoProtocol>> *groupItems;

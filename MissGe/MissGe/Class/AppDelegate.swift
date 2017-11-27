@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         SVProgressHUD.JCHUDConfig()
         
         let navigationBarAppearance = UINavigationBar.appearance() as UINavigationBar
-        navigationBarAppearance.setBackgroundImage(UIImage(named: "nav_bg_320x64_"), for: UIBarMetrics.default)
+        navigationBarAppearance.setBackgroundImage(UIImage(named: "nav_bg_320x64_")?.stretchableImage(withLeftCapWidth: 5, topCapHeight: 5), for: UIBarMetrics.default)
         navigationBarAppearance.isTranslucent = false
         
         navigationBarAppearance.tintColor = kColorFromHexA(0xffffff)

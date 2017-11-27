@@ -1,23 +1,31 @@
 # XHPhotoBrowser
 photo browser
 
-===
+-----
 - 用 Objective-C 实现的photo browser的效果, 基于YYKit的Demo中的一个photoView改造而来, 仅供学习交流使用. 
 - 项目依赖[YYWebImage](https://github.com/ibireme/YYWebImage)
 - 支持 ARC 和 CocoaPods 
 - iOS 8.0 (理论上iOS7.0也没问题, 但是我没有设备测试,所以...)
-- 编译环境 Xcode 8.0, Swift 3.0
+- 编译环境 Xcode 9.0, Swift 4.0
 
-===
+-----
 
-###CocoaPods:
+### CocoaPods:
 
 `pod 'XHPhotoBrowser'`
 
 
-###有什么问题请issue我
+### 有什么问题请issue我
 
 GitHub：[chengxianghe](https://github.com/chengxianghe) 
+
+## Version 1.1.1:
+- 适配iOS11
+- 适配iPhone X界面
+- 使用Xcode 9.0, Swift 4.0重新编译
+- XHPhotoBrowserController 改用自定义的导航栏（这导致在XHPhotoBrowserController中侧滑返回手势失效）
+- Demo升级Swift 4.0
+
 
 ## Version 1.0.8:
 - 修复BrowserController打开时候有动画卡顿的问题
@@ -42,27 +50,23 @@ GitHub：[chengxianghe](https://github.com/chengxianghe)
 - 支持push一个controller的形式展示,请参照demo;
 - 其余的功能请参照预览图;
 
-## Features (TODO)
-
-- [ ] 背景blur开启的时候,转屏总是有点卡,目前还没有好的方案...
-
 ## Screenshots
 
-####开启blur预览图
+#### 开启blur预览图
 <img src="https://github.com/chengxianghe/watch-gif/blob/master/photobrower1.png?raw=true" width = "200" alt="开启blur预览图" align=center />
 
-####以controller形式的展示
+#### 以controller形式的展示
 <img src="https://github.com/chengxianghe/watch-gif/blob/master/photobrower2.png?raw=true" width = "200" alt="以controller形式的展示" align=center />
 
-####关闭blur 显示caption
+#### 关闭blur 显示caption
 <img src="https://github.com/chengxianghe/watch-gif/blob/master/photobrower3.png?raw=true" width = "200" alt="关闭blur 显示caption" align=center />
 
 - GIF
 
-####总体预览图
+#### 总体预览图
 ![image](https://github.com/chengxianghe/watch-gif/blob/master/photobrower1.gif?raw=true)
 
-####blur预览图
+#### blur预览图
 ![image](https://github.com/chengxianghe/watch-gif/blob/master/photobrower2.gif?raw=true)
 
 #### Opensource libraries used

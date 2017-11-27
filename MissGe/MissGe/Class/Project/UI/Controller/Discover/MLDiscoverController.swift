@@ -10,7 +10,7 @@ import UIKit
 import MJRefresh
 import ObjectMapper
 
-class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate {
 
     @IBOutlet var navView: UIView!
     @IBOutlet var navContentView: UIView!
@@ -38,10 +38,18 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIC
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.white
 
-        self.navView.frame = CGRect(x: 10, y: 7, width: kScreenWidth - 20, height: 30)
+        let searchBar = UISearchBar.init(frame: CGRect.init(x: 10, y: 10, width: kScreenWidth - 20, height: 30))
+//        searchBar.searchBarStyle = .minimal;
+//        searchBar.contentInset = UIEdgeInsetsMake(10, 20, 10, 20)
+        searchBar.tintColor = UIColor.white
+        searchBar.placeholder = "搜索"
+        searchBar.delegate = self
+//        self.navView.frame = CGRect(x: 10, y: 7, width: kScreenWidth - 20, height: 30)
 //        self.navigationController?.navigationBar.addSubview(self.navView)
-        self.navigationItem.titleView = self.navView;
+        self.navigationItem.titleView = searchBar;
+        
         
         let titleHeight = ceil((kScreenWidth - 20) / 305 * 16)
         let collectionViewLineSpace = collectionViewLayout.minimumLineSpacing
@@ -200,6 +208,10 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIC
 //   
 //    }
 
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.performSegue(withIdentifier: "SearchToSubject", sender: searchBar.text)
+    }
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
@@ -231,6 +243,13 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIC
             vc.subjectType = .banner
             vc.path = model.cover
         }
+        
+        else if segue.identifier == "SearchToSubject" {
+            let vc = segue.destination as! MLHomeSubjectController
+            vc.tag_id = sender as! String
+            vc.subjectType = .search
+        }
+        
 //        else if segue.identifier == "DiscoverToSearch" {
 //            let vc = segue.destination as! MLSearchController
 //        }

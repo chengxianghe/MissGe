@@ -73,7 +73,7 @@ class MLTopicDetailController: BaseViewController, UITableViewDelegate, UITableV
             guard let _self = self else {
                 return
             }
-            if _self.tableView.mj_footer.isRefreshing() {
+            if _self.tableView.mj_footer.isRefreshing {
                 return
             }
             _self.loadData(1)
@@ -83,7 +83,7 @@ class MLTopicDetailController: BaseViewController, UITableViewDelegate, UITableV
             guard let _self = self else {
                 return
             }
-            if _self.tableView.mj_header.isRefreshing() {
+            if _self.tableView.mj_header.isRefreshing {
                 return
             }
             _self.loadData(_self.currentIndex + 1)

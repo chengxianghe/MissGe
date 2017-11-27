@@ -30,14 +30,14 @@ class MLMineFavoriteController: BaseViewController, UITableViewDelegate, UITable
     func configRefresh() {
         
         self.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {[unowned self] () -> Void in
-            if self.tableView.mj_footer.isRefreshing() {
+            if self.tableView.mj_footer.isRefreshing {
                 return
             }
             self.loadData(1)
         })
         
         self.tableView.mj_footer = MJRefreshAutoNormalFooter(refreshingBlock: {[unowned self] () -> Void in
-            if self.tableView.mj_header.isRefreshing() {
+            if self.tableView.mj_header.isRefreshing {
                 return
             }
             self.loadData(self.currentIndex + 1)

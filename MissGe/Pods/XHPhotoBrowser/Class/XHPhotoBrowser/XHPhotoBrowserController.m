@@ -9,28 +9,17 @@
 #import "XHPhotoBrowserController.h"
 #import "XHPhotoBrowserHeader.h"
 
-@interface XHPhotoBrowserController () <XHPhotoBrowserDelegate, XHPhotoBrowserDataSource>
-{
-    BOOL _didSavePreviousStateOfNavBar;
-    BOOL _viewIsActive;
-    BOOL _leaveStatusBarAlone;
-    BOOL _viewHasAppearedInitially;
-    
-    // Appearance
+@interface XHPhotoBrowserController () <XHPhotoBrowserDelegate, XHPhotoBrowserDataSource> {
     BOOL _previousNavBarHidden;
-    BOOL _previousNavBarTranslucent;
-    UIBarStyle _previousNavBarStyle;
-    UIStatusBarStyle _previousStatusBarStyle;
-    UIColor *_previousNavBarTintColor;
-    UIColor *_previousNavBarBarTintColor;
-    UIBarButtonItem *_previousViewControllerBackButton;
-    UIImage *_previousNavigationBarBackgroundImageDefault;
-    UIImage *_previousNavigationBarBackgroundImageLandscapePhone;
-
 }
 
 @property (nonatomic, assign) BOOL statusBarHidden;
 @property (nonatomic, assign) BOOL navBarAnimating;
+@property (nonatomic, strong) UIView *customNavView;
+@property (nonatomic, strong) UIButton *rightBtn;
+@property (nonatomic, strong) UIButton *backBtn;
+
+@property (nonatomic, strong) UILabel *customNavTitleLabel;
 
 @end
 
@@ -58,8 +47,8 @@
 - (void)_initialisation {
     self.hidesBottomBarWhenPushed = YES;
     _showBrowserWhenDidload = YES;
-    _viewIsActive = NO;
-    _didSavePreviousStateOfNavBar = NO;
+    _previousNavBarHidden = self.navigationController.navigationBar.hidden;
+    _alwaysShowStatusBar = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     XHPhotoBrowser *browser = [[XHPhotoBrowser alloc] init];
@@ -73,95 +62,25 @@
     browser.blurEffectBackground = NO;
     browser.showToolBarWhenScroll = NO;
     browser.showCaptionWhenScroll = NO;
+    browser.isFullScreen = NO;
+    browser.isFullScreenWord = NO;
     browser.singleTapOption = XHSingleTapOptionNone;
     browser.pager.style = XHPageControlStyleNone;
     _browser = browser;
 }
 
-#pragma mark - Appearance
-
-- (BOOL)presentingViewControllerPrefersStatusBarHidden {
-    UIViewController *presenting = self.presentingViewController;
-    if (presenting) {
-        if ([presenting isKindOfClass:[UINavigationController class]]) {
-            presenting = [(UINavigationController *)presenting topViewController];
-        }
-    } else {
-        // We're in a navigation controller so get previous one!
-        if (self.navigationController && self.navigationController.viewControllers.count > 1) {
-            presenting = [self.navigationController.viewControllers objectAtIndex:self.navigationController.viewControllers.count-2];
-        }
-    }
-    if (presenting) {
-        return [presenting prefersStatusBarHidden];
-    } else {
-        return NO;
-    }
-}
-
 - (void)viewWillAppear:(BOOL)animated {
-    // Super
     [super viewWillAppear:animated];
-    
-    // Status bar
-    if (!_viewHasAppearedInitially) {
-        _leaveStatusBarAlone = [self presentingViewControllerPrefersStatusBarHidden];
-        // Check if status bar is hidden on first appear, and if so then ignore it
-        if (CGRectEqualToRect([[UIApplication sharedApplication] statusBarFrame], CGRectZero)) {
-            _leaveStatusBarAlone = YES;
-        }
+    if (!_previousNavBarHidden) {
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
     }
-    // Set style
-    if (!_leaveStatusBarAlone && UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        _previousStatusBarStyle = [[UIApplication sharedApplication] statusBarStyle];
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:animated];
-    }
-    
-    // Navigation bar appearance
-    if (!_viewIsActive && [self.navigationController.viewControllers objectAtIndex:0] != self) {
-        [self storePreviousNavBarAppearance];
-    }
-    [self setNavBarAppearance:animated];
-    
-    // Layout
-    [self.view setNeedsLayout];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    _viewIsActive = YES;
-    _viewHasAppearedInitially = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    
-    // Check that we're disappearing for good
-    // self.isMovingFromParentViewController just doesn't work, ever. Or self.isBeingDismissed
-    // old:   if ((self.navigationController.isBeingDismissed) ||
-    // ([self.navigationController.viewControllers objectAtIndex:0] != self && ![self.navigationController.viewControllers containsObject:self])) {
-    
-    if ((self.navigationController.isBeingDismissed) ||
-        ([self.navigationController.viewControllers objectAtIndex:0] != self)) {
-        
-        // State
-        _viewIsActive = NO;
-        
-        // Bar state / appearance
-        [self restorePreviousNavBarAppearance:animated];
-    }
-    
-    // Controls
-    [self.navigationController.navigationBar.layer removeAllAnimations]; // Stop all animations on nav bar
-    [NSObject cancelPreviousPerformRequestsWithTarget:self]; // Cancel any pending toggles from taps
-    
-    // Status bar
-    if (!_leaveStatusBarAlone && UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        [[UIApplication sharedApplication] setStatusBarStyle:_previousStatusBarStyle animated:animated];
-    }
-    
-    // Super
     [super viewWillDisappear:animated];
-    
+    if (!_previousNavBarHidden) {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    }
 }
 
 - (void)viewDidLoad {
@@ -169,35 +88,92 @@
     
     self.view.backgroundColor = [UIColor blackColor];
     
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(0, 0, 40, 40);
+    CGFloat navH = kIs_Inch5_8 ? 88 : 64;
 
+    if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) && [UIApplication sharedApplication].isStatusBarHidden) {
+        navH = 44;
+    }
+    CGFloat statusH = kStatusBarHeight;
+    
+    self.customNavView = [[UIView alloc] init];
+    [self.customNavView setFrame:CGRectMake(0, 0, kScreenWidth, navH)];
+    self.customNavView.backgroundColor = [UIColor blackColor];
+    self.customNavView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+
+    [self.view addSubview:self.customNavView];
+    
+    UILabel *titleLabel = [[UILabel alloc] init];
+    self.customNavTitleLabel = titleLabel;
+    [titleLabel setTextColor:[UIColor whiteColor]];
+    [titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [titleLabel setFont:[UIFont boldSystemFontOfSize:16.0]];
+    [titleLabel setFrame:CGRectMake(0, 0, 200, 40)];
+    [titleLabel setCenter:CGPointMake(kScreenWidth * 0.5, (navH + statusH) * 0.5)];
+    [self.customNavView addSubview:titleLabel];
+    if (!kIs_Inch5_8) {
+        titleLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
+    }
+
+    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.rightBtn = rightBtn;
     if (self.rightImage == nil) {
         self.rightImage = [UIImage imageNamed:@"XHPhotoBrowser.bundle/images/btn_common_more_wh"];
     }
-    [btn setImage:self.rightImage forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(onMore:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *toolActionButton = [[UIBarButtonItem alloc] initWithCustomView:btn];
-    self.navigationItem.rightBarButtonItem = toolActionButton;
-
+    [rightBtn setFrame:CGRectMake(kScreenWidth - 50, statusH, 40, 40)];
+    [rightBtn setImage:self.rightImage forState:UIControlStateNormal];
+    [rightBtn addTarget:self action:@selector(onMore:) forControlEvents:UIControlEventTouchUpInside];
+    [self.customNavView addSubview:rightBtn];
+    [rightBtn setCenter:CGPointMake(kScreenWidth - 30, (navH + statusH) * 0.5)];
+    if (kIs_Inch5_8) {
+        if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+            rightBtn.xh_left = kScreenWidth - 50 - k_IPhoneX_SafeWidth;
+        }
+    } else {
+        rightBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+    }
+    
+    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.backBtn = backBtn;
+    [backBtn setFrame:CGRectMake(5, statusH + 10, 30, 20)];
+    [backBtn.imageView setContentMode:UIViewContentModeScaleAspectFit];
+    [backBtn setImage:[UIImage imageNamed:@"XHPhotoBrowser.bundle/images/btn_common_back_wh"] forState:UIControlStateNormal];
+    [backBtn addTarget:self action:@selector(onBack:) forControlEvents:UIControlEventTouchUpInside];
+    [backBtn setCenter:CGPointMake(18, (navH + statusH) * 0.5)];
+    [self.customNavView addSubview:backBtn];
+    if (kIs_Inch5_8) {
+        if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+            backBtn.xh_left = k_IPhoneX_SafeWidth;
+        }
+    } else {
+        backBtn.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
+    }
+    
     self.browser.fromItemIndex = self.fromItemIndex;
-
     if (_showBrowserWhenDidload) {
         [_browser showInContaioner:self.view animated:NO completion:nil];
     }
+    
+    // 适配屏幕旋转
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(statusBarOrientationChange:)name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    self.navigationController.navigationBar.xh_top = self.statusBarHidden ? -self.navigationController.navigationBar.xh_height : [UIApplication sharedApplication].statusBarFrame.size.height;
+    if (!self.statusBarHidden) {
+        [self.view bringSubviewToFront:self.customNavView];
+    }
 }
 
 #pragma mark - Action
 
-- (void)onMore:(UIBarButtonItem *)sender {
+- (void)onMore:(id)sender {
     if (_moreBlock) {
         _moreBlock();
     }
+}
+
+- (void)onBack:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - UIStatusBar
@@ -207,7 +183,7 @@
 }
 
 - (BOOL)prefersStatusBarHidden {
-    return _statusBarHidden;
+    return _alwaysShowStatusBar ? NO : _statusBarHidden;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -224,63 +200,33 @@
     return UIInterfaceOrientationMaskAll;
 }
 
-#pragma mark - Nav Bar Appearance
+// MARK: - NSNotification 屏幕旋转
+- (void)statusBarOrientationChange:(NSNotification *)notification{
 
-- (void)setNavBarAppearance:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
-    UINavigationBar *navBar = self.navigationController.navigationBar;
-    navBar.tintColor = [UIColor whiteColor];
-    navBar.barTintColor = [UIColor clearColor];
-    navBar.shadowImage = nil;
-    navBar.translucent = YES;
-    navBar.barStyle = UIBarStyleBlackTranslucent;
-
-    [navBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-#ifdef __IPHONE_8_0
-    [navBar setBackgroundImage:nil forBarMetrics:UIBarMetricsCompact];
-#else
-    [navBar setBackgroundImage:nil forBarMetrics:UIBarMetricsLandscapePhone];
-#endif
-}
-
-- (void)storePreviousNavBarAppearance {
-    _didSavePreviousStateOfNavBar = YES;
-    _previousNavBarBarTintColor = self.navigationController.navigationBar.barTintColor;
-    _previousNavBarTranslucent = self.navigationController.navigationBar.translucent;
-    _previousNavBarTintColor = self.navigationController.navigationBar.tintColor;
-    _previousNavBarHidden = self.navigationController.navigationBarHidden;
-    _previousNavBarStyle = self.navigationController.navigationBar.barStyle;
-    _previousNavigationBarBackgroundImageDefault = [self.navigationController.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault];
-    
-#ifdef __IPHONE_8_0
-    _previousNavigationBarBackgroundImageLandscapePhone = [self.navigationController.navigationBar backgroundImageForBarMetrics:UIBarMetricsCompact];
-#else
-    _previousNavigationBarBackgroundImageLandscapePhone = [self.navigationController.navigationBar backgroundImageForBarMetrics:UIBarMetricsLandscapePhone];
-#endif
-}
-
-- (void)restorePreviousNavBarAppearance:(BOOL)animated {
-    if (_didSavePreviousStateOfNavBar) {
-        [self.navigationController setNavigationBarHidden:_previousNavBarHidden animated:animated];
-        UINavigationBar *navBar = self.navigationController.navigationBar;
-        navBar.tintColor = _previousNavBarTintColor;
-        navBar.translucent = _previousNavBarTranslucent;
-        navBar.barTintColor = _previousNavBarBarTintColor;
-        navBar.barStyle = _previousNavBarStyle;
-        [navBar setBackgroundImage:_previousNavigationBarBackgroundImageDefault forBarMetrics:UIBarMetricsDefault];
-        
-#ifdef __IPHONE_8_0
-        [navBar setBackgroundImage:_previousNavigationBarBackgroundImageLandscapePhone forBarMetrics:UIBarMetricsCompact];
-#else
-        [navBar setBackgroundImage:_previousNavigationBarBackgroundImageLandscapePhone forBarMetrics:UIBarMetricsLandscapePhone];
-#endif
-        // Restore back button if we need to
-        if (_previousViewControllerBackButton) {
-            UIViewController *previousViewController = [self.navigationController topViewController]; // We've disappeared so previous is now top
-            previousViewController.navigationItem.backBarButtonItem = _previousViewControllerBackButton;
-            _previousViewControllerBackButton = nil;
+    CGFloat statusH = kStatusBarHeight;
+    if (!kIs_Inch5_8) {
+        CGFloat navH = 64;
+        if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) && [UIApplication sharedApplication].isStatusBarHidden) {
+            navH = 44;
+        }
+        [self.customNavView setFrame:CGRectMake(0, 0, kScreenWidth, navH)];
+    } else {
+        if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+            CGFloat navH = 44;
+            [self.customNavView setFrame:CGRectMake(0, 0, kScreenWidth, navH)];
+            [self.backBtn setCenter:CGPointMake(18 + 30, (navH + kStatusBarHeight) * 0.5)];
+            [self.rightBtn setCenter:CGPointMake(kScreenWidth - 30 - 40, (navH + statusH) * 0.5)];
+            [self.customNavTitleLabel setCenter:CGPointMake(kScreenWidth * 0.5, (navH + statusH) * 0.5)];
+        } else {
+            CGFloat navH = 88;
+            statusH = 44;
+            [self.customNavView setFrame:CGRectMake(0, 0, kScreenWidth, navH)];
+            [self.backBtn setCenter:CGPointMake(18, (navH + statusH) * 0.5)];
+            [self.rightBtn setCenter:CGPointMake(kScreenWidth - 30, (navH + statusH) * 0.5)];
+            [self.customNavTitleLabel setCenter:CGPointMake(kScreenWidth * 0.5, (navH + statusH) * 0.5)];
         }
     }
+    self.customNavView.xh_top = self.statusBarHidden ? -self.customNavView.xh_height : 0;
 }
 
 #pragma mark - XHPhotoBrowserDataSource
@@ -300,20 +246,21 @@
     
     CGFloat duration = 0.2;
     self.navBarAnimating = YES;
-    __weak typeof(self) weak_self = self;
+    
     [UIView animateWithDuration:duration animations:^{
-        weak_self.statusBarHidden = weak_self.navigationController.navigationBar.xh_top > 0;
-        [weak_self setNeedsStatusBarAppearanceUpdate];
-        weak_self.navigationController.navigationBar.xh_top = weak_self.statusBarHidden ? -weak_self.navigationController.navigationBar.xh_height : [UIApplication sharedApplication].statusBarFrame.size.height;
+        self.statusBarHidden = self.customNavView.xh_top >= 0;
+        self.customNavView.xh_top = self.statusBarHidden ? -self.customNavView.xh_height : 0;
+        [self setNeedsStatusBarAppearanceUpdate];
     } completion:^(BOOL finished) {
         if (finished) {
-            weak_self.navBarAnimating = NO;
+            self.navBarAnimating = NO;
         }
     }];
 }
 
 - (void)xh_photoBrowser:(XHPhotoBrowser *)photoBrowser didDisplayingImageAtIndex:(NSInteger)index fromIndex:(NSInteger)fromIndex {
     self.title = [NSString stringWithFormat:@"%d / %d", (int)index + 1, (int)photoBrowser.groupItems.count];
+    [self.customNavTitleLabel setText:self.title];
 }
 
 - (void)xh_photoBrowserDidDismiss:(XHPhotoBrowser *)photoBrowser {

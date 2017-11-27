@@ -108,7 +108,9 @@ func kJumpToAppStoreDetail(appid: String) -> Bool {
 
 /// 跳转到AppStore评论页
 func kJumpToAppStoreComment(appid: String) -> Bool {
-    let url = "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=\(appid)"
+    // 适配iOS 11
+    let url = "https://itunes.apple.com/us/app/itunes-u/id\(appid)?action=write-review&mt=8"
+//    let url = "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=\(appid)"
     return UIApplication.shared.openURL(URL(string: url)!)
 }
 

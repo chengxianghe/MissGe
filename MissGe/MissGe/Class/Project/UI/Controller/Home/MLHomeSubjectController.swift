@@ -30,20 +30,21 @@ class MLHomeSubjectController: BaseViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.view.backgroundColor = UIColor.white
         self.tableView.rowHeight = 100
         
-        if self.subjectType == .search {
-            var vcs = self.navigationController!.viewControllers
-            for i in 0..<vcs.count {
-                if vcs[i].isKind(of: MLSearchController.classForCoder()) {
-                    vcs.remove(at: i);
-                    break;
-                }
-            }
-            
-            self.navigationController?.viewControllers = vcs
-        }
-        
+//        if self.subjectType == .search {
+//            var vcs = self.navigationController!.viewControllers
+////            for i in 0..<vcs.count {
+////                if vcs[i].isKind(of: MLSearchController.classForCoder()) {
+////                    vcs.remove(at: i);
+////                    break;
+////                }
+////            }
+//
+//            self.navigationController?.viewControllers = vcs
+//        }
+
         if self.path != nil {
             self.topImageView.frame = CGRect(x: 0, y: 0, width: kScreenWidth, height: 200)
             self.topImageView.yy_setImage(with: self.path!, placeholder: UIImage(named: "banner_default_320x170_"))
@@ -63,7 +64,7 @@ class MLHomeSubjectController: BaseViewController, UITableViewDelegate, UITableV
             })
         
         self.tableView.mj_footer = MJRefreshAutoNormalFooter(refreshingBlock: {[unowned self] () -> Void in
-            if self.tableView.mj_header.isRefreshing() {
+            if self.tableView.mj_header.isRefreshing {
                 return
             }
             self.loadData(self.currentIndex + 1)

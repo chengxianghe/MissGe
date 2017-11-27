@@ -33,7 +33,7 @@ class MLDiscoverMoreController: BaseViewController, UITableViewDelegate, UITable
             })
         
         self.tableView.mj_footer = MJRefreshAutoNormalFooter(refreshingBlock: {[unowned self] () -> Void in
-            if self.tableView.mj_header.isRefreshing() {
+            if self.tableView.mj_header.isRefreshing {
                 return
             }
             self.loadData(self.currentIndex + 1)
