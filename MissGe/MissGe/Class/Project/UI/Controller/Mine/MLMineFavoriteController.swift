@@ -173,7 +173,6 @@ class MLMineFavoriteController: BaseViewController, UITableViewDelegate, UITable
             
             vc.groupItems = groupItems
             //            vc.title =
-            vc.rightImage = UIImage(named: "atlas_review_btn_sel_30x30_")
             vc.moreBlock = {[aid = (sender as! MLHomePageModel).tid, _self = self] in
                 let commentVC = kLoadVCFromSB("MLHomeCommentController", stroyBoard: "HomeComment") as! MLHomeCommentController
                 commentVC.aid = aid

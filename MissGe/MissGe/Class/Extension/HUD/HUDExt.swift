@@ -17,7 +17,7 @@ extension SVProgressHUD {
     }
 }
 
-extension UIViewController {
+extension NSObject {
     
     /**
      *  显示加载状态

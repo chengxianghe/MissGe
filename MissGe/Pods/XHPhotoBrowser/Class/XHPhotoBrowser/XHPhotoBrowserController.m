@@ -9,7 +9,7 @@
 #import "XHPhotoBrowserController.h"
 #import "XHPhotoBrowserHeader.h"
 
-@interface XHPhotoBrowserController () <XHPhotoBrowserDelegate, XHPhotoBrowserDataSource> {
+@interface XHPhotoBrowserController () <XHPhotoBrowserDelegate, XHPhotoBrowserDataSource, UIGestureRecognizerDelegate> {
     BOOL _previousNavBarHidden;
 }
 
@@ -23,7 +23,9 @@
 
 @end
 
-@implementation XHPhotoBrowserController
+@implementation XHPhotoBrowserController {
+    id<UIGestureRecognizerDelegate> _delegate;
+}
 
 - (id)init {
     if ((self = [super init])) {
@@ -74,12 +76,19 @@
     if (!_previousNavBarHidden) {
         [self.navigationController setNavigationBarHidden:YES animated:YES];
     }
+    if (self.navigationController.viewControllers.count > 1 && [self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        _delegate = self.navigationController.interactivePopGestureRecognizer.delegate;
+        self.navigationController.interactivePopGestureRecognizer.delegate = self;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     if (!_previousNavBarHidden) {
         [self.navigationController setNavigationBarHidden:NO animated:YES];
+    }
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = _delegate;
     }
 }
 
@@ -89,7 +98,7 @@
     self.view.backgroundColor = [UIColor blackColor];
     
     CGFloat navH = kIs_Inch5_8 ? 88 : 64;
-
+    
     if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) && [UIApplication sharedApplication].isStatusBarHidden) {
         navH = 44;
     }
@@ -99,7 +108,7 @@
     [self.customNavView setFrame:CGRectMake(0, 0, kScreenWidth, navH)];
     self.customNavView.backgroundColor = [UIColor blackColor];
     self.customNavView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-
+    
     [self.view addSubview:self.customNavView];
     
     UILabel *titleLabel = [[UILabel alloc] init];
@@ -113,20 +122,20 @@
     if (!kIs_Inch5_8) {
         titleLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
     }
-
+    
     UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.rightBtn = rightBtn;
     if (self.rightImage == nil) {
-        self.rightImage = [UIImage imageNamed:@"XHPhotoBrowser.bundle/images/btn_common_more_wh"];
+        self.rightImage = [UIImage xh_imageNamedFromMyBundle:@"images/btn_common_more_wh"];
     }
-    [rightBtn setFrame:CGRectMake(kScreenWidth - 50, statusH, 40, 40)];
+    [rightBtn setFrame:CGRectMake(kScreenWidth - 60, statusH, 50, 40)];
     [rightBtn setImage:self.rightImage forState:UIControlStateNormal];
     [rightBtn addTarget:self action:@selector(onMore:) forControlEvents:UIControlEventTouchUpInside];
     [self.customNavView addSubview:rightBtn];
-    [rightBtn setCenter:CGPointMake(kScreenWidth - 30, (navH + statusH) * 0.5)];
+    [rightBtn setCenter:CGPointMake(kScreenWidth - 25, (navH + statusH) * 0.5)];
     if (kIs_Inch5_8) {
         if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
-            rightBtn.xh_left = kScreenWidth - 50 - k_IPhoneX_SafeWidth;
+            rightBtn.xh_left = kScreenWidth - 60 - k_IPhoneX_SafeWidth;
         }
     } else {
         rightBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
@@ -134,11 +143,15 @@
     
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.backBtn = backBtn;
-    [backBtn setFrame:CGRectMake(5, statusH + 10, 30, 20)];
+    if (self.leftImage == nil) {
+        self.leftImage = [UIImage xh_imageNamedFromMyBundle:@"images/btn_common_back_wh"] ;
+    }
+    [backBtn setFrame:CGRectMake(5, statusH + 10, 50, 40)];
     [backBtn.imageView setContentMode:UIViewContentModeScaleAspectFit];
-    [backBtn setImage:[UIImage imageNamed:@"XHPhotoBrowser.bundle/images/btn_common_back_wh"] forState:UIControlStateNormal];
+    backBtn.contentEdgeInsets = UIEdgeInsetsMake(10, 0, 10, 0);
+    [backBtn setImage:self.leftImage forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(onBack:) forControlEvents:UIControlEventTouchUpInside];
-    [backBtn setCenter:CGPointMake(18, (navH + statusH) * 0.5)];
+    [backBtn setCenter:CGPointMake(20, (navH + statusH) * 0.5)];
     [self.customNavView addSubview:backBtn];
     if (kIs_Inch5_8) {
         if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
@@ -202,7 +215,7 @@
 
 // MARK: - NSNotification 屏幕旋转
 - (void)statusBarOrientationChange:(NSNotification *)notification{
-
+    
     CGFloat statusH = kStatusBarHeight;
     if (!kIs_Inch5_8) {
         CGFloat navH = 64;
@@ -227,6 +240,20 @@
         }
     }
     self.customNavView.xh_top = self.statusBarHidden ? -self.customNavView.xh_height : 0;
+}
+
+#pragma mark - UIGestureRecognizerDelegate
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    return self.navigationController.childViewControllers.count > 1;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return self.navigationController.viewControllers.count > 1;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    [otherGestureRecognizer requireGestureRecognizerToFail:gestureRecognizer];
+    return NO;
 }
 
 #pragma mark - XHPhotoBrowserDataSource
@@ -268,3 +295,4 @@
 }
 
 @end
+

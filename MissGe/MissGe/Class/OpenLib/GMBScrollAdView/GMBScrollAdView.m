@@ -42,9 +42,7 @@
 @property (nonatomic, strong) NSArray       *imageArray;        // 自己的图片数组
 @property (nonatomic, strong) NSArray       *titles;            // 标题数组
 @property (nonatomic, assign) int           loopCount;          // 计数器
-@property (nonatomic,   copy) GMBScrollAdViewDidSelect didSelect;
 @property (nonatomic,   copy) GMBScrollAdViewTitleConfig titleConfig;   //label配置
-@property (nonatomic,   weak) id<GMBScrollAdViewDelegate> delegate;
 
 @end
 
@@ -95,6 +93,19 @@
                                                delay:delay
                                          titleConfig:titleConfig];
     adView.didSelect = didSelect;
+    return adView;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame
+                     autoPlay:(BOOL)autoPlay
+                        delay:(NSTimeInterval)delay {
+    GMBScrollAdView *adView = [self initWithFrame:frame
+                                           images:nil
+                                           titles:nil
+                                         autoPlay:autoPlay
+                                            delay:delay
+                                        didSelect:nil
+                                      titleConfig:nil];
     return adView;
 }
 

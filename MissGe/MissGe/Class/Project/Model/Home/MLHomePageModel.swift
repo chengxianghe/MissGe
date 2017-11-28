@@ -112,18 +112,18 @@ class MLHomeAlbumModel : Mappable {
 	}
 }
 
-class MLHomeBannerModel : Mappable {
+class MLHomeBannerModel : Mappable, Codable {
     var path: URL?
 
-    var width: String = ""
-    var height: String = ""
-    var ext: String = ""
-    var size: String = ""
-    var slide_info: String = ""
-    var weibo_type: Int = 0
-    var weibo_id: String = ""
-    var link_url: String = ""
-    var sid: String = ""
+    var width: String? = ""
+    var height: String? = ""
+    var ext: String? = ""
+    var size: String? = ""
+    var slide_info: String? = ""
+    var weibo_type: Int? = 0
+    var weibo_id: String? = ""
+    var link_url: String? = ""
+    var sid: String? = ""
 
 	required init?(map: Map) {
 

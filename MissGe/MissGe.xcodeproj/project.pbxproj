@@ -30,6 +30,8 @@
 		1417A9EF1EA72E33003931C5 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1417A9EE1EA72E33003931C5 /* libstdc++.tbd */; };
 		1417A9F21EA72E78003931C5 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1417A9F11EA72E78003931C5 /* UIColorExtension.swift */; };
 		143AA8F01F989E1300E05D0F /* TUSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143AA8EF1F989E1300E05D0F /* TUSearchBar.swift */; };
+		1447AF3F1FCC163E00D9D514 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1447AF3E1FCC163E00D9D514 /* APIManager.swift */; };
+		1447AF421FCC17E200D9D514 /* MLHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1447AF411FCC17E200D9D514 /* MLHomeViewModel.swift */; };
 		144B6A0D1EA451A70000BB1B /* TZTestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144B6A0C1EA451A70000BB1B /* TZTestCell.swift */; };
 		1471CB271EAEF28900226C56 /* XHCustomSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1471CB261EAEF28900226C56 /* XHCustomSegue.swift */; };
 		1471CB291EAF0B9600226C56 /* XHUploadImagesHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1471CB281EAF0B9600226C56 /* XHUploadImagesHelper.swift */; };
@@ -44,6 +46,7 @@
 		14C446041ECD650D0014DF0E /* XHImageGifHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C446031ECD650D0014DF0E /* XHImageGifHelper.swift */; };
 		14CD20991EB869E700F0B920 /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CD20971EB869E700F0B920 /* Emoji.swift */; };
 		14CD209A1EB869E700F0B920 /* String+Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CD20981EB869E700F0B920 /* String+Emoji.swift */; };
+		14CF044C1FCD0A7B0035BBC4 /* LLToModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CF044B1FCD0A7B0035BBC4 /* LLToModelExtension.swift */; };
 		14D6FE151E9E0DEE0038C7D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14D6FE131E9E0DEE0038C7D1 /* Main.storyboard */; };
 		14D6FE171E9E0DEE0038C7D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14D6FE161E9E0DEE0038C7D1 /* Assets.xcassets */; };
 		14D6FE1A1E9E0DEE0038C7D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14D6FE181E9E0DEE0038C7D1 /* LaunchScreen.storyboard */; };
@@ -64,8 +67,6 @@
 		14D6FE911E9E0FFC0038C7D1 /* MLUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE3F1E9E0FFC0038C7D1 /* MLUserRequest.swift */; };
 		14D6FE921E9E0FFC0038C7D1 /* MLDiscoverDetailRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE411E9E0FFC0038C7D1 /* MLDiscoverDetailRequest.swift */; };
 		14D6FE931E9E0FFC0038C7D1 /* MLDiscoverRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE421E9E0FFC0038C7D1 /* MLDiscoverRequest.swift */; };
-		14D6FE941E9E0FFC0038C7D1 /* HomePageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE441E9E0FFC0038C7D1 /* HomePageRequest.swift */; };
-		14D6FE951E9E0FFC0038C7D1 /* MLAPPStartRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE451E9E0FFC0038C7D1 /* MLAPPStartRequest.swift */; };
 		14D6FE961E9E0FFC0038C7D1 /* MLDeleteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE461E9E0FFC0038C7D1 /* MLDeleteRequest.swift */; };
 		14D6FE971E9E0FFC0038C7D1 /* MLHomeCommentListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE471E9E0FFC0038C7D1 /* MLHomeCommentListRequest.swift */; };
 		14D6FE981E9E0FFC0038C7D1 /* MLHomeCommentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE481E9E0FFC0038C7D1 /* MLHomeCommentRequest.swift */; };
@@ -178,6 +179,8 @@
 		1417A9EE1EA72E33003931C5 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		1417A9F11EA72E78003931C5 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		143AA8EF1F989E1300E05D0F /* TUSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUSearchBar.swift; sourceTree = "<group>"; };
+		1447AF3E1FCC163E00D9D514 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		1447AF411FCC17E200D9D514 /* MLHomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLHomeViewModel.swift; sourceTree = "<group>"; };
 		144B6A0C1EA451A70000BB1B /* TZTestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TZTestCell.swift; sourceTree = "<group>"; };
 		1471CB261EAEF28900226C56 /* XHCustomSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XHCustomSegue.swift; sourceTree = "<group>"; };
 		1471CB281EAF0B9600226C56 /* XHUploadImagesHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XHUploadImagesHelper.swift; sourceTree = "<group>"; };
@@ -193,6 +196,7 @@
 		14C446031ECD650D0014DF0E /* XHImageGifHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XHImageGifHelper.swift; sourceTree = "<group>"; };
 		14CD20971EB869E700F0B920 /* Emoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
 		14CD20981EB869E700F0B920 /* String+Emoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Emoji.swift"; sourceTree = "<group>"; };
+		14CF044B1FCD0A7B0035BBC4 /* LLToModelExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLToModelExtension.swift; sourceTree = "<group>"; };
 		14D6FE0C1E9E0DEE0038C7D1 /* MissGe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MissGe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14D6FE141E9E0DEE0038C7D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		14D6FE161E9E0DEE0038C7D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -215,8 +219,6 @@
 		14D6FE3F1E9E0FFC0038C7D1 /* MLUserRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLUserRequest.swift; sourceTree = "<group>"; };
 		14D6FE411E9E0FFC0038C7D1 /* MLDiscoverDetailRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLDiscoverDetailRequest.swift; sourceTree = "<group>"; };
 		14D6FE421E9E0FFC0038C7D1 /* MLDiscoverRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLDiscoverRequest.swift; sourceTree = "<group>"; };
-		14D6FE441E9E0FFC0038C7D1 /* HomePageRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageRequest.swift; sourceTree = "<group>"; };
-		14D6FE451E9E0FFC0038C7D1 /* MLAPPStartRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLAPPStartRequest.swift; sourceTree = "<group>"; };
 		14D6FE461E9E0FFC0038C7D1 /* MLDeleteRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLDeleteRequest.swift; sourceTree = "<group>"; };
 		14D6FE471E9E0FFC0038C7D1 /* MLHomeCommentListRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLHomeCommentListRequest.swift; sourceTree = "<group>"; };
 		14D6FE481E9E0FFC0038C7D1 /* MLHomeCommentRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLHomeCommentRequest.swift; sourceTree = "<group>"; };
@@ -430,6 +432,23 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		1447AF3D1FCC163E00D9D514 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				14CF044B1FCD0A7B0035BBC4 /* LLToModelExtension.swift */,
+				1447AF3E1FCC163E00D9D514 /* APIManager.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		1447AF401FCC17E200D9D514 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				1447AF411FCC17E200D9D514 /* MLHomeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		1488B5DA1EA4B8CF0096B0BE /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -591,6 +610,7 @@
 		14D6FE3A1E9E0FFC0038C7D1 /* Project */ = {
 			isa = PBXGroup;
 			children = (
+				1447AF3D1FCC163E00D9D514 /* Service */,
 				14D6FE3B1E9E0FFC0038C7D1 /* Model */,
 				14D6FE3C1E9E0FFC0038C7D1 /* Request */,
 				14D6FE551E9E0FFC0038C7D1 /* UI */,
@@ -645,8 +665,6 @@
 		14D6FE431E9E0FFC0038C7D1 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				14D6FE441E9E0FFC0038C7D1 /* HomePageRequest.swift */,
-				14D6FE451E9E0FFC0038C7D1 /* MLAPPStartRequest.swift */,
 				14D6FE461E9E0FFC0038C7D1 /* MLDeleteRequest.swift */,
 				14D6FE471E9E0FFC0038C7D1 /* MLHomeCommentListRequest.swift */,
 				14D6FE481E9E0FFC0038C7D1 /* MLHomeCommentRequest.swift */,
@@ -678,6 +696,7 @@
 		14D6FE551E9E0FFC0038C7D1 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				1447AF401FCC17E200D9D514 /* ViewModel */,
 				143AA8EE1F989DFB00E05D0F /* View */,
 				14D6FE561E9E0FFC0038C7D1 /* Base */,
 				14D6FE5D1E9E0FFC0038C7D1 /* Cell */,
@@ -1043,11 +1062,18 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MissGe/Pods-MissGe-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/ESTabBarController-swift/ESTabBarController_swift.framework",
 				"${BUILT_PRODUCTS_DIR}/FXBlurView/FXBlurView.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/TUNetworking/TUNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/TU_TZImagePickerController/TU_TZImagePickerController.framework",
@@ -1060,11 +1086,18 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ESTabBarController_swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FXBlurView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TUNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TU_TZImagePickerController.framework",
@@ -1138,7 +1171,6 @@
 				14D6FEA31E9E0FFC0038C7D1 /* BaseNavigationController.swift in Sources */,
 				14F53D8C1EA4639B00FBF649 /* NSDate+Utilities.m in Sources */,
 				14D6FEC51E9E0FFC0038C7D1 /* MLSquareViewController.swift in Sources */,
-				14D6FE951E9E0FFC0038C7D1 /* MLAPPStartRequest.swift in Sources */,
 				14D6FEAA1E9E0FFC0038C7D1 /* MLDiscoverHeaderCell.swift in Sources */,
 				1488B5D91EA4B0E10096B0BE /* AppDelegate.swift in Sources */,
 				14D6FEC61E9E0FFC0038C7D1 /* MLTopicDetailController.swift in Sources */,
@@ -1180,7 +1212,9 @@
 				1417A9DE1EA72DED003931C5 /* ShareManager.swift in Sources */,
 				14D6FE871E9E0FFC0038C7D1 /* NormalFooterExt.swift in Sources */,
 				1417A9E71EA72DED003931C5 /* WeiXinActivity.swift in Sources */,
+				14CF044C1FCD0A7B0035BBC4 /* LLToModelExtension.swift in Sources */,
 				14D6FEAB1E9E0FFC0038C7D1 /* MLHomePageAlbumCell.swift in Sources */,
+				1447AF421FCC17E200D9D514 /* MLHomeViewModel.swift in Sources */,
 				14F53D761EA4604800FBF649 /* GMBScrollAdView.m in Sources */,
 				14C1DA121ECE930500517155 /* MLMineFavoriteController.swift in Sources */,
 				14D6FEB01E9E0FFC0038C7D1 /* MLTopicCommentCellLayout.swift in Sources */,
@@ -1192,9 +1226,9 @@
 				1471CB271EAEF28900226C56 /* XHCustomSegue.swift in Sources */,
 				14D6FF0A1E9F4F230038C7D1 /* JokeHelper.swift in Sources */,
 				143AA8F01F989E1300E05D0F /* TUSearchBar.swift in Sources */,
+				1447AF3F1FCC163E00D9D514 /* APIManager.swift in Sources */,
 				14D6FF081E9F4AB20038C7D1 /* MLDiscoverTagModel.swift in Sources */,
 				14D6FE9A1E9E0FFC0038C7D1 /* MLHomeFavoriteRequest.swift in Sources */,
-				14D6FE941E9E0FFC0038C7D1 /* HomePageRequest.swift in Sources */,
 				14F53D8D1EA4639B00FBF649 /* NSDateFormatter+Category.m in Sources */,
 				14D6FEA01E9E0FFC0038C7D1 /* MLPostTopicRequest.swift in Sources */,
 				14D6FEAC1E9E0FFC0038C7D1 /* MLHomePageCell.swift in Sources */,
@@ -1290,7 +1324,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1341,7 +1375,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

@@ -34,12 +34,12 @@ static int const showtime = 3;
 
 @implementation AdvertiseView
 
-- (NSTimer *)countTimer
-{
-    if (!_countTimer) {
-        _countTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
+- (void)dealloc {
+    NSLog(@"%s", __func__);
+    for (UIView *view in self.subviews) {
+        [view removeFromSuperview];
     }
-    return _countTimer;
+    [self removeFromSuperview];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -112,10 +112,6 @@ static int const showtime = 3;
 
 - (void)show
 {
-    // 倒计时方法1：GCD
-//    [self startCoundown];
-    
-    // 倒计时方法2：定时器
     [self startTimer];
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     [window addSubview:self];
@@ -125,33 +121,8 @@ static int const showtime = 3;
 - (void)startTimer
 {
     _count = showtime;
+    self.countTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:self.countTimer forMode:NSRunLoopCommonModes];
-}
-
-// GCD倒计时
-- (void)startCoundown
-{
-    __block int timeout = showtime + 1; //倒计时时间 + 1
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
-    dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0 * NSEC_PER_SEC, 0); //每秒执行
-    dispatch_source_set_event_handler(_timer, ^{
-        if(timeout <= 0){ //倒计时结束，关闭
-            dispatch_source_cancel(_timer);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                [self dismiss];
-                
-            });
-        }else{
-
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [_countBtn setTitle:[NSString stringWithFormat:@"跳过%d",timeout] forState:UIControlStateNormal];
-            });
-            timeout--;
-        }
-    });
-    dispatch_resume(_timer);
 }
 
 // 移除广告页面
@@ -161,15 +132,12 @@ static int const showtime = 3;
     self.countTimer = nil;
     
     [UIView animateWithDuration:0.3f animations:^{
-
         self.alpha = 0.f;
-        
     } completion:^(BOOL finished) {
         if (_dismissBlock) {
             _dismissBlock();
         }
         [self removeFromSuperview];
-        
     }];
 
 }
