@@ -56,7 +56,7 @@ class HomeViewController: BaseViewController, ScrollDrectionChangeProtocol, UITa
                 // 进入文章详情
                 self.performSegue(withIdentifier: "HomeCellToDetail", sender: banner.weibo_id)
             } else {
-                print("未知类型: id:\(banner.weibo_id), type:\(banner.weibo_type)")
+                print("未知类型: id:\(String(describing: banner.weibo_id)), type:\(banner.weibo_type)")
             }
             
         }

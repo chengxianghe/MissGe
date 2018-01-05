@@ -53,7 +53,7 @@ class MLLoginController: BaseViewController, UITextFieldDelegate {
     @IBAction func onLoginBtnClick(_ sender: UIButton) {
         self.onViewClick()
         
-        if (self.accountTextField.text?.characters.count)! > 0 && (self.passwordTextField.text?.characters.count)! > 0 {
+        if (self.accountTextField.text?.count)! > 0 && (self.passwordTextField.text?.count)! > 0 {
             sender.isEnabled = false
             self.showLoading("正在加载...")
             

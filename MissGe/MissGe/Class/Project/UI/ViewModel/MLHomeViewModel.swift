@@ -88,6 +88,7 @@ class MLHomeViewModel: NSObject {
     }
     
     func refreshImageUrl() {
+//        TUNetwork().rx
         self.provider
             .rx
             .request(.AppStart)
@@ -118,7 +119,7 @@ class MLHomeViewModel: NSObject {
                 }
             }) { (error) in
                 print(error)
-        }
+        }.disposed(by: bag)
     }
     
     func getFilePathWithImageName(imageName: String) -> String {
@@ -185,7 +186,7 @@ class MLHomeViewModel: NSObject {
 //                            array = list.map({ MLHomePageModel(JSON: $0) }) as? [MLHomePageModel]
 //                        }
                         
-                        self.modelObserable.value = array ?? []
+                        self.modelObserable.value = array
                         self.refreshStateObserable.value = .endHeaderRefresh
                         
                         if self.modelObserable.value.count < 20 {

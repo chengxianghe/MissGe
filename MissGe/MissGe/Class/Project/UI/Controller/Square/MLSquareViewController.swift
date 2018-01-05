@@ -205,7 +205,7 @@ extension MLSquareViewController: MLSquareCellDelegate, MLTopicDetailControllerD
         if MLNetConfig.isUserLogin() && MLNetConfig.shareInstance.userId == cell.layout.joke.uid {
             // 删除
             self.alert(title: "提示", message: "确定要删除", doneTitlt: "确定", doneHandler: { 
-                MLRequestHelper.deleteTopicWith(cell.layout.joke.pid, succeed: {[weak self] (base, res) in
+                MLRequestHelper.deleteTopicWith(cell.layout.joke.pid, success: {[weak self] (res) in
                     guard let _self = self else {
                         return
                     }
@@ -213,7 +213,7 @@ extension MLSquareViewController: MLSquareCellDelegate, MLTopicDetailControllerD
                     let index = _self.dataSource.index(of: cell.layout)!
                     _self.dataSource.remove(at: index)
                     _self.tableView.deleteRows(at: [IndexPath.init(row: index, section: 0)], with: .automatic)
-                    }, failed: {[weak self] (base, error) in
+                    }, failure: {[weak self] (error) in
                         guard let _self = self else {
                             return
                         }

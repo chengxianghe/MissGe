@@ -71,6 +71,8 @@ enum APIManager{
     case HomePageBanner  // 首页轮播图
     case HomePageDetail(Int)  // 获取详情页
     case AppStart
+    case DeleteTopic(pid: String)
+    case DeleteArticleComment(cid: String)
 }
 
 extension APIManager: TargetType {
@@ -97,6 +99,7 @@ extension APIManager: TargetType {
     
     public var parameters: [String: Any]? {
         var dict = [String: Any]()
+  
         switch self {
         case .AppStart:
             dict = ["c":"app","a":"getlaunch","type":"ios"]
@@ -116,6 +119,10 @@ extension APIManager: TargetType {
             dict = ["c":"column","a":"indexchoiceV2","pg":"\(page)","size":"20"]
         case .HomePageBanner:
             dict = ["c":"app","a":"getslide","type":"ios"]
+        case .DeleteTopic(pid: let pid):
+            dict = ["c":"post","a":"delPost","token":MLNetConfig.shareInstance.token,"pid":"\(pid)"]
+        case .DeleteArticleComment(cid: let cid):
+            dict = ["c":"article","a":"delcom","token":MLNetConfig.shareInstance.token,"cid":"\(cid)"]
         default:
             break
         }

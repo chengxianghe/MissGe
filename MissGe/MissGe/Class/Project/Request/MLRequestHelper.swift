@@ -32,20 +32,12 @@ class MLRequestHelper: NSObject {
         self.sendRequestWith(request, succeed: succeed, failed: failed)
     }
     
-    static func deleteTopicWith(_ pid: String, succeed: @escaping TURequestSuccess, failed: @escaping TURequestFailur) {
-//        MLDeleteTopicRequest
-        let request = MLDeleteTopicRequest()
-        request.pid = pid
-
-        self.sendRequestWith(request, succeed: succeed, failed: failed)
+    static func deleteTopicWith(_ pid: String, success successCallback: @escaping (Any) -> Void, failure failureCallback: @escaping(Error) -> Void) {
+        TUNetwork.request(.DeleteTopic(pid: pid), success: successCallback, failure: failureCallback)
     }
 
-    static func deleteArticleWith(_ cid: String, succeed: @escaping TURequestSuccess, failed: @escaping TURequestFailur) {
-//        MLDeleteArticleCommentRequest
-        let request = MLDeleteArticleCommentRequest()
-        request.cid = cid
-
-        self.sendRequestWith(request, succeed: succeed, failed: failed)
+    static func deleteArticleWith(_ cid: String, success successCallback: @escaping (Any) -> Void, failure failureCallback: @escaping(Error) -> Void) {
+        TUNetwork.request(.DeleteArticleComment(cid: cid), success: successCallback, failure: failureCallback)
     }
     
     static func favoriteWith(_ tid: String, succeed: @escaping TURequestSuccess, failed: @escaping TURequestFailur) {

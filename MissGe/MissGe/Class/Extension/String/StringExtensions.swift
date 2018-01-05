@@ -36,7 +36,7 @@ extension String {
     */
     
     var length: Int {
-        return self.characters.count
+        return self.count
     }
     
     var objcLength: Int {
@@ -296,7 +296,7 @@ extension String {
     // MARK: Subscript Methods
     
     subscript (i: Int) -> String {
-        return String(Array(self.characters)[i])
+        return String(self[i])
     }
     
     subscript (r: Range<Int>) -> String {
