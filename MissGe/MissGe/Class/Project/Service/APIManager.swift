@@ -69,10 +69,18 @@ enum APIManager{
     case VerificationCode(String)
     case HomePage(Int) // 获取首页列表
     case HomePageBanner  // 首页轮播图
-    case HomePageDetail(Int)  // 获取详情页
+    case HomeCommentList(String, Int) // 获取首页评论列表
+    ////文章详情
+    //http://t.gexiaojie.com/index.php?m=mobile&c=explorer&a=article&aid=8229
+    //http://t.gexiaojie.com/api.php?&output=json&_app_key=f722d367b8a96655c4f3365739d38d85&_app_secret=30248115015ec6c79d3bed2915f9e4cc&c=article&a=contentV2&aid=8229
+    case HomePageDetail(String)  // 获取详情页
     case AppStart
     case DeleteTopic(pid: String)
     case DeleteArticleComment(cid: String)
+    case LikeComment(pid: String)
+    case LikeArticle(aid: String)
+    //    var aid = "" var cid = "" /// type 1 正常评论; 2 回复别人 var detail = ""
+    case AddHomeComment(aid: String, cid: String, detail: String)
 }
 
 extension APIManager: TargetType {
@@ -117,12 +125,23 @@ extension APIManager: TargetType {
             ]
         case .HomePage(let page):
             dict = ["c":"column","a":"indexchoiceV2","pg":"\(page)","size":"20"]
+        case .HomePageDetail(let aid):
+            dict = ["c":"article","a":"contentV2","aid":"\(aid)"]
         case .HomePageBanner:
             dict = ["c":"app","a":"getslide","type":"ios"]
+        case .HomeCommentList(let aid, let page):
+            dict = ["c":"article","a":"comlist","aid":"\(aid)","pg":"\(page)","size":"20"]
         case .DeleteTopic(pid: let pid):
             dict = ["c":"post","a":"delPost","token":MLNetConfig.shareInstance.token,"pid":"\(pid)"]
         case .DeleteArticleComment(cid: let cid):
             dict = ["c":"article","a":"delcom","token":MLNetConfig.shareInstance.token,"cid":"\(cid)"]
+        case .LikeComment(pid: let pid):
+            dict = ["c":"post","a":"likeit","pid":"\(pid)"]
+        case .LikeArticle(aid: let aid):
+            dict = ["c":"article","a":"likeit","aid":"\(aid)"]
+        case .AddHomeComment(aid: let aid, cid: let cid, detail: let detail):
+            let type: Int = cid.isEmpty ? 1 : 2
+            dict = ["c":"article","a":"addcom","token":MLNetConfig.shareInstance.token,"detail":"\(detail)","fid":"3","aid":"\(aid)","cid":"\(cid)","type":"\(type)"]
         default:
             break
         }

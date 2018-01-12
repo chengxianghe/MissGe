@@ -11,12 +11,10 @@ import MJRefresh
 import YYText
 import ObjectMapper
 
-class MLHomeCommentController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class MLHomeCommentController: BaseViewController, UITableViewDelegate {
 
     var aid = ""
-    var dataSource = [MLTopicCommentCellLayout]()
-    let commentListRequest = MLHomeCommentListRequest()
-    var currentIndex = 0
+    let viewModel = MLHomeCommentVM()
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -26,6 +24,10 @@ class MLHomeCommentController: BaseViewController, UITableViewDelegate, UITableV
         self.view.backgroundColor = UIColor.white
 
         self.configRefresh()
+        viewModel.tableView = tableView
+        viewModel.vc = self
+        viewModel.aid = aid
+        viewModel.SetConfig()
     }
     
     //MARK: - 刷新
@@ -35,14 +37,14 @@ class MLHomeCommentController: BaseViewController, UITableViewDelegate, UITableV
             if self.tableView.mj_footer.isRefreshing {
                 return
             }
-            self.loadData(1)
+            self.viewModel.requestNewDataCommond.onNext(true)
             })
         
         self.tableView.mj_footer = MJRefreshAutoNormalFooter(refreshingBlock: {[unowned self] () -> Void in
             if self.tableView.mj_header.isRefreshing {
                 return
             }
-            self.loadData(self.currentIndex + 1)
+            self.viewModel.requestNewDataCommond.onNext(false)
             })
         
         (self.tableView.mj_footer as! MJRefreshAutoNormalFooter).huaBanFooterConfig()
@@ -51,61 +53,61 @@ class MLHomeCommentController: BaseViewController, UITableViewDelegate, UITableV
         self.tableView.mj_header.beginRefreshing()
     }
     
-    //MARK: - 数据请求
-    func loadData(_ page: Int){
-        self.showLoading("正在加载...")
-        commentListRequest.page = page
-        commentListRequest.aid = aid
-        commentListRequest.send(success: {[unowned self] (baseRequest, responseObject) in
-            self.hideHud()
-            self.tableView.mj_header.endRefreshing()
-            
-            var modelArray: [MLTopicCommentModel]? = nil
-            if let list = ((responseObject as! NSDictionary)["content"] as! NSDictionary)["comlist"] as? [[String:Any]] {
-                modelArray = list.map({ MLTopicCommentModel(JSON: $0)! })
-                //modelArray = NSArray.yy_modelArray(with: MLTopicCommentModel.classForCoder(), json: list) as? [MLTopicCommentModel]
-            }
-            
-            let array = modelArray?.map({ (model) -> MLTopicCommentCellLayout in
-                return MLTopicCommentCellLayout(model: model)
-            })
-            
-            if array != nil && array!.count > 0 {
-                if page == 1 {
-                    self.dataSource.removeAll()
-                    self.dataSource.append(contentsOf: array!)
-                    self.tableView.reloadData()
-                } else {
-                    self.tableView.beginUpdates()
-                    let lastItem = self.dataSource.count
-                    self.dataSource.append(contentsOf: array!)
-                    let indexPaths = (lastItem..<self.dataSource.count).map { IndexPath(row: $0, section: 0) }
-                    self.tableView.insertRows(at: indexPaths, with: UITableViewRowAnimation.fade)
-                    self.tableView.endUpdates()
-                }
-                
-                if array!.count < 20 {
-                    self.tableView.mj_footer.endRefreshingWithNoMoreData()
-                } else {
-                    self.currentIndex = page
-                    self.tableView.mj_footer.endRefreshing()
-                }
-            } else {
-                if page == 1 {
-                    self.dataSource.removeAll()
-                    self.tableView.reloadData()
-                }
-                self.tableView.mj_footer.endRefreshingWithNoMoreData()
-            }
-
-            
-        }) { (baseRequest, error) in
-            self.tableView.mj_header.endRefreshing()
-            self.tableView.mj_footer.endRefreshing()
-            
-            print(error)
-        }
-    }
+//    //MARK: - 数据请求
+//    func loadData(_ page: Int){
+//        self.showLoading("正在加载...")
+//        commentListRequest.page = page
+//        commentListRequest.aid = aid
+//        commentListRequest.send(success: {[unowned self] (baseRequest, responseObject) in
+//            self.hideHud()
+//            self.tableView.mj_header.endRefreshing()
+//            
+//            var modelArray: [MLTopicCommentModel]? = nil
+//            if let list = ((responseObject as! NSDictionary)["content"] as! NSDictionary)["comlist"] as? [[String:Any]] {
+//                modelArray = list.map({ MLTopicCommentModel(JSON: $0)! })
+//                //modelArray = NSArray.yy_modelArray(with: MLTopicCommentModel.classForCoder(), json: list) as? [MLTopicCommentModel]
+//            }
+//            
+//            let array = modelArray?.map({ (model) -> MLTopicCommentCellLayout in
+//                return MLTopicCommentCellLayout(model: model)
+//            })
+//            
+//            if array != nil && array!.count > 0 {
+//                if page == 1 {
+//                    self.dataSource.removeAll()
+//                    self.dataSource.append(contentsOf: array!)
+//                    self.tableView.reloadData()
+//                } else {
+//                    self.tableView.beginUpdates()
+//                    let lastItem = self.dataSource.count
+//                    self.dataSource.append(contentsOf: array!)
+//                    let indexPaths = (lastItem..<self.dataSource.count).map { IndexPath(row: $0, section: 0) }
+//                    self.tableView.insertRows(at: indexPaths, with: UITableViewRowAnimation.fade)
+//                    self.tableView.endUpdates()
+//                }
+//                
+//                if array!.count < 20 {
+//                    self.tableView.mj_footer.endRefreshingWithNoMoreData()
+//                } else {
+//                    self.currentIndex = page
+//                    self.tableView.mj_footer.endRefreshing()
+//                }
+//            } else {
+//                if page == 1 {
+//                    self.dataSource.removeAll()
+//                    self.tableView.reloadData()
+//                }
+//                self.tableView.mj_footer.endRefreshingWithNoMoreData()
+//            }
+//
+//            
+//        }) { (baseRequest, error) in
+//            self.tableView.mj_header.endRefreshing()
+//            self.tableView.mj_footer.endRefreshing()
+//            
+//            print(error)
+//        }
+//    }
     
     @IBAction func onCommentBtnClick(_ sender: UIButton) {
         if !MLNetConfig.isUserLogin() {            
@@ -123,15 +125,15 @@ class MLHomeCommentController: BaseViewController, UITableViewDelegate, UITableV
         self.performSegue(withIdentifier: "HomeCommentToPublish", sender: nil)
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "MLTopicCommentCell") as? MLTopicCommentCell
-        if cell == nil {
-            cell = MLTopicCommentCell(style: .default, reuseIdentifier: "MLTopicCommentCell")
-            cell?.delegate = self
-        }
-        cell!.setInfo(self.dataSource[(indexPath as NSIndexPath).row]);
-        return cell!
-    }
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        var cell = tableView.dequeueReusableCell(withIdentifier: "MLTopicCommentCell") as? MLTopicCommentCell
+//        if cell == nil {
+//            cell = MLTopicCommentCell(style: .default, reuseIdentifier: "MLTopicCommentCell")
+//            cell?.delegate = self
+//        }
+//        cell!.setInfo(self.dataSource[(indexPath as NSIndexPath).row]);
+//        return cell!
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -148,16 +150,16 @@ class MLHomeCommentController: BaseViewController, UITableViewDelegate, UITableV
             return
         }
         
-        self.performSegue(withIdentifier: "HomeCommentToPublish", sender: self.dataSource[(indexPath as NSIndexPath).row])
+        self.performSegue(withIdentifier: "HomeCommentToPublish", sender: self.viewModel.modelObserable.value[(indexPath as NSIndexPath).row])
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let model = self.dataSource[(indexPath as NSIndexPath).row]
+        let model = self.viewModel.modelObserable.value[(indexPath as NSIndexPath).row]
         return MLTopicCommentCell.height(model)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.count
+        return self.viewModel.modelObserable.value.count
     }
     
     override func didReceiveMemoryWarning() {

@@ -40,6 +40,8 @@
 		1488B5DD1EA4B8CF0096B0BE /* Agreement.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1488B5DB1EA4B8CF0096B0BE /* Agreement.txt */; };
 		1488B5DE1EA4B8CF0096B0BE /* TagList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1488B5DC1EA4B8CF0096B0BE /* TagList.plist */; };
 		14930D5E1FCE798400A8545B /* TUNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14930D5D1FCE798400A8545B /* TUNetwork.swift */; };
+		1494C2022008A43100013D58 /* MLHomeDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1494C2012008A43100013D58 /* MLHomeDetailVM.swift */; };
+		1494C2042008B65200013D58 /* MLHomeCommentVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1494C2032008B65200013D58 /* MLHomeCommentVM.swift */; };
 		14BC8ED41EB304F700933E85 /* infoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14BC8ED61EB304F700933E85 /* infoPlist.strings */; };
 		14C1DA121ECE930500517155 /* MLMineFavoriteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C1DA111ECE930500517155 /* MLMineFavoriteController.swift */; };
 		14C1DA141ECE952600517155 /* PhotoBrowser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14C1DA131ECE952600517155 /* PhotoBrowser.storyboard */; };
@@ -68,9 +70,7 @@
 		14D6FE911E9E0FFC0038C7D1 /* MLUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE3F1E9E0FFC0038C7D1 /* MLUserRequest.swift */; };
 		14D6FE921E9E0FFC0038C7D1 /* MLDiscoverDetailRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE411E9E0FFC0038C7D1 /* MLDiscoverDetailRequest.swift */; };
 		14D6FE931E9E0FFC0038C7D1 /* MLDiscoverRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE421E9E0FFC0038C7D1 /* MLDiscoverRequest.swift */; };
-		14D6FE971E9E0FFC0038C7D1 /* MLHomeCommentListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE471E9E0FFC0038C7D1 /* MLHomeCommentListRequest.swift */; };
 		14D6FE981E9E0FFC0038C7D1 /* MLHomeCommentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE481E9E0FFC0038C7D1 /* MLHomeCommentRequest.swift */; };
-		14D6FE991E9E0FFC0038C7D1 /* MLHomeDetailRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE491E9E0FFC0038C7D1 /* MLHomeDetailRequest.swift */; };
 		14D6FE9A1E9E0FFC0038C7D1 /* MLHomeFavoriteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE4A1E9E0FFC0038C7D1 /* MLHomeFavoriteRequest.swift */; };
 		14D6FE9B1E9E0FFC0038C7D1 /* MLLikeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE4B1E9E0FFC0038C7D1 /* MLLikeRequest.swift */; };
 		14D6FE9C1E9E0FFC0038C7D1 /* MLMineRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE4D1E9E0FFC0038C7D1 /* MLMineRequest.swift */; };
@@ -189,6 +189,8 @@
 		1488B5DB1EA4B8CF0096B0BE /* Agreement.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Agreement.txt; sourceTree = "<group>"; };
 		1488B5DC1EA4B8CF0096B0BE /* TagList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TagList.plist; sourceTree = "<group>"; };
 		14930D5D1FCE798400A8545B /* TUNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TUNetwork.swift; sourceTree = "<group>"; };
+		1494C2012008A43100013D58 /* MLHomeDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLHomeDetailVM.swift; sourceTree = "<group>"; };
+		1494C2032008B65200013D58 /* MLHomeCommentVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLHomeCommentVM.swift; sourceTree = "<group>"; };
 		14BC8ED51EB304F700933E85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/infoPlist.strings; sourceTree = "<group>"; };
 		14BC8ED71EB304F900933E85 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/infoPlist.strings; sourceTree = "<group>"; };
 		14C1DA111ECE930500517155 /* MLMineFavoriteController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLMineFavoriteController.swift; sourceTree = "<group>"; };
@@ -220,9 +222,7 @@
 		14D6FE3F1E9E0FFC0038C7D1 /* MLUserRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLUserRequest.swift; sourceTree = "<group>"; };
 		14D6FE411E9E0FFC0038C7D1 /* MLDiscoverDetailRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLDiscoverDetailRequest.swift; sourceTree = "<group>"; };
 		14D6FE421E9E0FFC0038C7D1 /* MLDiscoverRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLDiscoverRequest.swift; sourceTree = "<group>"; };
-		14D6FE471E9E0FFC0038C7D1 /* MLHomeCommentListRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLHomeCommentListRequest.swift; sourceTree = "<group>"; };
 		14D6FE481E9E0FFC0038C7D1 /* MLHomeCommentRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLHomeCommentRequest.swift; sourceTree = "<group>"; };
-		14D6FE491E9E0FFC0038C7D1 /* MLHomeDetailRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLHomeDetailRequest.swift; sourceTree = "<group>"; };
 		14D6FE4A1E9E0FFC0038C7D1 /* MLHomeFavoriteRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLHomeFavoriteRequest.swift; sourceTree = "<group>"; };
 		14D6FE4B1E9E0FFC0038C7D1 /* MLLikeRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLLikeRequest.swift; sourceTree = "<group>"; };
 		14D6FE4D1E9E0FFC0038C7D1 /* MLMineRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLMineRequest.swift; sourceTree = "<group>"; };
@@ -446,6 +446,8 @@
 			isa = PBXGroup;
 			children = (
 				1447AF411FCC17E200D9D514 /* MLHomeViewModel.swift */,
+				1494C2012008A43100013D58 /* MLHomeDetailVM.swift */,
+				1494C2032008B65200013D58 /* MLHomeCommentVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -666,9 +668,7 @@
 		14D6FE431E9E0FFC0038C7D1 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				14D6FE471E9E0FFC0038C7D1 /* MLHomeCommentListRequest.swift */,
 				14D6FE481E9E0FFC0038C7D1 /* MLHomeCommentRequest.swift */,
-				14D6FE491E9E0FFC0038C7D1 /* MLHomeDetailRequest.swift */,
 				14D6FE4A1E9E0FFC0038C7D1 /* MLHomeFavoriteRequest.swift */,
 				14D6FE4B1E9E0FFC0038C7D1 /* MLLikeRequest.swift */,
 			);
@@ -1147,13 +1147,13 @@
 				14D6FE9E1E9E0FFC0038C7D1 /* MLNetConfig.swift in Sources */,
 				14D6FEAE1E9E0FFC0038C7D1 /* MLTopicCellLayout.swift in Sources */,
 				14D6FEA51E9E0FFC0038C7D1 /* BaseViewController.swift in Sources */,
-				14D6FE991E9E0FFC0038C7D1 /* MLHomeDetailRequest.swift in Sources */,
 				14D6FE8E1E9E0FFC0038C7D1 /* ProjetGlobal.swift in Sources */,
 				14D6FEA41E9E0FFC0038C7D1 /* BaseTabBarController.swift in Sources */,
 				14D6FE9F1E9E0FFC0038C7D1 /* MLRequestHelper.swift in Sources */,
 				14D6FE821E9E0FFC0038C7D1 /* AlertExt.swift in Sources */,
 				14D6FEC11E9E0FFC0038C7D1 /* MLUserController.swift in Sources */,
 				1417A9E11EA72DED003931C5 /* SinaShareDelegate.swift in Sources */,
+				1494C2022008A43100013D58 /* MLHomeDetailVM.swift in Sources */,
 				14D6FE881E9E0FFC0038C7D1 /* NormalHeaderExt.swift in Sources */,
 				14D6FE8B1E9E0FFC0038C7D1 /* UIViewCornerExt.swift in Sources */,
 				14D6FEAF1E9E0FFC0038C7D1 /* MLTopicCommentCell.swift in Sources */,
@@ -1185,11 +1185,11 @@
 				14D6FF061E9F2C130038C7D1 /* MLTopicCommentModel.swift in Sources */,
 				14D6FEC41E9E0FFC0038C7D1 /* MLPostTopicController.swift in Sources */,
 				14F53D7A1EA460A900FBF649 /* AdvertiseView.m in Sources */,
-				14D6FE971E9E0FFC0038C7D1 /* MLHomeCommentListRequest.swift in Sources */,
 				14D6FEC01E9E0FFC0038C7D1 /* MLSettingViewController.swift in Sources */,
 				14D6FEB51E9E0FFC0038C7D1 /* MLDiscoverController.swift in Sources */,
 				14D6FEBF1E9E0FFC0038C7D1 /* MLProtocolViewController.swift in Sources */,
 				14ECBAC81EDFFD3F0090156A /* TUIBTextField.m in Sources */,
+				1494C2042008B65200013D58 /* MLHomeCommentVM.swift in Sources */,
 				14D6FE8A1E9E0FFC0038C7D1 /* UIViewBlurExt.swift in Sources */,
 				14D6FEA81E9E0FFC0038C7D1 /* ScrollDrectionChangeProtocol.swift in Sources */,
 				14D6FE8F1E9E0FFC0038C7D1 /* PhotoAlbumHelper.swift in Sources */,

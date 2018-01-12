@@ -12,6 +12,9 @@ import YYText
 import WebKit
 import SVProgressHUD
 import YYWebImage
+import RxSwift
+import RxCocoa
+import Moya
 
 //
 typealias MLHomeDetailControllerNextClosure = (_ aid: String) -> String?
@@ -22,11 +25,11 @@ class MLHomeDetailController: BaseViewController {
     var showTitle: String?
     var nextClosure: MLHomeDetailControllerNextClosure?
 
-    fileprivate var nextAid: String?
-    fileprivate var webView = WKWebView()
-    fileprivate let detailRequest = MLHomeDetailRequest()
-    fileprivate var detailModel: MLHomeDetailModel?
-    fileprivate var progressView: UIProgressView!
+    var nextAid: String?
+    var webView = WKWebView()
+    var detailModel: MLHomeDetailModel?
+    var progressView: UIProgressView!
+    
     @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
@@ -34,6 +37,9 @@ class MLHomeDetailController: BaseViewController {
     @IBOutlet weak var likeLabel: UILabel!
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
+    
+    let viewModel = MLHomeDetailVM()
+    var bag : DisposeBag = DisposeBag()
     
     deinit {
         // 取消监听支持KVO的属性
@@ -71,6 +77,8 @@ class MLHomeDetailController: BaseViewController {
         self.webView.addObserver(self, forKeyPath: "title", options: .new, context: nil)
         self.webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
         
+        self.viewModel.detailVC = self
+        self.viewModel.SetConfig()
         self.getCurrentData(aid: aid)
         
         self.nextButton.isEnabled = false
@@ -80,55 +88,34 @@ class MLHomeDetailController: BaseViewController {
         guard aid != nil else {
             return
         }
-        
-        SVProgressHUD.show(withStatus: "加载中...")
-        
-        detailRequest.aid = aid!
-        detailRequest.send(success: {[weak self] (baseRequest, responseObject) in
-            guard let weak_self = self else {
-                return
-            }
-            
-            guard let content = (responseObject as! NSDictionary)["content"] as? [String:Any] else {
-                return
-            }
-            
-            let detailModel = MLHomeDetailModel(JSON: content) as MLHomeDetailModel!
-            weak_self.detailModel = detailModel
-            
-            weak_self.updateData()
-            
-            SVProgressHUD.dismiss()
-
-        }) { (baseRequest, error) in
-            print(error)
-            SVProgressHUD.dismiss()
-        }
+        self.aid = aid
+        self.viewModel.aid = aid!
+        self.viewModel.requestNewDataCommond.onNext(true)
     }
 
-    func updateData() {
-        self.title = detailModel?.title
-        self.likeLabel.text = String(format: "%d", detailModel?.like ?? 0)
-        self.favoriteButton.isSelected = (detailModel?.is_collect)!
-        print("is_collect:\(String(describing: detailModel?.is_collect)), \(String(describing: detailModel?.is_special))")
-        
-        //            print(self.detailModel!.detail)
-        //            self.webView.loadHTMLString(detailModel!.detail, baseURL: nil)
-        self.aid = detailModel!.tid
-        
-        if let next = self.nextClosure?(self.aid) {
-            self.nextButton.isEnabled = true
-            self.nextAid = next
-        } else {
-            self.nextButton.isEnabled = false
-            self.nextAid = nil
-        }
-        
-        //http://t.gexiaojie.com/index.php?m=mobile&c=explorer&a=article&aid=5677
-        let url = "http://t.gexiaojie.com/index.php?m=mobile&c=explorer&a=article&aid=\(self.aid ?? "")"
-        self.webView.load(URLRequest(url: URL(string: url)!))
-    }
-    
+//    func updateData() {
+//        self.title = detailModel?.title
+//        self.likeLabel.text = String(format: "%d", detailModel?.like ?? 0)
+//        self.favoriteButton.isSelected = (detailModel?.is_collect)!
+//        print("is_collect:\(String(describing: detailModel?.is_collect)), \(String(describing: detailModel?.is_special))")
+//
+//        //            print(self.detailModel!.detail)
+//        //            self.webView.loadHTMLString(detailModel!.detail, baseURL: nil)
+//        self.aid = detailModel!.tid
+//
+//        if let next = self.nextClosure?(self.aid) {
+//            self.nextButton.isEnabled = true
+//            self.nextAid = next
+//        } else {
+//            self.nextButton.isEnabled = false
+//            self.nextAid = nil
+//        }
+//
+//        //http://t.gexiaojie.com/index.php?m=mobile&c=explorer&a=article&aid=5677
+//        let url = "http://t.gexiaojie.com/index.php?m=mobile&c=explorer&a=article&aid=\(self.aid ?? "")"
+//        self.webView.load(URLRequest(url: URL(string: url)!))
+//    }
+//
     // MARK: - KVO
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "loading" {
