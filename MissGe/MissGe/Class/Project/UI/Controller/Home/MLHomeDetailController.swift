@@ -199,13 +199,16 @@ class MLHomeDetailController: BaseViewController {
             })
     }
     @IBAction func onFavoriteButtonClick(_ sender: UIButton) {
-        MLRequestHelper.favoriteWith(self.aid, succeed: { (base, responseObject) in
-            self.showSuccess(sender.isSelected ? "已取消收藏" :"收藏成功!")
-            sender.isSelected = !sender.isSelected
-            }) { (base, error) in
+        self.viewModel.provider
+            .rx
+            .request(.HomeFavorite(tid: self.aid))
+            .filterSuccessfulStatusCodes()
+            .subscribe(onSuccess: { (array) in
+                self.showSuccess(sender.isSelected ? "已取消收藏" :"收藏成功!")
+                sender.isSelected = !sender.isSelected
+            }, onError: { ( error) in
                 self.showError(error.localizedDescription)
-        }
-        
+            }).disposed(by: self.bag)
     }
     @IBAction func onLikeButtonClick(_ sender: UIButton) {
         if sender.isSelected {

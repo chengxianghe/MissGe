@@ -22,11 +22,11 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIC
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
     
-    let discoverRequest = MLDiscoverRequest()
+//    let discoverRequest = MLDiscoverRequest()
     let discoverTagRequest = MLDiscoverTagRequest()
-    var dataSource = [MLHomePageModel]()
+//    var dataSource = [MLHomePageModel]()
     var tagsArray = [MLDiscoverTagModel]()
-    var requestCount = 0
+    var viewModel = MLDiscoverVM()
     
 //    override func viewDidAppear(_ animated: Bool) {
 //        super.viewDidAppear(animated)
@@ -63,8 +63,11 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIC
         self.tableView.rowHeight = ceil((kScreenWidth - 20) / 300 * 140 + 20)
         
         self.collectionViewLayout.itemSize = CGSize(width: headerCellWidth, height: headerCellWidth)
-                
+        
+        self.tableView.dataSource = nil
         self.configRefresh()
+        self.viewModel.tableView = tableView
+        self.viewModel.SetConfig()
     }
     
     //MARK: - 刷新
@@ -72,6 +75,7 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIC
         
         self.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {[unowned self] () -> Void in
             self.loadData(1)
+            self.viewModel.requestNewDataCommond.onNext(true)
             })
         
         (self.tableView.mj_header as! MJRefreshNormalHeader).huaBanHeaderConfig()
@@ -81,10 +85,9 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIC
     
     //MARK: - 数据请求
     func loadData(_ page: Int){
-        requestCount = 0
-        self.showLoading("正在加载...")
         discoverTagRequest.send(success: {[unowned self] (baseRequest, responseObject) in
-            
+            self.tableView.mj_header.endRefreshing()
+
             var array: [MLDiscoverTagModel]? = nil
             if let list = ((responseObject as! NSDictionary)["content"] as! NSDictionary)["list"] as? [[String:Any]] {
                 array = list.map({ MLDiscoverTagModel(JSON: $0)! })
@@ -97,40 +100,10 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIC
             }
 
             self.collectionView.reloadData()
-            self.requestCount += 1
-            self.finishedAllRequest()
             
         }) { (baseRequest, error) in
             self.tableView.mj_header.endRefreshing()
             print(error)
-        }
-        
-        discoverRequest.send(success: {[unowned self] (baseRequest, responseObject) in
-            var array: [MLHomePageModel]? = nil
-            if let list = ((responseObject as! NSDictionary)["content"] as! NSDictionary)["artlist"] as? [[String:Any]] {
-                array = list.map({ MLHomePageModel(JSON: $0)! })
-            }
-            
-            if array != nil && array!.count > 0 {
-                self.dataSource.removeAll()
-                self.dataSource.append(contentsOf: array!)
-            }
-            self.requestCount += 1
-
-            self.finishedAllRequest()
-
-        }) { (baseRequest, error) in
-            self.tableView.mj_header.endRefreshing()
-            print(error)
-        }
-    }
-    
-    func finishedAllRequest() {
-        if self.requestCount == 2 {
-            self.hideHud()
-            self.tableView.mj_header.endRefreshing()
-            self.tableView.reloadData()
-            self.requestCount = 0
         }
     }
 
@@ -172,17 +145,17 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIC
     }
     
     // MARK: - Table view data source
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataSource.count
-    }
+//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return self.viewModel.modelObserable.value.count
+//    }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MLDiscoverCell", for: indexPath) as! MLDiscoverCell
-        
-        cell.setInfo(self.dataSource[(indexPath as NSIndexPath).row].cover)
-        
-        return cell
-    }
+//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "MLDiscoverCell", for: indexPath) as! MLDiscoverCell
+//        
+//        cell.setInfo(self.viewModel.modelObserable.value[(indexPath as NSIndexPath).row].cover)
+//        
+//        return cell
+//    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -228,7 +201,7 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIC
 
         } else if segue.identifier == "DiscoverCellToSubject" {
             let indexPath = tableView.indexPath(for: sender as! MLDiscoverCell)!
-            let model = self.dataSource[(indexPath as NSIndexPath).row]
+            let model = self.viewModel.modelObserable.value[(indexPath as NSIndexPath).row]
 
             let vc = segue.destination as! MLHomeSubjectController
             vc.tag_id = model.tid
@@ -236,7 +209,7 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIC
             vc.path = model.cover
         } else if segue.identifier == "DiscoverCellToSubject" {
             let indexPath = tableView.indexPath(for: sender as! MLDiscoverCell)!
-            let model = self.dataSource[(indexPath as NSIndexPath).row]
+            let model = self.viewModel.modelObserable.value[(indexPath as NSIndexPath).row]
             
             let vc = segue.destination as! MLHomeSubjectController
             vc.tag_id = model.tid

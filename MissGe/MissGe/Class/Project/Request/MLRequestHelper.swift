@@ -8,6 +8,8 @@
 
 import UIKit
 import TUNetworking
+import Moya
+import RxSwift
 
 class MLRequestHelper: NSObject {
     static let shareInstance = MLRequestHelper();
@@ -38,14 +40,6 @@ class MLRequestHelper: NSObject {
 
     static func deleteArticleWith(_ cid: String, success successCallback: @escaping (Any) -> Void, failure failureCallback: @escaping(Error) -> Void) {
         TUNetwork.request(.DeleteArticleComment(cid: cid), success: successCallback, failure: failureCallback)
-    }
-    
-    static func favoriteWith(_ tid: String, succeed: @escaping TURequestSuccess, failed: @escaping TURequestFailur) {
-//        MLHomeFavoriteRequest
-        let request = MLHomeFavoriteRequest()
-        request.tid = tid
-
-        self.sendRequestWith(request, succeed: succeed, failed: failed)
     }
     
     static func userFollow(_ uid: String, succeed: @escaping TURequestSuccess, failed: @escaping TURequestFailur) {

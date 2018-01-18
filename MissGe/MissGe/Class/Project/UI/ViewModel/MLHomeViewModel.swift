@@ -142,8 +142,6 @@ class MLHomeViewModel: NSObject {
             }
             .disposed(by: bag)
         
-    
-        
         requestNewDataCommond.subscribe { (event : Event<Bool>) in
             if event.element! {
                 // 假装在请求第一页

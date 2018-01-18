@@ -63,16 +63,13 @@ let kAPIManagerRequestClosure = { (endpoint: Endpoint<APIManager>, done: MoyaPro
 
 
 enum APIManager{
-    case Login(String, String)
-    case Register(String, String, String)
+    case Login(username: String, password: String)
+    case Register(username: String, password: String, String)
     case FindPassword(String)
     case VerificationCode(String)
     case HomePage(Int) // 获取首页列表
     case HomePageBanner  // 首页轮播图
     case HomeCommentList(String, Int) // 获取首页评论列表
-    ////文章详情
-    //http://t.gexiaojie.com/index.php?m=mobile&c=explorer&a=article&aid=8229
-    //http://t.gexiaojie.com/api.php?&output=json&_app_key=f722d367b8a96655c4f3365739d38d85&_app_secret=30248115015ec6c79d3bed2915f9e4cc&c=article&a=contentV2&aid=8229
     case HomePageDetail(String)  // 获取详情页
     case AppStart
     case DeleteTopic(pid: String)
@@ -81,6 +78,11 @@ enum APIManager{
     case LikeArticle(aid: String)
     //    var aid = "" var cid = "" /// type 1 正常评论; 2 回复别人 var detail = ""
     case AddHomeComment(aid: String, cid: String, detail: String)
+    case HomeFavorite(tid: String)
+    case DiscoverDetail(page: Int, tag_id: String, type: SubjectType)
+    case Discover
+    case DiscoverTag
+    case DiscoverMore(page: Int)
 }
 
 extension APIManager: TargetType {
@@ -142,6 +144,22 @@ extension APIManager: TargetType {
         case .AddHomeComment(aid: let aid, cid: let cid, detail: let detail):
             let type: Int = cid.isEmpty ? 1 : 2
             dict = ["c":"article","a":"addcom","token":MLNetConfig.shareInstance.token,"detail":"\(detail)","fid":"3","aid":"\(aid)","cid":"\(cid)","type":"\(type)"]
+        case .HomeFavorite(tid: let tid):
+            dict = ["c":"article","a":"upcollect","tid":"\(tid)","token":MLNetConfig.shareInstance.token]
+        case .DiscoverDetail(let page, let tag_id, let subjectType):
+            if subjectType == .banner {
+                dict = ["c":"article","a":"getRelation","aid":"\(tag_id)","pg":"\(page)","size":"20"]
+            } else if subjectType == .tag {
+                dict = ["c":"column","a":"getArticleByTag","tag_id":"\(tag_id)","pg":"\(page)","size":"20"]
+            } else {
+                dict = ["c":"column","a":"artlist","pg":"\(page)","size":"20","keywords":"\(tag_id)"]
+            }
+        case .Discover:
+            dict = ["c":"column","a":"topiclist","pg":"1","size":"5"]
+        case .DiscoverTag:
+            dict = ["c":"tag","a":"hot"]
+        case .DiscoverMore(page: let page):
+            dict = ["c":"column","a":"topiclist","pg":"\(page)","size":"20"]
         default:
             break
         }
@@ -156,7 +174,7 @@ extension APIManager: TargetType {
     
     var task: Task {
         switch self {
-        case .Login(let username, let password):
+        case .Login(username: let username, password: let password):
             var parameters = self.parameters!
             parameters["username"] = username
             parameters["password"] = password
