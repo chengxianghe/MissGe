@@ -9,9 +9,10 @@
 import Foundation
 import Moya
 
+
 struct TUNetwork {
     static let provider = MoyaProvider<APIManager>(endpointClosure: kAPIManagerEndpointClosure, requestClosure: kAPIManagerRequestClosure)
-    
+
     static func request(_ target: APIManager, success successCallback: @escaping (Any) -> Void, failure failureCallback: @escaping(Error) -> Void) {
         provider.request(target) { result in
             switch result {

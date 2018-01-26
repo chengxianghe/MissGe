@@ -22,11 +22,6 @@ class HomeViewController: BaseViewController, ScrollDrectionChangeProtocol, UITa
     var lastOffsetY: CGFloat = 0
     var isUp: Bool = false
     var scrollBlock: ScrollDirectionChangeBlock?
-    
-//    var dataSource = [MLHomePageModel]()
-//    var bannerSource = [MLHomeBannerModel]()
-//    let bannerRequest = HomePageBannerRequest()
-//    var currentIndex = 0
     let viewModel = MLHomeViewModel()
     var bag : DisposeBag = DisposeBag()
 
@@ -56,7 +51,7 @@ class HomeViewController: BaseViewController, ScrollDrectionChangeProtocol, UITa
                 // 进入文章详情
                 self.performSegue(withIdentifier: "HomeCellToDetail", sender: banner.weibo_id)
             } else {
-                print("未知类型: id:\(String(describing: banner.weibo_id)), type:\(banner.weibo_type)")
+                print("未知类型: id:\(String(describing: banner.weibo_id)), type:\(String(describing: banner.weibo_type))")
             }
             
         }

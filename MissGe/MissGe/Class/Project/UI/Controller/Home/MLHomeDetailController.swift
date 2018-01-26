@@ -59,7 +59,8 @@ class MLHomeDetailController: BaseViewController {
         super.viewDidLoad()
         
         self.automaticallyAdjustsScrollViewInsets = false
-        self.title = self.showTitle
+//        self.title = self.showTitle
+        self.title = "文章详情"
         self.webView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: kScreenHeight - 64 - 46)
         self.view.addSubview(self.webView)
         self.view.bringSubview(toFront: bottomView)

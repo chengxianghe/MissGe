@@ -93,8 +93,13 @@ extension Response {
     /// If the conversion fails, the signal errors.
     public func mapArray<T: BaseMappable>(_ type: T.Type, context: MapContext? = nil, keyPath: String? = nil) throws -> [T] {
         if keyPath != nil {
-            guard let array = ((try mapJSON()as? NSDictionary)?.value(forKeyPath: keyPath!)) as? [[String : Any]] else {
-                throw MoyaError.jsonMapping(self)
+            let result = try mapJSON() as? NSDictionary
+            guard let array = (result?.value(forKeyPath: keyPath!)) as? [[String : Any]] else {
+                if (result?["result"] as? String) ?? "0" == "200" {
+                    throw RxSwiftMoyaError.DataEmpty
+                } else {
+                    throw MoyaError.jsonMapping(self)
+                }
             }
             return Mapper<T>(context: context).mapArray(JSONArray: array)
         } else {
@@ -107,13 +112,27 @@ extension Response {
     }
 }
 
-
 enum RxSwiftMoyaError: String {
     case ParseJSONError
+    case DataEmpty
     case OtherError
 }
 
-extension RxSwiftMoyaError: Swift.Error { }
+extension RxSwiftMoyaError: Swift.Error {
+    
+}
 
+extension RxSwiftMoyaError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .ParseJSONError:
+            return "Failed to map data to JSON."
+        case .DataEmpty:
+            return "NO Data."
+        case .OtherError:
+            return "Failed."
+        }
+    }
+}
 
 

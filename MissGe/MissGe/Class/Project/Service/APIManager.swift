@@ -83,6 +83,11 @@ enum APIManager{
     case Discover
     case DiscoverTag
     case DiscoverMore(page: Int)
+    case TopicComment(anonymous: Int, tid: String, quote: String, detail: String)
+    case TopicSetBestComment(pid: String, state: Int)
+    case PostTopic(anonymous: Int, ids: [String]?, detail: String)
+    case Square(page: Int)
+    case SquareFriends(page: Int)
 }
 
 extension APIManager: TargetType {
@@ -160,6 +165,20 @@ extension APIManager: TargetType {
             dict = ["c":"tag","a":"hot"]
         case .DiscoverMore(page: let page):
             dict = ["c":"column","a":"topiclist","pg":"\(page)","size":"20"]
+        case .TopicComment(anonymous: let anonymous, tid: let tid, quote: let quote, detail: let detail):
+            dict = ["c":"post","a":"reply","token":MLNetConfig.shareInstance.token,"detail":"\(detail)","fid":"3","tid":"\(tid)","quote":"\(quote)","anonymous":"\(anonymous)"]
+        case .TopicSetBestComment(pid: let pid, state: let state):
+            dict = ["c":"post","a":"bestRepost","token":MLNetConfig.shareInstance.token,"pid":"\(pid)","state":"\(state)"]
+        case .PostTopic(anonymous: let anonymous, ids: let ids, detail: let detail):
+            let title: String = detail.length > 10 ? (detail as NSString).substring(to: 10) : detail;
+            dict = ["c":"post","a":"addpost","token":MLNetConfig.shareInstance.token,"detail":"\(detail)","anonymous":"\(anonymous)", "title":title, "fid":"3"]
+            if ids != nil && ids!.count > 0 {
+                dict["ids"] = ids!.joined(separator: ",")
+            }
+        case .Square(page: let page):
+            dict = ["c":"forum","a":"postlist","fid":"3","token":"(null)","pg":"\(page)","size":"20", "d":22] as [String : Any]
+        case .SquareFriends(page: let page):
+            dict = ["c":"forum","a":"postlist","fid":"3","token":"(null)","pg":"\(page)","size":"20","type":"follow","token":MLNetConfig.shareInstance.token]
         default:
             break
         }

@@ -33,6 +33,8 @@
 		1447AF3F1FCC163E00D9D514 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1447AF3E1FCC163E00D9D514 /* APIManager.swift */; };
 		1447AF421FCC17E200D9D514 /* MLHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1447AF411FCC17E200D9D514 /* MLHomeViewModel.swift */; };
 		144B6A0D1EA451A70000BB1B /* TZTestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144B6A0C1EA451A70000BB1B /* TZTestCell.swift */; };
+		145AD788201B1A03009F54FA /* MLTopicCommentListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145AD787201B1A02009F54FA /* MLTopicCommentListRequest.swift */; };
+		145AD78B201B1B41009F54FA /* MLSquareVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145AD78A201B1B41009F54FA /* MLSquareVM.swift */; };
 		1471CB271EAEF28900226C56 /* XHCustomSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1471CB261EAEF28900226C56 /* XHCustomSegue.swift */; };
 		1471CB291EAF0B9600226C56 /* XHUploadImagesHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1471CB281EAF0B9600226C56 /* XHUploadImagesHelper.swift */; };
 		1471CB2B1EAF2A9F00226C56 /* XHImageCompressHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1471CB2A1EAF2A9F00226C56 /* XHImageCompressHelper.swift */; };
@@ -53,8 +55,6 @@
 		14D5B75F20106F1400EDDF55 /* MLHomeSubjectVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D5B75E20106F1400EDDF55 /* MLHomeSubjectVM.swift */; };
 		14D5B7622010720800EDDF55 /* MLDiscoverVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D5B7612010720800EDDF55 /* MLDiscoverVM.swift */; };
 		14D5B7642010722900EDDF55 /* MLDiscoverMoreVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D5B7632010722900EDDF55 /* MLDiscoverMoreVM.swift */; };
-		14D5B76620107FC100EDDF55 /* MLDiscoverRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D5B76520107FC100EDDF55 /* MLDiscoverRequest.swift */; };
-		14D5B7682010810A00EDDF55 /* MLHomeCommentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D5B7672010810A00EDDF55 /* MLHomeCommentRequest.swift */; };
 		14D5B76A2010812800EDDF55 /* MLLikeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D5B7692010812800EDDF55 /* MLLikeRequest.swift */; };
 		14D6FE151E9E0DEE0038C7D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14D6FE131E9E0DEE0038C7D1 /* Main.storyboard */; };
 		14D6FE171E9E0DEE0038C7D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14D6FE161E9E0DEE0038C7D1 /* Assets.xcassets */; };
@@ -78,9 +78,6 @@
 		14D6FE9D1E9E0FFC0038C7D1 /* MLBaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE4E1E9E0FFC0038C7D1 /* MLBaseRequest.swift */; };
 		14D6FE9E1E9E0FFC0038C7D1 /* MLNetConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE4F1E9E0FFC0038C7D1 /* MLNetConfig.swift */; };
 		14D6FE9F1E9E0FFC0038C7D1 /* MLRequestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE501E9E0FFC0038C7D1 /* MLRequestHelper.swift */; };
-		14D6FEA01E9E0FFC0038C7D1 /* MLPostTopicRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE521E9E0FFC0038C7D1 /* MLPostTopicRequest.swift */; };
-		14D6FEA11E9E0FFC0038C7D1 /* MLSquareRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE531E9E0FFC0038C7D1 /* MLSquareRequest.swift */; };
-		14D6FEA21E9E0FFC0038C7D1 /* MLTopicCommentListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE541E9E0FFC0038C7D1 /* MLTopicCommentListRequest.swift */; };
 		14D6FEA31E9E0FFC0038C7D1 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE571E9E0FFC0038C7D1 /* BaseNavigationController.swift */; };
 		14D6FEA41E9E0FFC0038C7D1 /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE581E9E0FFC0038C7D1 /* BaseTabBarController.swift */; };
 		14D6FEA51E9E0FFC0038C7D1 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6FE591E9E0FFC0038C7D1 /* BaseViewController.swift */; };
@@ -183,6 +180,8 @@
 		1447AF3E1FCC163E00D9D514 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		1447AF411FCC17E200D9D514 /* MLHomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLHomeViewModel.swift; sourceTree = "<group>"; };
 		144B6A0C1EA451A70000BB1B /* TZTestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TZTestCell.swift; sourceTree = "<group>"; };
+		145AD787201B1A02009F54FA /* MLTopicCommentListRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLTopicCommentListRequest.swift; sourceTree = "<group>"; };
+		145AD78A201B1B41009F54FA /* MLSquareVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSquareVM.swift; sourceTree = "<group>"; };
 		1471CB261EAEF28900226C56 /* XHCustomSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XHCustomSegue.swift; sourceTree = "<group>"; };
 		1471CB281EAF0B9600226C56 /* XHUploadImagesHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XHUploadImagesHelper.swift; sourceTree = "<group>"; };
 		1471CB2A1EAF2A9F00226C56 /* XHImageCompressHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XHImageCompressHelper.swift; sourceTree = "<group>"; };
@@ -204,8 +203,6 @@
 		14D5B75E20106F1400EDDF55 /* MLHomeSubjectVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLHomeSubjectVM.swift; sourceTree = "<group>"; };
 		14D5B7612010720800EDDF55 /* MLDiscoverVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLDiscoverVM.swift; sourceTree = "<group>"; };
 		14D5B7632010722900EDDF55 /* MLDiscoverMoreVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLDiscoverMoreVM.swift; sourceTree = "<group>"; };
-		14D5B76520107FC100EDDF55 /* MLDiscoverRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLDiscoverRequest.swift; sourceTree = "<group>"; };
-		14D5B7672010810A00EDDF55 /* MLHomeCommentRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLHomeCommentRequest.swift; sourceTree = "<group>"; };
 		14D5B7692010812800EDDF55 /* MLLikeRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLLikeRequest.swift; sourceTree = "<group>"; };
 		14D6FE0C1E9E0DEE0038C7D1 /* MissGe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MissGe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14D6FE141E9E0DEE0038C7D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -231,9 +228,6 @@
 		14D6FE4E1E9E0FFC0038C7D1 /* MLBaseRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLBaseRequest.swift; sourceTree = "<group>"; };
 		14D6FE4F1E9E0FFC0038C7D1 /* MLNetConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLNetConfig.swift; sourceTree = "<group>"; };
 		14D6FE501E9E0FFC0038C7D1 /* MLRequestHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLRequestHelper.swift; sourceTree = "<group>"; };
-		14D6FE521E9E0FFC0038C7D1 /* MLPostTopicRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLPostTopicRequest.swift; sourceTree = "<group>"; };
-		14D6FE531E9E0FFC0038C7D1 /* MLSquareRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLSquareRequest.swift; sourceTree = "<group>"; };
-		14D6FE541E9E0FFC0038C7D1 /* MLTopicCommentListRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLTopicCommentListRequest.swift; sourceTree = "<group>"; };
 		14D6FE571E9E0FFC0038C7D1 /* BaseNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		14D6FE581E9E0FFC0038C7D1 /* BaseTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
 		14D6FE591E9E0FFC0038C7D1 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -448,7 +442,7 @@
 			isa = PBXGroup;
 			children = (
 				14D5B7692010812800EDDF55 /* MLLikeRequest.swift */,
-				14D5B7672010810A00EDDF55 /* MLHomeCommentRequest.swift */,
+				145AD789201B1B2F009F54FA /* Square */,
 				14D5B760201071F200EDDF55 /* Discover */,
 				1447AF411FCC17E200D9D514 /* MLHomeViewModel.swift */,
 				1494C2012008A43100013D58 /* MLHomeDetailVM.swift */,
@@ -456,6 +450,14 @@
 				14D5B75E20106F1400EDDF55 /* MLHomeSubjectVM.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		145AD789201B1B2F009F54FA /* Square */ = {
+			isa = PBXGroup;
+			children = (
+				145AD78A201B1B41009F54FA /* MLSquareVM.swift */,
+			);
+			path = Square;
 			sourceTree = "<group>";
 		};
 		1488B5DA1EA4B8CF0096B0BE /* Resource */ = {
@@ -479,7 +481,6 @@
 		14D5B760201071F200EDDF55 /* Discover */ = {
 			isa = PBXGroup;
 			children = (
-				14D5B76520107FC100EDDF55 /* MLDiscoverRequest.swift */,
 				14D5B7612010720800EDDF55 /* MLDiscoverVM.swift */,
 				14D5B7632010722900EDDF55 /* MLDiscoverMoreVM.swift */,
 			);
@@ -681,9 +682,7 @@
 		14D6FE511E9E0FFC0038C7D1 /* Square */ = {
 			isa = PBXGroup;
 			children = (
-				14D6FE521E9E0FFC0038C7D1 /* MLPostTopicRequest.swift */,
-				14D6FE531E9E0FFC0038C7D1 /* MLSquareRequest.swift */,
-				14D6FE541E9E0FFC0038C7D1 /* MLTopicCommentListRequest.swift */,
+				145AD787201B1A02009F54FA /* MLTopicCommentListRequest.swift */,
 			);
 			path = Square;
 			sourceTree = "<group>";
@@ -1136,7 +1135,6 @@
 				14F53D831EA4615F00FBF649 /* TUIBButton.m in Sources */,
 				14D6FE9C1E9E0FFC0038C7D1 /* MLMineRequest.swift in Sources */,
 				14C446041ECD650D0014DF0E /* XHImageGifHelper.swift in Sources */,
-				14D6FEA11E9E0FFC0038C7D1 /* MLSquareRequest.swift in Sources */,
 				14D6FEB31E9E0FFC0038C7D1 /* MLLoginController.swift in Sources */,
 				14D6FE9E1E9E0FFC0038C7D1 /* MLNetConfig.swift in Sources */,
 				14D6FEAE1E9E0FFC0038C7D1 /* MLTopicCellLayout.swift in Sources */,
@@ -1157,7 +1155,6 @@
 				14D6FEBE1E9E0FFC0038C7D1 /* MLMineViewController.swift in Sources */,
 				1417A9B31EA70CD9003931C5 /* TUBaseTableView.swift in Sources */,
 				14D6FEA91E9E0FFC0038C7D1 /* MLDiscoverCell.swift in Sources */,
-				14D6FEA21E9E0FFC0038C7D1 /* MLTopicCommentListRequest.swift in Sources */,
 				1417A9F21EA72E78003931C5 /* UIColorExtension.swift in Sources */,
 				14D6FEBD1E9E0FFC0038C7D1 /* MLMineSquareController.swift in Sources */,
 				14D6FEB61E9E0FFC0038C7D1 /* MLDiscoverMoreController.swift in Sources */,
@@ -1170,6 +1167,7 @@
 				14CD209A1EB869E700F0B920 /* String+Emoji.swift in Sources */,
 				1471CB291EAF0B9600226C56 /* XHUploadImagesHelper.swift in Sources */,
 				14D6FE8C1E9E0FFC0038C7D1 /* UIViewExt.swift in Sources */,
+				145AD78B201B1B41009F54FA /* MLSquareVM.swift in Sources */,
 				14D6FEB41E9E0FFC0038C7D1 /* MLRegisterController.swift in Sources */,
 				14D6FE901E9E0FFC0038C7D1 /* MLLoginRequest.swift in Sources */,
 				14D6FF041E9F213A0038C7D1 /* MLSquareModel.swift in Sources */,
@@ -1191,7 +1189,6 @@
 				14D6FEAD1E9E0FFC0038C7D1 /* MLTopicCell.swift in Sources */,
 				14D6FEB21E9E0FFC0038C7D1 /* MLFindPasswordController.swift in Sources */,
 				14D6FEBB1E9E0FFC0038C7D1 /* MLHomeSubjectController.swift in Sources */,
-				14D5B7682010810A00EDDF55 /* MLHomeCommentRequest.swift in Sources */,
 				14D6FE8D1E9E0FFC0038C7D1 /* Global.swift in Sources */,
 				14D6FE9D1E9E0FFC0038C7D1 /* MLBaseRequest.swift in Sources */,
 				14D6FEBC1E9E0FFC0038C7D1 /* MLMineMessageController.swift in Sources */,
@@ -1212,7 +1209,6 @@
 				1447AF421FCC17E200D9D514 /* MLHomeViewModel.swift in Sources */,
 				14F53D761EA4604800FBF649 /* GMBScrollAdView.m in Sources */,
 				14C1DA121ECE930500517155 /* MLMineFavoriteController.swift in Sources */,
-				14D5B76620107FC100EDDF55 /* MLDiscoverRequest.swift in Sources */,
 				14D6FEB01E9E0FFC0038C7D1 /* MLTopicCommentCellLayout.swift in Sources */,
 				14C1DA161ECE98AC00517155 /* MLMineCommentController.swift in Sources */,
 				144B6A0D1EA451A70000BB1B /* TZTestCell.swift in Sources */,
@@ -1223,10 +1219,10 @@
 				1471CB271EAEF28900226C56 /* XHCustomSegue.swift in Sources */,
 				14D6FF0A1E9F4F230038C7D1 /* JokeHelper.swift in Sources */,
 				143AA8F01F989E1300E05D0F /* TUSearchBar.swift in Sources */,
+				145AD788201B1A03009F54FA /* MLTopicCommentListRequest.swift in Sources */,
 				1447AF3F1FCC163E00D9D514 /* APIManager.swift in Sources */,
 				14D6FF081E9F4AB20038C7D1 /* MLDiscoverTagModel.swift in Sources */,
 				14F53D8D1EA4639B00FBF649 /* NSDateFormatter+Category.m in Sources */,
-				14D6FEA01E9E0FFC0038C7D1 /* MLPostTopicRequest.swift in Sources */,
 				14D6FEAC1E9E0FFC0038C7D1 /* MLHomePageCell.swift in Sources */,
 				14D6FEBA1E9E0FFC0038C7D1 /* MLHomeDetailController.swift in Sources */,
 				14D6FF021E9F174E0038C7D1 /* MLHomePageModel.swift in Sources */,

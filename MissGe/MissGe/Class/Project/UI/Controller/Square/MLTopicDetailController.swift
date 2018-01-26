@@ -11,6 +11,9 @@ import MJRefresh
 import YYText
 import XHPhotoBrowser
 import ObjectMapper
+import RxSwift
+import RxCocoa
+import Moya
 
 protocol MLTopicDetailControllerDelegate {
     func topicCellDidClickOtherFromDetail(_ topic: MLTopicCellLayout!);
@@ -26,6 +29,10 @@ class MLTopicDetailController: BaseViewController, UITableViewDelegate, UITableV
     fileprivate let commentListRequest = MLTopicCommentListRequest()
     fileprivate var currentIndex = 0
     fileprivate var tableView: UITableView!
+    
+    let viewModel = MLHomeViewModel()
+    var bag : DisposeBag = DisposeBag()
+    let provider = MoyaProvider<APIManager>(endpointClosure: kAPIManagerEndpointClosure, requestClosure: kAPIManagerRequestClosure)
     
     override func viewDidLoad() {
         super.viewDidLoad()

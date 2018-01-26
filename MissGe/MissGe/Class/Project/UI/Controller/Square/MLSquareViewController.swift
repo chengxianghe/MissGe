@@ -10,14 +10,18 @@ import UIKit
 import MJRefresh
 import YYText
 import XHPhotoBrowser
+import RxSwift
+import RxCocoa
+import Moya
 
-class MLSquareViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class MLSquareViewController: BaseViewController, UITableViewDelegate {
 
-    var dataSource = [MLTopicCellLayout]()
-    let squareRequest = MLSquareRequest()
-    var currentIndex = 0
+//    var dataSource = [MLTopicCellLayout]()
+//    let squareRequest = MLSquareRequest()
     var tableView: UITableView!
-
+    let viewModel = MLSquareVM()
+    var bag : DisposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,12 +29,15 @@ class MLSquareViewController: BaseViewController, UITableViewDelegate, UITableVi
         
         self.tableView = UITableView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height - 64 - 49), style: UITableViewStyle.plain)
         self.tableView.delegate = self
-        self.tableView.dataSource = self
+        self.tableView.dataSource = nil
         self.tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         self.tableView.backgroundColor = UIColor.groupTableViewBackground
         self.view.addSubview(self.tableView)
         
         self.configRefresh()
+        viewModel.tableView = tableView
+        viewModel.delegate = self
+        viewModel.SetConfig()
     }
     
     //MARK: - 刷新
@@ -40,14 +47,14 @@ class MLSquareViewController: BaseViewController, UITableViewDelegate, UITableVi
             if self.tableView.mj_footer.isRefreshing {
                 return
             }
-            self.loadData(1)
+            self.viewModel.requestNewDataCommond.onNext(true)
             })
         
         self.tableView.mj_footer = MJRefreshAutoNormalFooter(refreshingBlock: {[unowned self] () -> Void in
             if self.tableView.mj_header.isRefreshing {
                 return
             }
-            self.loadData(self.currentIndex + 1)
+            self.viewModel.requestNewDataCommond.onNext(false)
             })
         
         (self.tableView.mj_footer as! MJRefreshAutoNormalFooter).huaBanFooterConfig()
@@ -57,58 +64,58 @@ class MLSquareViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     //MARK: - 数据请求
-    func loadData(_ page: Int){
-        self.showLoading("正在加载...")
-        squareRequest.page = page
-        squareRequest.send(success: {[unowned self] (baseRequest, responseObject) in
-            self.hideHud()
-            self.tableView.mj_header.endRefreshing()
-
-            guard let artlist = ((responseObject as! NSDictionary)["content"] as! NSDictionary)["artlist"]! as? [[String:Any]] else {
-                return
-            }
-            
-            let modelArray = artlist.map({ MLSquareModel(JSON: $0) }) as! [MLSquareModel];
- 
-            let array = modelArray.map({ (model) -> MLTopicCellLayout in
-                return MLTopicCellLayout(model: model)
-            })
-            
-            if array.count > 0 {
-                if page == 1 {
-                    self.dataSource.removeAll()
-                    self.dataSource.append(contentsOf: array )
-                    self.tableView.reloadData()
-                } else {
-                    self.tableView.beginUpdates()
-                    let lastItem = self.dataSource.count
-                    self.dataSource.append(contentsOf: array)
-                    let indexPaths = (lastItem..<self.dataSource.count).map { IndexPath(row: $0, section: 0) }
-                    self.tableView.insertRows(at: indexPaths, with: UITableViewRowAnimation.fade)
-                    self.tableView.endUpdates()
-                }
-
-                if array.count < 20 {
-                    self.tableView.mj_footer.endRefreshingWithNoMoreData()
-                } else {
-                    self.currentIndex = page
-                    self.tableView.mj_footer.endRefreshing()
-                }
-            } else {
-                if page == 1 {
-                    self.dataSource.removeAll()
-                    self.tableView.reloadData()
-                }
-                self.tableView.mj_footer.endRefreshingWithNoMoreData()
-            }
-            
-        }) { (baseRequest, error) in
-            self.tableView.mj_header.endRefreshing()
-            self.tableView.mj_footer.endRefreshing()
-            
-            print(error)
-        }
-    }
+//    func loadData(_ page: Int){
+//        self.showLoading("正在加载...")
+//        squareRequest.page = page
+//        squareRequest.send(success: {[unowned self] (baseRequest, responseObject) in
+//            self.hideHud()
+//            self.tableView.mj_header.endRefreshing()
+//
+//            guard let artlist = ((responseObject as! NSDictionary)["content"] as! NSDictionary)["artlist"]! as? [[String:Any]] else {
+//                return
+//            }
+//
+//            let modelArray = artlist.map({ MLSquareModel(JSON: $0) }) as! [MLSquareModel];
+//
+//            let array = modelArray.map({ (model) -> MLTopicCellLayout in
+//                return MLTopicCellLayout(model: model)
+//            })
+//
+//            if array.count > 0 {
+//                if page == 1 {
+//                    self.dataSource.removeAll()
+//                    self.dataSource.append(contentsOf: array )
+//                    self.tableView.reloadData()
+//                } else {
+//                    self.tableView.beginUpdates()
+//                    let lastItem = self.dataSource.count
+//                    self.dataSource.append(contentsOf: array)
+//                    let indexPaths = (lastItem..<self.dataSource.count).map { IndexPath(row: $0, section: 0) }
+//                    self.tableView.insertRows(at: indexPaths, with: UITableViewRowAnimation.fade)
+//                    self.tableView.endUpdates()
+//                }
+//
+//                if array.count < 20 {
+//                    self.tableView.mj_footer.endRefreshingWithNoMoreData()
+//                } else {
+//                    self.currentIndex = page
+//                    self.tableView.mj_footer.endRefreshing()
+//                }
+//            } else {
+//                if page == 1 {
+//                    self.dataSource.removeAll()
+//                    self.tableView.reloadData()
+//                }
+//                self.tableView.mj_footer.endRefreshingWithNoMoreData()
+//            }
+//
+//        }) { (baseRequest, error) in
+//            self.tableView.mj_header.endRefreshing()
+//            self.tableView.mj_footer.endRefreshing()
+//
+//            print(error)
+//        }
+//    }
 
     @IBAction func onPublishBtnClick(_ sender: UIButton) {
         if MLNetConfig.isUserLogin() {
@@ -128,28 +135,24 @@ class MLSquareViewController: BaseViewController, UITableViewDelegate, UITableVi
         }
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "MLTopicCell") as? MLTopicCell
-        if cell == nil {
-            cell = MLTopicCell(style: .default, reuseIdentifier: "MLTopicCell")
-            cell?.delegate = self
-        }
-        cell!.setInfo(self.dataSource[(indexPath as NSIndexPath).row]);
-        return cell!
-    }
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        var cell = tableView.dequeueReusableCell(withIdentifier: "MLTopicCell") as? MLTopicCell
+//        if cell == nil {
+//            cell = MLTopicCell(style: .default, reuseIdentifier: "MLTopicCell")
+//            cell?.delegate = self
+//        }
+//        cell!.setInfo(self.dataSource[(indexPath as NSIndexPath).row]);
+//        return cell!
+//    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let model = self.dataSource[(indexPath as NSIndexPath).row]
+        let model = self.viewModel.modelObserable.value[(indexPath as NSIndexPath).row]
         return MLTopicCell.height(model)
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.performSegue(withIdentifier: "TopicToDetail", sender: dataSource[indexPath.row])
+        self.performSegue(withIdentifier: "TopicToDetail", sender: viewModel.modelObserable.value[indexPath.row])
     }
 
     
@@ -192,11 +195,11 @@ extension MLSquareViewController: MLSquareCellDelegate, MLTopicDetailControllerD
     
     func topicCellDidClickOtherFromDetail(_ topic: MLTopicCellLayout!) {
         // 删除
-        let arr = self.dataSource.filter({ $0.joke.pid == topic.joke.pid })
+        let arr = self.viewModel.modelObserable.value.filter({ $0.joke.pid == topic.joke.pid })
         self.showSuccess("已删除")
         if arr.count > 0 {
-            let index = self.dataSource.index(of: arr.first!)!
-            self.dataSource.remove(at: index)
+            let index = self.viewModel.modelObserable.value.index(of: arr.first!)!
+            self.viewModel.modelObserable.value.remove(at: index)
             self.tableView.deleteRows(at: [IndexPath.init(row: index, section: 0)], with: .automatic)
         }
     }
@@ -210,8 +213,8 @@ extension MLSquareViewController: MLSquareCellDelegate, MLTopicDetailControllerD
                         return
                     }
                     _self.showSuccess("已删除")
-                    let index = _self.dataSource.index(of: cell.layout)!
-                    _self.dataSource.remove(at: index)
+                    let index = _self.viewModel.modelObserable.value.index(of: cell.layout)!
+                    _self.viewModel.modelObserable.value.remove(at: index)
                     _self.tableView.deleteRows(at: [IndexPath.init(row: index, section: 0)], with: .automatic)
                     }, failure: {[weak self] (error) in
                         guard let _self = self else {

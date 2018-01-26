@@ -11,6 +11,9 @@ import Photos
 import AssetsLibrary
 import TU_TZImagePickerController
 import YYImage
+import RxSwift
+import RxCocoa
+import Moya
 
 typealias PublishDismissClosure = (_ isActionSucceed: Bool) -> Void;
 
@@ -39,6 +42,10 @@ class MLPostTopicController: BaseViewController {
     
     var dismissClosure: PublishDismissClosure?
     
+    let viewModel = MLHomeViewModel()
+    var bag : DisposeBag = DisposeBag()
+    let provider = MoyaProvider<APIManager>(endpointClosure: kAPIManagerEndpointClosure, requestClosure: kAPIManagerRequestClosure)
+
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
@@ -49,9 +56,9 @@ class MLPostTopicController: BaseViewController {
     @IBOutlet weak var userAllowProtocolButton: UIButton!
     @IBOutlet weak var hiddenNameSwitch: UISwitch!
     
-    let publishRequest = MLPostTopicRequest()
-    let commentArticleRequest = MLHomeCommentRequest()
-    let commentTopicRequest = MLTopicCommentRequest()
+//    let publishRequest = MLPostTopicRequest()
+//    let commentArticleRequest = MLHomeCommentRequest()
+//    let commentTopicRequest = MLTopicCommentRequest()
 
     // 相册
     lazy var imagePickerVc: UIImagePickerController = {
@@ -237,51 +244,56 @@ class MLPostTopicController: BaseViewController {
     func publishTopic(_ ids: [String]?) {
     
         self.showLoading("正在发表")
-        
-        publishRequest.detail = self.textView.text.emojiEscapedString
-        publishRequest.anonymous = self.hiddenNameSwitch.isOn ? 1 : 0;
-        publishRequest.ids = ids
-        
-        publishRequest.send(success: {[unowned self] (baseRequest, responseObject) in
-            self.showSuccess("发表成功")
-            self.dismissPost(true)
-        }) { (baseRequest, error) in
-            self.showError("发表失败" + error.localizedDescription)
-            print(error)
-        }
+        self.provider
+            .rx
+            .request(.PostTopic(anonymous: self.hiddenNameSwitch.isOn ? 1 : 0, ids: ids, detail: self.textView.text.emojiEscapedString))
+            .filterSuccessfulStatusCodes()
+            .mapJSON()
+            .subscribe(onSuccess: { (res) in
+                self.showSuccess("发表成功")
+                self.dismissPost(true)
+            }, onError: { ( error) in
+                self.hideHud()
+                print(error)
+                self.showError("发表失败" + error.localizedDescription)
+                print(error)
+            }).disposed(by: self.bag)
     }
     
     func publishTopicComment() {
         self.showLoading("正在发表")
-        
-        commentTopicRequest.detail = self.textView.text.emojiEscapedString
-        commentTopicRequest.anonymous = self.hiddenNameSwitch.isOn ? 1 : 0;
-        commentTopicRequest.tid = tid
-        commentTopicRequest.quote = quote
-        
-        commentTopicRequest.send(success: {[unowned self] (baseRequest, responseObject) in
-            self.showSuccess("发表成功")
-            self.dismissPost(true)
-        }) { (baseRequest, error) in
-            self.showError("发表失败" + error.localizedDescription)
-            print(error)
-        }
+        self.provider
+            .rx
+            .request(.TopicComment(anonymous: self.hiddenNameSwitch.isOn ? 1 : 0, tid: tid, quote: quote, detail: self.textView.text.emojiEscapedString))
+            .filterSuccessfulStatusCodes()
+            .mapJSON()
+            .subscribe(onSuccess: { (res) in
+                self.showSuccess("发表成功")
+                self.dismissPost(true)
+            }, onError: { ( error) in
+                self.hideHud()
+                print(error)
+                self.showError("发表失败" + error.localizedDescription)
+                print(error)
+            }).disposed(by: self.bag)
     }
 
     func publishArticleComment() {
         self.showLoading("正在发表")
-        
-        commentArticleRequest.detail = self.textView.text.emojiEscapedString
-        commentArticleRequest.aid = aid
-        commentArticleRequest.cid = cid
-
-        commentArticleRequest.send(success: {[unowned self] (baseRequest, responseObject) in
-            self.showSuccess("发表成功")
-            self.dismissPost(true)
-        }) { (baseRequest, error) in
-            self.showError("发表失败" + error.localizedDescription)
-            print(error)
-        }
+        self.provider
+            .rx
+            .request(.AddHomeComment(aid: aid, cid: cid, detail: self.textView.text.emojiEscapedString))
+            .filterSuccessfulStatusCodes()
+            .mapJSON()
+            .subscribe(onSuccess: { (res) in
+                self.showSuccess("发表成功")
+                self.dismissPost(true)
+            }, onError: { ( error) in
+                self.hideHud()
+                print(error)
+                self.showError("发表失败" + error.localizedDescription)
+                print(error)
+            }).disposed(by: self.bag)
     }
 
     

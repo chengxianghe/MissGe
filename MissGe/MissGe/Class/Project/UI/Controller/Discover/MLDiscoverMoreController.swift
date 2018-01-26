@@ -8,7 +8,6 @@
 
 import UIKit
 import MJRefresh
-import ObjectMapper
 
 class MLDiscoverMoreController: BaseViewController, UITableViewDelegate {
 
@@ -20,7 +19,8 @@ class MLDiscoverMoreController: BaseViewController, UITableViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.backgroundColor = UIColor.white
+
         self.tableView.rowHeight = ceil((kScreenWidth - 20) / 300 * 140 + 20)
         
         self.configRefresh()
@@ -49,9 +49,9 @@ class MLDiscoverMoreController: BaseViewController, UITableViewDelegate {
     }
 
     // MARK: - Table view data source
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.modelObserable.value.count
-    }
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return self.viewModel.modelObserable.value.count
+//    }
     
 //    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        let cell = tableView.dequeueReusableCell(withIdentifier: "MLDiscoverCell", for: indexPath) as! MLDiscoverCell

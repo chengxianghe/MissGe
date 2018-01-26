@@ -76,7 +76,6 @@ class MLHomeSubjectController: BaseViewController, UITableViewDelegate {
         
         (self.tableView.mj_footer as! MJRefreshAutoNormalFooter).huaBanFooterConfig()
         (self.tableView.mj_header as! MJRefreshNormalHeader).huaBanHeaderConfig()
-        
         self.tableView.mj_header.beginRefreshing()
     }
     

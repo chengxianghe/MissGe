@@ -38,7 +38,6 @@ class MLHomeDetailVM: NSObject {
                     
                     weak_self.detailVC.detailModel = detailModel
                     
-                    weak_self.detailVC.title = detailModel.title
                     weak_self.detailVC.likeLabel.text = String(format: "%d", detailModel.like )
                     weak_self.detailVC.favoriteButton.isSelected = (detailModel.is_collect)
                     print("is_collect:\(String(describing: detailModel.is_collect)), \(String(describing: detailModel.is_special))")

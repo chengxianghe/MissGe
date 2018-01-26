@@ -1,8 +1,8 @@
 //
-//  MLHomeCommentVM.swift
+//  MLSquareVM.swift
 //  MissGe
 //
-//  Created by chengxianghe on 2018/1/12.
+//  Created by chengxianghe on 2018/1/26.
 //  Copyright © 2018年 cn. All rights reserved.
 //
 
@@ -13,81 +13,61 @@ import Moya
 import Alamofire
 import MJRefresh
 import YYWebImage
+import WebKit
 import SVProgressHUD
+import RxDataSources
 
-class MLHomeCommentVM: NSObject {
+class MLSquareVM: NSObject {
     var bag : DisposeBag = DisposeBag()
     let provider = MoyaProvider<APIManager>(endpointClosure: kAPIManagerEndpointClosure, requestClosure: kAPIManagerRequestClosure)
     let requestNewDataCommond = PublishSubject<Bool>()
-    var aid: String = ""
-    var modelObserable = Variable<[MLTopicCommentCellLayout]> ([])
+    var modelObserable = Variable<[MLTopicCellLayout]> ([])
+    
+    var tableView: UITableView!
     var refreshStateObserable = Variable<LLRefreshStatus>(.none)
     var pageIndex = Int()
-    var tableView: UITableView!
-    weak var vc: MLHomeCommentController!
-    
-    //MARK: - 数据请求
-    func loadData(_ page: Int){
-
-    }
+    var delegate: MLSquareCellDelegate?
     
     func SetConfig() {
         //MARK: Rx 绑定tableView数据
         modelObserable.asObservable().bind(to: tableView.rx.items) { tableView, row, model in
-            var cell = tableView.dequeueReusableCell(withIdentifier: "MLTopicCommentCell") as? MLTopicCommentCell
+            var cell = tableView.dequeueReusableCell(withIdentifier: "MLTopicCell") as? MLTopicCell
             if cell == nil {
-                cell = MLTopicCommentCell(style: .default, reuseIdentifier: "MLTopicCommentCell")
-                cell?.delegate = self.vc
+                cell = MLTopicCell(style: .default, reuseIdentifier: "MLTopicCell")
+                cell?.delegate = self.delegate
             }
             cell!.setInfo(model);
-            
             return cell!
             }.disposed(by: bag)
-        
-        
         
         requestNewDataCommond.subscribe { (event : Event<Bool>) in
             if event.element! {
                 // 假装在请求第一页
                 let page = 1
-                self.showLoading("正在加载...")
-
+                
                 self.provider
                     .rx
-                    .request(.HomeCommentList(self.aid, page))
+                    .request(.Square(page: page))
                     .filterSuccessfulStatusCodes()
-                    .mapArray(MLTopicCommentModel.self, keyPath: "content.comlist")
+                    .mapArray((MLSquareModel.self), keyPath: "content.artlist")
                     .subscribe(onSuccess: { (modelArray) in
                         
-                        self.hideHud()
-                        self.tableView.mj_header.endRefreshing()
-                        
-                        let array = modelArray.map({ (model) -> MLTopicCommentCellLayout in
-                            return MLTopicCommentCellLayout(model: model)
+                        let array = modelArray.map({ (model) -> MLTopicCellLayout in
+                            return MLTopicCellLayout(model: model)
                         })
                         
                         self.modelObserable.value = array
                         self.refreshStateObserable.value = .endHeaderRefresh
+                        
                         if self.modelObserable.value.count < 20 {
                             self.refreshStateObserable.value = .noMoreData
                         } else {
                             self.pageIndex = 1
                             self.refreshStateObserable.value = .endFooterRefresh
                         }
-                        
-                    }, onError: { (error) in
+                    }, onError: { ( error) in
                         print(error)
-                        self.hideHud()
-                        self.showError(error.localizedDescription)
                         self.refreshStateObserable.value = .endHeaderRefresh
-                        
-//                        switch error {
-//                        case RxSwiftMoyaError.DataEmpty:
-//                            self.refreshStateObserable.value = .endHeaderRefresh
-//                        default:
-//                            self.showError(error.localizedDescription)
-//                            self.refreshStateObserable.value = .endHeaderRefresh
-//                        }
                     }).disposed(by: self.bag)
             }else{
                 //  假装请求第二页数据
@@ -95,23 +75,16 @@ class MLHomeCommentVM: NSObject {
                 
                 self.provider
                     .rx
-                    .request(.HomeCommentList(self.aid, page))
+                    .request(.Square(page: page))
                     .filterSuccessfulStatusCodes()
-//                    .mapParseJSON()
-                    .mapArray(MLTopicCommentModel.self, keyPath: "content.comlist")
+                    .mapArray((MLSquareModel.self), keyPath: "content.artlist")
                     .subscribe(onSuccess: { (modelArray) in
-                        
-                        
-                        self.hideHud()
-                        self.tableView.mj_header.endRefreshing()
-                        
-                        let array = modelArray.map({ (model) -> MLTopicCommentCellLayout in
-                            return MLTopicCommentCellLayout(model: model)
+                        //.mapObject(type: MLHomePageModel.self)
+                        let array = modelArray.map({ (model) -> MLTopicCellLayout in
+                            return MLTopicCellLayout(model: model)
                         })
                         
-                        
-                        self.modelObserable.value += array
-                        
+                        self.modelObserable.value += array                        
                         if array.count < 20 {
                             self.refreshStateObserable.value = .noMoreData
                         } else {
@@ -121,13 +94,11 @@ class MLHomeCommentVM: NSObject {
                         
                     }, onError: { (error) in
                         print(error)
-                        self.showError(error.localizedDescription)
                         self.refreshStateObserable.value = .endFooterRefresh
                     }).disposed(by: self.bag)
                 
             }
             }.disposed(by: bag)
-        
         
         refreshStateObserable.asObservable().subscribe(onNext: { (state) in
             switch state{
@@ -146,6 +117,6 @@ class MLHomeCommentVM: NSObject {
                 break
             }
         }).disposed(by: bag)
+        
     }
-    
 }
