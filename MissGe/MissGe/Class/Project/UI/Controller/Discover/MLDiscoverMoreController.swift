@@ -22,29 +22,29 @@ class MLDiscoverMoreController: BaseViewController, UITableViewDelegate {
         self.view.backgroundColor = UIColor.white
 
         self.tableView.rowHeight = ceil((kScreenWidth - 20) / 300 * 140 + 20)
-        
+
         self.configRefresh()
         viewModel.tableView = tableView
         viewModel.SetConfig()
     }
-    
-    //MARK: - 刷新
+
+    // MARK: - 刷新
     func configRefresh() {
-        
+
         self.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {[unowned self] () -> Void in
             self.viewModel.requestNewDataCommond.onNext(true)
             })
-        
+
         self.tableView.mj_footer = MJRefreshAutoNormalFooter(refreshingBlock: {[unowned self] () -> Void in
             if self.tableView.mj_header.isRefreshing {
                 return
             }
             self.viewModel.requestNewDataCommond.onNext(false)
             })
-        
+
         (self.tableView.mj_footer as! MJRefreshAutoNormalFooter).huaBanFooterConfig()
         (self.tableView.mj_header as! MJRefreshNormalHeader).huaBanHeaderConfig()
-        
+
         self.tableView.mj_header.beginRefreshing()
     }
 
@@ -52,7 +52,7 @@ class MLDiscoverMoreController: BaseViewController, UITableViewDelegate {
 //    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        return self.viewModel.modelObserable.value.count
 //    }
-    
+
 //    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        let cell = tableView.dequeueReusableCell(withIdentifier: "MLDiscoverCell", for: indexPath) as! MLDiscoverCell
 //        
@@ -60,13 +60,11 @@ class MLDiscoverMoreController: BaseViewController, UITableViewDelegate {
 //        
 //        return cell
 //    }
-    
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     // MARK: - Navigation
 
@@ -78,7 +76,7 @@ class MLDiscoverMoreController: BaseViewController, UITableViewDelegate {
         if segue.identifier == "DiscoverMoreToSubject" {
             let indexPath = tableView.indexPath(for: sender as! MLDiscoverCell)!
             let model = self.viewModel.modelObserable.value[(indexPath as NSIndexPath).row]
-            
+
             let vc = segue.destination as! MLHomeSubjectController
             vc.tag_id = model.tid
             vc.subjectType = SubjectType.banner

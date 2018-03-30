@@ -9,47 +9,46 @@
 import Foundation
 import ObjectMapper
 
-class MLHomePageModel : Mappable {
+class MLHomePageModel: Mappable {
     var uid: String = ""
     var tid: String = ""
-    
+
     var uname: String = ""
     var avatar: String = ""
-    
+
     var summary: String = ""
     var title: String = ""
     var date: String = ""
     var showTime: String = ""
-    
+
     var cover: URL?
     var tag: String = ""
     var showTag: String?
     var views: String = ""
-    
+
     var index_recommend: String = ""
     var column_recommend: String = ""
 
     var album: Array<MLHomeAlbumModel>? // [MLHomeAlbumModel]
 
     var show_title: String = ""
-    
+
     var forward: Int = 0
     var reply: Int = 0
     var like: Int = 0
     var model: Int = 0
     var is_special: Bool = false
-    
+
     /** 1 普通文章， 5 美图 4问答*/
     var type: Int = 0
-    
+
     // subject
     var sequence: String = ""
     var is_top: Bool = false
     var link_url: URL?
 
-
 	required init?(map: Map) {
-        
+
         if let tags = map.JSON["tag"] as? [String] {
             if tags.count > 0 {
                 showTag = tags.first!
@@ -86,9 +85,9 @@ class MLHomePageModel : Mappable {
 	}
 }
 
-class MLHomeAlbumModel : Mappable {
+class MLHomeAlbumModel: Mappable {
     var url: URL?
-    
+
     var width: String = ""
     var height: String = ""
     var ext: String = ""
@@ -112,7 +111,7 @@ class MLHomeAlbumModel : Mappable {
 	}
 }
 
-class MLHomeBannerModel : Mappable, Codable {
+class MLHomeBannerModel: Mappable, Codable {
     var path: URL?
 
     var width: String? = ""

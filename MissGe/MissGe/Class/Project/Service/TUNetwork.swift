@@ -9,7 +9,6 @@
 import Foundation
 import Moya
 
-
 struct TUNetwork {
     static let provider = MoyaProvider<APIManager>(endpointClosure: kAPIManagerEndpointClosure, requestClosure: kAPIManagerRequestClosure)
 
@@ -22,8 +21,8 @@ struct TUNetwork {
                     //如果数据返回成功则直接将结果转为JSON
                     let res = try response.filterSuccessfulStatusCodes()
                     let resultObject = try res.mapJSON()
-                    
-                    if let dict = resultObject as? [String : Any] {
+
+                    if let dict = resultObject as? [String: Any] {
                         if let code = dict["result"] as? String {
                             if code != "200" {
                                 var msg = ""
@@ -42,8 +41,7 @@ struct TUNetwork {
                     } else {
                         failureCallback(error!)
                     }
-                }
-                catch let error {
+                } catch let error {
                     failureCallback(error)
                 }
             case let .failure(error):

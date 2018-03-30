@@ -12,28 +12,28 @@ import Moya
 import RxSwift
 
 class MLRequestHelper: NSObject {
-    static let shareInstance = MLRequestHelper();
-    
+    static let shareInstance = MLRequestHelper()
+
 // Send Request
     static func sendRequestWith(_ request: TUBaseRequest, succeed: @escaping TURequestSuccess, failed: @escaping TURequestFailur) {
         request.send(success: succeed, failur: failed)
     }
-    
+
     static func likeCommentWith(_ pid: String, succeed: @escaping TURequestSuccess, failed: @escaping TURequestFailur) {
 //        MLLikeCommentRequest
         let request = MLLikeCommentRequest()
         request.pid = pid
         self.sendRequestWith(request, succeed: succeed, failed: failed)
     }
-    
+
     static func likeArticleWith(_ aid: String, succeed: @escaping TURequestSuccess, failed: @escaping TURequestFailur) {
 //        MLLikeArticleRequest
         let request = MLLikeArticleRequest()
         request.aid = aid
-        
+
         self.sendRequestWith(request, succeed: succeed, failed: failed)
     }
-    
+
     static func deleteTopicWith(_ pid: String, success successCallback: @escaping (Any) -> Void, failure failureCallback: @escaping(Error) -> Void) {
         TUNetwork.request(.DeleteTopic(pid: pid), success: successCallback, failure: failureCallback)
     }
@@ -41,12 +41,12 @@ class MLRequestHelper: NSObject {
     static func deleteArticleWith(_ cid: String, success successCallback: @escaping (Any) -> Void, failure failureCallback: @escaping(Error) -> Void) {
         TUNetwork.request(.DeleteArticleComment(cid: cid), success: successCallback, failure: failureCallback)
     }
-    
+
     static func userFollow(_ uid: String, succeed: @escaping TURequestSuccess, failed: @escaping TURequestFailur) {
         //        MLHomeFavoriteRequest
         let request = MLUserFollowRequest()
         request.uid = uid
-        
+
         self.sendRequestWith(request, succeed: succeed, failed: failed)
     }
 }

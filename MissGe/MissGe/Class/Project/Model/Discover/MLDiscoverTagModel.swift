@@ -9,13 +9,12 @@
 import Foundation
 import ObjectMapper
 
-class MLDiscoverTagModel : Mappable {
+class MLDiscoverTagModel: Mappable {
     var tag_id: String?
     var tag_name: String?
-    
+
     var tag_img: URL?
     var sequence: Int = 0
-
 
 	required init?(map: Map) {
 

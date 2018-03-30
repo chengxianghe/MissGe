@@ -24,7 +24,6 @@ enum LLRefreshStatus {
     case noMoreData
 }
 
-
 //public func defaultAlamofireManager() -> Manager {
 //
 //    let configuration = URLSessionConfiguration.default
@@ -42,35 +41,35 @@ enum LLRefreshStatus {
 //}
 
 class MLHomeViewModel: NSObject {
-    
-    var bag : DisposeBag = DisposeBag()
-    
+
+    var bag: DisposeBag = DisposeBag()
+
     let provider = MoyaProvider<APIManager>(endpointClosure: kAPIManagerEndpointClosure, requestClosure: kAPIManagerRequestClosure)
-    
+
     var modelObserable = Variable<[MLHomePageModel]> ([])
     var bannerModelObserable = Variable<[MLHomeBannerModel]> ([])
 
     var refreshStateObserable = Variable<LLRefreshStatus>(.none)
-    
+
     let requestNewDataCommond =  PublishSubject<Bool>()
-    
+
     var pageIndex = Int()
-    
+
     var tableView: UITableView!
     var scrollAdView: GMBScrollAdView!
 
     func checkAdView() {
-        
+
         // 1.判断沙盒中是否存在广告图片，如果存在，直接显示
-        let filePath = self.getFilePathWithImageName(imageName: adImageName);
-        
+        let filePath = self.getFilePathWithImageName(imageName: adImageName)
+
         let isExist = FileManager.default.fileExists(atPath: filePath)
-        
+
         if isExist {
             let advertiseView = AdvertiseView(frame: UIApplication.shared.keyWindow!.bounds)
             advertiseView.filePath = filePath
             advertiseView.setAdDismiss(nil, save: {[weak self] in
-                
+
                 //保存图片
                 PhotoAlbumHelper.saveImageToAlbum(UIImage(contentsOfFile: filePath)!, completion: { (result: PhotoAlbumHelperResult, err: NSError?) in
                     if result == .success {
@@ -82,11 +81,11 @@ class MLHomeViewModel: NSObject {
             })
             advertiseView.show()
         }
-        
+
         // 2.无论沙盒中是否存在广告图片，都需要重新调用广告接口，判断广告是否更新
         self.refreshImageUrl()
     }
-    
+
     func refreshImageUrl() {
 //        TUNetwork().rx
         self.provider
@@ -100,49 +99,49 @@ class MLHomeViewModel: NSObject {
                 guard let url = adModel.path?.absoluteString else {
                     return
                 }
-                
+
                 let lastUrl = UserDefaults.standard.value(forKey: adUrl) as? String ?? ""
-                
+
                 if url != lastUrl {
-                    
+
                     YYWebImageManager.shared().requestImage(with: adModel.path!, options: YYWebImageOptions.ignoreDiskCache, progress: nil, transform: nil, completion: { (image, imageUrl, from, stage, error) in
                         DispatchQueue.global().async(execute: {
-                            
+
                             let data = image!.yy_imageDataRepresentation()
                             try? data?.write(to: URL.init(fileURLWithPath: self.getFilePathWithImageName(imageName: adImageName)))
-                            
+
                             UserDefaults.standard.set(url, forKey: adUrl)
                             UserDefaults.standard.synchronize()
                         })
-                        
+
                     })
                 }
             }) { (error) in
                 print(error)
         }.disposed(by: bag)
     }
-    
+
     func getFilePathWithImageName(imageName: String) -> String {
         let filePath = kCachesPath().appending("/\(imageName)")
-        return filePath;
+        return filePath
     }
-    
+
     func SetConfig() {
-        //MARK: Rx 绑定tableView数据
+        // MARK: Rx 绑定tableView数据
         modelObserable.asObservable().bind(to: tableView.rx.items) { tableView, row, model in
             if model.type == 5 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MLHomePageAlbumCell") as? MLHomePageAlbumCell
-                cell?.setInfo(model);
+                cell?.setInfo(model)
                 return cell!
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MLHomePageCell") as? MLHomePageCell
-                cell?.setInfo(model);
+                cell?.setInfo(model)
                 return cell!
             }
             }
             .disposed(by: bag)
-        
-        requestNewDataCommond.subscribe { (event : Event<Bool>) in
+
+        requestNewDataCommond.subscribe { (event: Event<Bool>) in
             if event.element! {
                 // 假装在请求第一页
                 let page = 1
@@ -162,17 +161,17 @@ class MLHomeViewModel: NSObject {
 //                            return
 //                        }
 //                        let array = content.map({ MLHomeBannerModel(JSON: $0) }) as! [MLHomeBannerModel]
-                        
+
                         self.bannerModelObserable.value = array
-                        
+
                         let urls = array.flatMap({ $0.path })
-                        
+
                         self.scrollAdView.updateImages(urls, titles: nil)
-                        
+
                     }, onError: { (error) in
                         print(error)
                     }).disposed(by: self.bag)
-    
+
                 self.provider
                     .rx
                     .request(.HomePage(page))
@@ -183,10 +182,10 @@ class MLHomeViewModel: NSObject {
 //                        if let list = ((responseObject as! NSDictionary)["content"] as! NSDictionary)["artlist"] as? [[String:Any]] {
 //                            array = list.map({ MLHomePageModel(JSON: $0) }) as? [MLHomePageModel]
 //                        }
-                        
+
                         self.modelObserable.value = array
                         self.refreshStateObserable.value = .endHeaderRefresh
-                        
+
                         if self.modelObserable.value.count < 20 {
                             self.refreshStateObserable.value = .noMoreData
                         } else {
@@ -197,10 +196,10 @@ class MLHomeViewModel: NSObject {
                         print(error)
                         self.refreshStateObserable.value = .endHeaderRefresh
                     }).disposed(by: self.bag)
-            }else{
+            } else {
                 //  假装请求第二页数据
                 let page = self.pageIndex + 1
-                
+
                 self.provider
                     .rx
                     .request(.HomePage(page))
@@ -209,13 +208,12 @@ class MLHomeViewModel: NSObject {
                     .subscribe(onSuccess: { (responseObject) in
                         //.mapObject(type: MLHomePageModel.self)
                         var array: [MLHomePageModel]? = nil
-                        if let list = ((responseObject as! NSDictionary)["content"] as! NSDictionary)["artlist"] as? [[String:Any]] {
+                        if let list = ((responseObject as! NSDictionary)["content"] as! NSDictionary)["artlist"] as? [[String: Any]] {
                             array = list.map({ MLHomePageModel(JSON: $0) }) as? [MLHomePageModel]
                         }
-                        
-                        
+
                         self.modelObserable.value += array ?? []
-                        
+
                         if array!.count < 20 {
                             self.refreshStateObserable.value = .noMoreData
                         } else {
@@ -227,13 +225,12 @@ class MLHomeViewModel: NSObject {
                         print(error)
                         self.refreshStateObserable.value = .endFooterRefresh
                     }).disposed(by: self.bag)
-                
+
             }
             }.disposed(by: bag)
-        
-        
+
         refreshStateObserable.asObservable().subscribe(onNext: { (state) in
-            switch state{
+            switch state {
             case .beginHeaderRefresh:
                 self.tableView.mj_header.beginRefreshing()
             case .endHeaderRefresh:

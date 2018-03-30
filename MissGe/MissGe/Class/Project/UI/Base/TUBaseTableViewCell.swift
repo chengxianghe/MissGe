@@ -12,24 +12,24 @@ class TUBaseTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+
         for view in self.subviews {
             if view.isKind(of: UIScrollView.classForCoder()) {
                 (view as! UIScrollView).delaysContentTouches = false  // Remove touch delay for iOS 7
                 break
             }
         }
-        
+
         self.selectionStyle = .none
         self.backgroundView?.backgroundColor = UIColor.clear
         self.contentView.backgroundColor = UIColor.clear
         self.backgroundColor = UIColor.clear
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

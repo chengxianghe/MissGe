@@ -13,7 +13,7 @@ import UIKit
  UnableToScanHexValue:      "Scan hex error"
  MismatchedHexStringLength: "Invalid RGB string, number of characters after '#' should be either 3, 4, 6 or 8"
  */
-public enum UIColorInputError : Error {
+public enum UIColorInputError: Error {
     case missingHashMarkAsPrefix,
     unableToScanHexValue,
     mismatchedHexStringLength
@@ -34,7 +34,7 @@ extension UIColor {
         let blue    = CGFloat( hex3 & 0x00F      ) / divisor
         self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
-    
+
     /**
      The shorthand four-digit hexadecimal representation of color with alpha.
      #RGBA defines to the color #RRGGBBAA.
@@ -49,7 +49,7 @@ extension UIColor {
         let alpha   = CGFloat( hex4 & 0x000F       ) / divisor
         self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
-    
+
     /**
      The six-digit hexadecimal representation of color of the form #RRGGBB.
      
@@ -62,7 +62,7 @@ extension UIColor {
         let blue    = CGFloat( hex6 & 0x0000FF       ) / divisor
         self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
-    
+
     /**
      The six-digit hexadecimal representation of color with alpha of the form #RRGGBBAA.
      
@@ -76,7 +76,7 @@ extension UIColor {
         let alpha   = CGFloat( hex8 & 0x000000FF       ) / divisor
         self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
-    
+
     /**
      The rgba string representation of color with alpha of the form #RRGGBBAA/#RRGGBB, throws error.
      
@@ -86,14 +86,14 @@ extension UIColor {
         guard rgba.hasPrefix("#") else {
             throw UIColorInputError.missingHashMarkAsPrefix
         }
-        
+
         let hexString: String = rgba.substring(from: rgba.index(rgba.startIndex, offsetBy: 1))
-        var hexValue:  UInt32 = 0
-        
+        var hexValue: UInt32 = 0
+
         guard Scanner(string: hexString).scanHexInt32(&hexValue) else {
             throw UIColorInputError.unableToScanHexValue
         }
-        
+
         switch (hexString.count) {
         case 3:
             self.init(hex3: UInt16(hexValue))
@@ -107,7 +107,7 @@ extension UIColor {
             throw UIColorInputError.mismatchedHexStringLength
         }
     }
-    
+
     /**
      The rgba string representation of color with alpha of the form #RRGGBBAA/#RRGGBB, fails to default color.
      
@@ -120,7 +120,7 @@ extension UIColor {
         }
         self.init(cgColor: color.cgColor)
     }
-    
+
     /**
      Random Color.
      */
@@ -130,7 +130,7 @@ extension UIColor {
         let randomBlue = CGFloat(arc4random_uniform(256))
         return UIColor(red: randomRed/255.0, green: randomGreen/255.0, blue: randomBlue/255.0, alpha: 1.0)
     }
-    
+
     /**
      Hex string of a UIColor instance.
      
@@ -142,7 +142,7 @@ extension UIColor {
         var b: CGFloat = 0
         var a: CGFloat = 0
         self.getRed(&r, green: &g, blue: &b, alpha: &a)
-        
+
         if (includeAlpha) {
             return String(format: "#%02X%02X%02X%02X", Int(r * 255), Int(g * 255), Int(b * 255), Int(a * 255))
         } else {
@@ -159,7 +159,7 @@ extension String {
         guard self.hasPrefix("#") else {
             return nil
         }
-        
+
         let hexString: String = self.substring(from: self.characters.index(self.startIndex, offsetBy: 1))
         switch (hexString.characters.count) {
         case 4:

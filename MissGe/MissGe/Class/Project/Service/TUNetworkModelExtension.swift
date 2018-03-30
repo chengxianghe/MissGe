@@ -12,16 +12,15 @@ import RxSwift
 import Moya
 import ObjectMapper
 
-
 extension PrimitiveSequence where TraitType == SingleTrait, ElementType == Response {
- 
+
     /// Maps data received from the signal into a JSON object. If the conversion fails, the signal errors.
     public func mapParseJSON(failsOnEmptyData: Bool = true) -> Single<Any> {
         return flatMap { response -> Single<Any> in
             return Single.just(try response.mapParseJSON(failsOnEmptyData: failsOnEmptyData))
         }
     }
-    
+
     /// Maps data received from the signal into an object
     /// which implements the Mappable protocol and returns the result back
     /// If the conversion fails, the signal errors.
@@ -30,7 +29,7 @@ extension PrimitiveSequence where TraitType == SingleTrait, ElementType == Respo
             return Single.just(try response.mapObject(type, context: context, keyPath: keyPath))
         }
     }
-    
+
     /// Maps data received from the signal into an array of objects
     /// which implement the Mappable protocol and returns the result back
     /// If the conversion fails, the signal errors.
@@ -39,13 +38,13 @@ extension PrimitiveSequence where TraitType == SingleTrait, ElementType == Respo
             return Single.just(try response.mapArray(type, context: context, keyPath: keyPath))
         }
     }
-    
+
 }
 extension Response {
 
     /// Maps data received from the signal into a JSON object.
     public func mapParseJSON(failsOnEmptyData: Bool = true) throws -> Any {
-        var resultObject:Any? = nil
+        var resultObject: Any? = nil
         do {
             resultObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
         } catch {
@@ -54,7 +53,7 @@ extension Response {
             }
             throw MoyaError.jsonMapping(self)
         }
-        guard let dict = resultObject as? [String : Any] else{
+        guard let dict = resultObject as? [String: Any] else {
             throw RxSwiftMoyaError.ParseJSONError
         }
         //后台的数据每次会返回code只有是200才会表示逻辑正常执行
@@ -71,7 +70,7 @@ extension Response {
         }
         return resultObject!
     }
-    
+
     /// Maps data received from the signal into an object which implements the Mappable protocol.
     /// If the conversion fails, the signal errors.
     public func mapObject<T: BaseMappable>(_ type: T.Type, context: MapContext? = nil, keyPath: String? = nil) throws -> T {
@@ -87,14 +86,14 @@ extension Response {
             return object
         }
     }
-    
+
     /// Maps data received from the signal into an array of objects which implement the Mappable
     /// protocol.
     /// If the conversion fails, the signal errors.
     public func mapArray<T: BaseMappable>(_ type: T.Type, context: MapContext? = nil, keyPath: String? = nil) throws -> [T] {
         if keyPath != nil {
             let result = try mapJSON() as? NSDictionary
-            guard let array = (result?.value(forKeyPath: keyPath!)) as? [[String : Any]] else {
+            guard let array = (result?.value(forKeyPath: keyPath!)) as? [[String: Any]] else {
                 if (result?["result"] as? String) ?? "0" == "200" {
                     throw RxSwiftMoyaError.DataEmpty
                 } else {
@@ -103,7 +102,7 @@ extension Response {
             }
             return Mapper<T>(context: context).mapArray(JSONArray: array)
         } else {
-            guard let array = try mapJSON() as? [[String : Any]] else {
+            guard let array = try mapJSON() as? [[String: Any]] else {
                 throw MoyaError.jsonMapping(self)
             }
             return Mapper<T>(context: context).mapArray(JSONArray: array)
@@ -119,7 +118,7 @@ enum RxSwiftMoyaError: String {
 }
 
 extension RxSwiftMoyaError: Swift.Error {
-    
+
 }
 
 extension RxSwiftMoyaError: LocalizedError {
@@ -134,5 +133,3 @@ extension RxSwiftMoyaError: LocalizedError {
         }
     }
 }
-
-

@@ -13,43 +13,43 @@ import UIKit
 
 extension UIView {
     @IBInspectable var cornerRadius: CGFloat {
-        get{
+        get {
            return self.cornerRadius
         }
-        
-        set{
-            self.layer.cornerRadius = newValue;
-            self.layer.masksToBounds = newValue > 0;
+
+        set {
+            self.layer.cornerRadius = newValue
+            self.layer.masksToBounds = newValue > 0
         }
     }
     @IBInspectable var borderWidth: CGFloat {
-        get{
+        get {
             return self.layer.borderWidth
         }
-        
-        set{
+
+        set {
             self.layer.borderWidth = newValue
         }
 
     }
-    
+
     @IBInspectable var borderColor: UIColor {
-        get{
+        get {
             return UIColor(cgColor: self.layer.borderColor!)
         }
-        
-        set{
+
+        set {
             self.layer.borderColor = newValue.cgColor
         }
-        
+
     }
-    
+
     @IBInspectable var isOnePx: Bool {
-        get{
+        get {
             return self.isOnePx
         }
-        
-        set{
+
+        set {
             if newValue == true {
                 let oneScale =  1.0 / UIScreen.main.scale
                 self.layer.borderWidth = oneScale * borderWidth
@@ -57,17 +57,16 @@ extension UIView {
                 self.layer.borderWidth = borderWidth
             }
         }
-        
-    }
-    
-    
-    func addCorner(_ cornerRadius: CGFloat, borderWidth: CGFloat = 1, borderColor: UIColor = UIColor.white, isOnePx: Bool = false) {
-        
-        self.layer.masksToBounds = cornerRadius > 0;
 
-        self.layer.cornerRadius = cornerRadius;
+    }
+
+    func addCorner(_ cornerRadius: CGFloat, borderWidth: CGFloat = 1, borderColor: UIColor = UIColor.white, isOnePx: Bool = false) {
+
+        self.layer.masksToBounds = cornerRadius > 0
+
+        self.layer.cornerRadius = cornerRadius
         self.layer.borderColor = borderColor.cgColor
-        
+
         if isOnePx == true {
             let oneScale =  1.0 / UIScreen.main.scale
             self.layer.borderWidth = oneScale * borderWidth

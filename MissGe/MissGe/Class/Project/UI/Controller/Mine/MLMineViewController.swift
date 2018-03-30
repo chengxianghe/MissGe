@@ -17,20 +17,20 @@ class MLMineViewController: UITableViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var userEditButton: UIButton!
     @IBOutlet weak var loginButtonXConstraint: NSLayoutConstraint!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.tableView.tableHeaderView?.setHeight(kScreenWidth/320*120)
-        
+
         iconImageView.layer.cornerRadius = (kScreenWidth/320*120 - 24 * 2 - 18) / 2.0
-        
+
         if MLNetConfig.isUserLogin() {
             self.loginSuccessed()
         } else {
             self.logoutSuccessed()
         }
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(self.loginSuccessed), name: NSNotification.Name(rawValue: kUserLoginSuccessed), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.logoutSuccessed), name: NSNotification.Name(rawValue: kUserLogoutSuccessed), object: nil)
 
@@ -39,12 +39,12 @@ class MLMineViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
+
         if kisIPad() {
             loginButtonXConstraint.constant = -50
         }
     }
-    
+
     @objc func loginSuccessed() {
         self.tableView.tableFooterView?.setHeight(50 + 20)
 
@@ -58,7 +58,7 @@ class MLMineViewController: UITableViewController {
         self.iconImageView.yy_setImage(with: MLNetConfig.shareInstance.user.avatar, placeholder: UIImage(named: "portrait_bg_77x77_"))
 
     }
-    
+
     @objc func logoutSuccessed() {
         self.tableView.tableFooterView?.setHeight(0)
 
@@ -70,7 +70,7 @@ class MLMineViewController: UITableViewController {
         self.iconImageView.image = UIImage(named: "portrait_bg_77x77_")
     }
 
-    override var preferredStatusBarStyle : UIStatusBarStyle {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
 
@@ -78,28 +78,25 @@ class MLMineViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-    
+
     @IBAction func onLogoutBtnClick(_ sender: UIButton) {
         MLNetConfig.updateUser(nil)
         NotificationCenter.default.post(name: Notification.Name(rawValue: kUserLogoutSuccessed), object: nil)
     }
-    
+
     @IBAction func onIconBtnClick(_ sender: UIButton) {
-        
+
     }
-    
-    
+
     // MARK: - Table view data source
-    
+
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return 15
         }
         return 10
     }
-    
+
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == 3 {
             return CGFloat.leastNormalMagnitude
@@ -110,10 +107,10 @@ class MLMineViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         print(indexPath)
-        
+
         let sec = indexPath.section
         let row = indexPath.row
-        
+
         switch sec {
         case 1:
             if !MLNetConfig.isUserLogin() {
@@ -121,10 +118,10 @@ class MLMineViewController: UITableViewController {
                     let loginVCNav = kLoadVCFromSB(nil, stroyBoard: "Account")!
                     self?.present(loginVCNav, animated: true, completion: nil)
                 })
-                
+
                 let cancel = UIAlertAction.init(title: "取消", style: UIAlertActionStyle.cancel, handler: nil)
                 self.showAlert("您还未登录", message: nil, actions: [cancel, goLogin])
-                
+
                 return
             }
             if row == 0 { // 收藏
@@ -132,7 +129,7 @@ class MLMineViewController: UITableViewController {
             } else if row == 1 { // 评论
                 self.performSegue(withIdentifier: "MineToComment", sender: nil)
             }
-            
+
         case 3:
             if row == 0 { // 设置
                 print("设置")
@@ -143,10 +140,9 @@ class MLMineViewController: UITableViewController {
         default:
             break
         }
-        
 
     }
-    
+
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
@@ -198,7 +194,7 @@ class MLMineViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        
+
         if segue.identifier == "MineToUserEdit" {
             let vc = segue.destination as! MLUserController
             vc.uid = MLNetConfig.shareInstance.userId

@@ -9,11 +9,11 @@
 import Foundation
 
 class TUSearchBar: UISearchBar {
-    
+
     override var intrinsicContentSize: CGSize {
         return UILayoutFittingExpandedSize
     }
-    
+
 //    var contentInset: UIEdgeInsets? {
 //        didSet {
 //            self.layoutSubviews()

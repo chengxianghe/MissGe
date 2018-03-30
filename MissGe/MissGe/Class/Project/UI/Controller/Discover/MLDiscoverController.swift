@@ -20,9 +20,9 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIS
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
-    
+
     var viewModel = MLDiscoverVM()
-    
+
 //    override func viewDidAppear(_ animated: Bool) {
 //        super.viewDidAppear(animated)
 //        
@@ -43,22 +43,21 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIS
         searchBar.delegate = self
 //        self.navView.frame = CGRect(x: 10, y: 7, width: kScreenWidth - 20, height: 30)
 //        self.navigationController?.navigationBar.addSubview(self.navView)
-        self.navigationItem.titleView = searchBar;
-        
-        
+        self.navigationItem.titleView = searchBar
+
         let titleHeight = ceil((kScreenWidth - 20) / 305 * 16)
         let collectionViewLineSpace = collectionViewLayout.minimumLineSpacing
         let collectionViewItemSpace = collectionViewLayout.minimumInteritemSpacing
         let headerCellWidth: CGFloat = (kScreenWidth - 20 - 3 * collectionViewItemSpace) / 4.0
         self.tableView.tableHeaderView?.setHeight(headerCellWidth * 2 + titleHeight + 3 * collectionViewLineSpace + 30)
-  
+
         let footerHeight = ceil((kScreenWidth - 30) / 303 * 28 + 20)
         self.tableView.tableFooterView?.setHeight(footerHeight)
-        
+
         self.tableView.rowHeight = ceil((kScreenWidth - 20) / 300 * 140 + 20)
-        
+
         self.collectionViewLayout.itemSize = CGSize(width: headerCellWidth, height: headerCellWidth)
-        
+
         self.tableView.dataSource = nil
         self.collectionView.dataSource = nil
         self.configRefresh()
@@ -66,20 +65,20 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIS
         self.viewModel.collectionView = collectionView
         self.viewModel.SetConfig()
     }
-    
-    //MARK: - 刷新
+
+    // MARK: - 刷新
     func configRefresh() {
-        
+
         self.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {[unowned self] () -> Void in
             self.viewModel.requestNewDataCommond.onNext(true)
             })
-        
+
         (self.tableView.mj_header as! MJRefreshNormalHeader).huaBanHeaderConfig()
-        
+
         self.tableView.mj_header.beginRefreshing()
     }
 
-    override var preferredStatusBarStyle : UIStatusBarStyle {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
 
@@ -87,13 +86,13 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIS
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
+
     // MARK: - Navigation
-    
+
 //    @IBAction func popFromSearch(_ segue:UIStoryboardSegue) {
 //        print(segue.identifier ?? "")
 //        print("popFromSearch")
@@ -115,7 +114,7 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIS
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.performSegue(withIdentifier: "SearchToSubject", sender: searchBar.text)
     }
-    
+
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
@@ -140,19 +139,17 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIS
         } else if segue.identifier == "DiscoverCellToSubject" {
             let indexPath = tableView.indexPath(for: sender as! MLDiscoverCell)!
             let model = self.viewModel.modelObserable.value[indexPath.row]
-            
+
             let vc = segue.destination as! MLHomeSubjectController
             vc.tag_id = model.tid
             vc.subjectType = .banner
             vc.path = model.cover
-        }
-        
-        else if segue.identifier == "SearchToSubject" {
+        } else if segue.identifier == "SearchToSubject" {
             let vc = segue.destination as! MLHomeSubjectController
             vc.tag_id = sender as! String
             vc.subjectType = .search
         }
-        
+
 //        else if segue.identifier == "DiscoverToSearch" {
 //            let vc = segue.destination as! MLSearchController
 //        }
@@ -166,5 +163,5 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIS
 //        
 //        return super.segueForUnwinding(to: toViewController, from: fromViewController, identifier: identifier)!
 //    }
-    
+
 }

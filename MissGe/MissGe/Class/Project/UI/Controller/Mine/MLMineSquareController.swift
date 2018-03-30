@@ -13,7 +13,6 @@ class MLMineSquareController: BaseViewController {
     fileprivate var questionsRequest = MLMineQuestionRequest()
     fileprivate var replysRequest = MLMineAnswerRequest()
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,7 +23,6 @@ class MLMineSquareController: BaseViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     /*
     // MARK: - Navigation

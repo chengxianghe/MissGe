@@ -29,7 +29,7 @@ extension MLSectionTagModel: SectionModelType {
 }
 
 class MLDiscoverVM: NSObject {
-    var bag : DisposeBag = DisposeBag()
+    var bag: DisposeBag = DisposeBag()
     let provider = MoyaProvider<APIManager>(endpointClosure: kAPIManagerEndpointClosure, requestClosure: kAPIManagerRequestClosure)
     let requestNewDataCommond = PublishSubject<Bool>()
     var modelObserable = Variable<[MLHomePageModel]> ([])
@@ -38,7 +38,7 @@ class MLDiscoverVM: NSObject {
     var tableView: UITableView!
     var collectionView: UICollectionView!
     var refreshStateObserable = Variable<LLRefreshStatus>(.none)
-    
+
     func SetConfig() {
         let dataSource = RxCollectionViewSectionedReloadDataSource<MLSectionTagModel>(configureCell: { (ds: CollectionViewSectionedDataSource<MLSectionTagModel>, collectionView: UICollectionView, indexPath: IndexPath, model: MLSectionTagModel.Item) in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MLDiscoverHeaderCell", for: indexPath) as! MLDiscoverHeaderCell
@@ -52,28 +52,27 @@ class MLDiscoverVM: NSObject {
 //            }
 //
             cell.setInfo(model)
-            
+
             return cell
         })
-        
+
         sectionModelObserable
             .asObservable()
             .bind(to: collectionView.rx.items(dataSource: dataSource))
             .disposed(by: bag)
-        
-        //MARK: Rx 绑定tableView数据
+
+        // MARK: Rx 绑定tableView数据
         modelObserable.asObservable().bind(to: tableView.rx.items) { tableView, row, model in
             var cell = tableView.dequeueReusableCell(withIdentifier: "MLDiscoverCell") as? MLDiscoverCell
             if cell == nil {
                 cell = MLDiscoverCell(style: .default, reuseIdentifier: "MLDiscoverCell")
             }
-            cell!.setInfo(model.cover);
+            cell!.setInfo(model.cover)
 
             return cell!
             }.disposed(by: bag)
-        
-        
-        requestNewDataCommond.subscribe { (event : Event<Bool>) in
+
+        requestNewDataCommond.subscribe { (event: Event<Bool>) in
             self.showLoading("正在加载...")
                 self.provider
                     .rx
@@ -89,7 +88,7 @@ class MLDiscoverVM: NSObject {
                         print(error)
                         self.refreshStateObserable.value = .endHeaderRefresh
                     }).disposed(by: self.bag)
-            
+
             self.provider
                 .rx
                 .request(.DiscoverTag)
@@ -113,8 +112,7 @@ class MLDiscoverVM: NSObject {
 //                    self.refreshStateObserable.value = .endHeaderRefresh
                 }).disposed(by: self.bag)
             }.disposed(by: bag)
-        
-        
+
 //        discoverTagRequest.send(success: {[unowned self] (baseRequest, responseObject) in
 //            self.tableView.mj_header.endRefreshing()
 //            
@@ -135,9 +133,9 @@ class MLDiscoverVM: NSObject {
 //            self.tableView.mj_header.endRefreshing()
 //            print(error)
 //        }
-        
+
         refreshStateObserable.asObservable().subscribe(onNext: { (state) in
-            switch state{
+            switch state {
             case .beginHeaderRefresh:
                 self.tableView.mj_header.beginRefreshing()
             case .endHeaderRefresh:
@@ -146,6 +144,6 @@ class MLDiscoverVM: NSObject {
                 break
             }
         }).disposed(by: bag)
-        
+
     }
 }

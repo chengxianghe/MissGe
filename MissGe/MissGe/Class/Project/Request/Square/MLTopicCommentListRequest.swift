@@ -13,21 +13,21 @@ import UIKit
 class MLTopicDetailRequest: MLBaseRequest {
 
     var pid = ""
-    
-    override func requestParameters() -> [String : Any]? {
-        let dict = ["c":"post","a":"post","pid":"\(pid)"]
+
+    override func requestParameters() -> [String: Any]? {
+        let dict = ["c":"post", "a":"post", "pid":"\(pid)"]
         return dict
     }
-    
+
     override func requestHandleResult() {
         print("requestHandleResult -- \(self.classForCoder)")
     }
-    
+
     override func requestVerifyResult() -> Bool {
         guard let dict = self.responseObject as? NSDictionary else {
             return false
         }
-        
+
         return (dict["result"] as? String) == "200"
     }
 
@@ -38,13 +38,13 @@ class MLTopicDetailRequest: MLBaseRequest {
 class MLTopicCommentListRequest: MLBaseRequest {
     var page = 1
     var pid = ""
-    override func requestParameters() -> [String : Any]? {
-        let dict = ["c":"post","a":"repostlist","pid":"\(pid)","pg":"\(page)","size":"20"]
+    override func requestParameters() -> [String: Any]? {
+        let dict = ["c":"post", "a":"repostlist", "pid":"\(pid)", "pg":"\(page)", "size":"20"]
         return dict
     }
-    
+
     override func requestHandleResult() {
         print("requestHandleResult -- \(self.classForCoder)")
     }
-    
+
 }

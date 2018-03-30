@@ -19,12 +19,12 @@ class MLUserModel: Mappable {
     var verify_img_height: Int = 0
 
     var relation: Int = 0 // 1 是好友
-    
+
     var avatar: URL?
-    
+
     var verify: String?
     var verify_img: String?
-    
+
     // 个人详情页
     var p_bests: Int = 0
     var follow_cnt: Int = 0
@@ -34,10 +34,9 @@ class MLUserModel: Mappable {
     var birthday: String?
     var location: String?
 
-    
     // 登录
     var token: String?
-    
+
     required init?(map: Map) {
         if self.username == nil || self.username?.length == 0 {
             if let uname = map.JSON["uname"] as? String {
@@ -45,7 +44,7 @@ class MLUserModel: Mappable {
             }
         }
     }
-    
+
     // Mappable
     func mapping(map: Map) {
         username            <- map["username"]
@@ -69,14 +68,14 @@ class MLUserModel: Mappable {
 }
 
 //将"yyyy-MM-dd"格式的string转成date
-func transfromOfDateString() -> TransformOf<String , String>{
-    return TransformOf<String , String>.init(fromJSON: { (JSONString) -> String? in
-        if let str = JSONString{
-            return NSDate(fromStringOrNumber:(str as AnyObject)).standardChinaTimeDescription()
+func transfromOfDateString() -> TransformOf<String, String> {
+    return TransformOf<String, String>.init(fromJSON: { (JSONString) -> String? in
+        if let str = JSONString {
+            return NSDate(fromStringOrNumber: (str as AnyObject)).standardChinaTimeDescription()
         }
         return nil
     }, toJSON: { (date) -> String? in
-        if let date = date{
+        if let date = date {
             return date
         }
         return nil
@@ -84,14 +83,14 @@ func transfromOfDateString() -> TransformOf<String , String>{
 }
 
 //将"yyyy-MM-dd"格式的string转成date
-func transfromOfDateStringCustom() -> TransformOf<String , String>{
-    return TransformOf<String , String>.init(fromJSON: { (JSONString) -> String? in
-        if let str = JSONString{
-            return NSDate(fromStringOrNumber:(str as AnyObject)).customTimeDescription()
+func transfromOfDateStringCustom() -> TransformOf<String, String> {
+    return TransformOf<String, String>.init(fromJSON: { (JSONString) -> String? in
+        if let str = JSONString {
+            return NSDate(fromStringOrNumber: (str as AnyObject)).customTimeDescription()
         }
         return nil
     }, toJSON: { (date) -> String? in
-        if let date = date{
+        if let date = date {
             return date
         }
         return nil
@@ -99,14 +98,14 @@ func transfromOfDateStringCustom() -> TransformOf<String , String>{
 }
 
 //将"yyyy-MM-dd"格式的string转成date
-func transfromOfDateAndString() -> TransformOf<Date , String>{
-    return TransformOf<Date , String>.init(fromJSON: { (JSONString) -> Date? in
-            if let str = JSONString{
+func transfromOfDateAndString() -> TransformOf<Date, String> {
+    return TransformOf<Date, String>.init(fromJSON: { (JSONString) -> Date? in
+            if let str = JSONString {
                 return DateFormatter.default().date(from: str)!
             }
             return nil
         }, toJSON: { (date) -> String? in
-            if let date = date{
+            if let date = date {
                 return DateFormatter.default().string(from: date as Date)
             }
             return nil
@@ -114,9 +113,9 @@ func transfromOfDateAndString() -> TransformOf<Date , String>{
 }
 
 //将str转成url
-func transfromOfURLAndString() -> TransformOf<URL, String>{
+func transfromOfURLAndString() -> TransformOf<URL, String> {
     return TransformOf<URL, String>.init(fromJSON: { (JSONString) -> URL? in
-        if let str = JSONString{
+        if let str = JSONString {
             return URL.init(string: str)
         }
         return nil

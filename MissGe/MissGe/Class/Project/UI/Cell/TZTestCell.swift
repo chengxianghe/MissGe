@@ -18,7 +18,7 @@ class TZTestCell: UICollectionViewCell {
     var deleteClickClosure: kBlankActionClosure?
 
     var model: TZAssetModel? {
-        willSet{
+        willSet {
             if newValue?.type == TZAssetModelMediaTypePhotoGif {
                 self.gifLable.isHidden = false
                 self.videoImageView.isHidden = true
@@ -32,7 +32,7 @@ class TZTestCell: UICollectionViewCell {
             }
         }
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.white
@@ -41,43 +41,43 @@ class TZTestCell: UICollectionViewCell {
         imageView.contentMode = UIViewContentMode.scaleAspectFill
         self.addSubview(imageView)
         self.clipsToBounds = true
-        
+
         videoImageView = UIImageView()
         videoImageView.image = UIImage.init(namedFromMyBundle: "MMVideoPreviewPlay")
-        videoImageView.contentMode = UIViewContentMode.scaleAspectFill;
+        videoImageView.contentMode = UIViewContentMode.scaleAspectFill
         videoImageView.isHidden = true
         self.addSubview(videoImageView)
 
-        gifLable = UILabel();
-        gifLable.text = "GIF";
-        gifLable.textColor = UIColor.white;
-        gifLable.backgroundColor = UIColor(white: 0, alpha: 0.800);
-        gifLable.textAlignment = NSTextAlignment.center;
+        gifLable = UILabel()
+        gifLable.text = "GIF"
+        gifLable.textColor = UIColor.white
+        gifLable.backgroundColor = UIColor(white: 0, alpha: 0.800)
+        gifLable.textAlignment = NSTextAlignment.center
         gifLable.font = UIFont.systemFont(ofSize: 10)
         gifLable.frame = CGRect.init(x: self.tz_width - 25, y: self.tz_height - 14, width: 25, height: 14)
         self.addSubview(gifLable)
 
         deleteBtn = UIButton()
         deleteBtn.setImage(UIImage.init(named: "photo_delete"), for: .normal)
-        deleteBtn.frame = CGRect.init(x: self.tz_width - 36, y: 0, width: 36, height: 36);
-        deleteBtn.imageEdgeInsets = UIEdgeInsetsMake(-10, 0, 0, -10);
-        deleteBtn.alpha = 0.6;
+        deleteBtn.frame = CGRect.init(x: self.tz_width - 36, y: 0, width: 36, height: 36)
+        deleteBtn.imageEdgeInsets = UIEdgeInsets(top: -10, left: 0, bottom: 0, right: -10)
+        deleteBtn.alpha = 0.6
         deleteBtn.addTarget(self, action: #selector(onDeleteBtnPressed(sender:)), for: UIControlEvents.touchUpInside)
         self.addSubview(deleteBtn)
-        
+
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        imageView.frame = self.bounds;
-        let width = self.xh_width / 3.0;
-        videoImageView.frame = CGRect(x: width, y: width, width: width, height: width);
+        imageView.frame = self.bounds
+        let width = self.xh_width / 3.0
+        videoImageView.frame = CGRect(x: width, y: width, width: width, height: width)
     }
-    
+
     @objc func onDeleteBtnPressed(sender: UIButton) {
         self.deleteClickClosure?(sender)
     }

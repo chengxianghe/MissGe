@@ -10,7 +10,6 @@ import UIKit
 import YYText
 import YYWebImage
 
-
 let kTopicCommentCellTopMargin: CGFloat = 0.0
 let kTopicCommentCellBottomMargin: CGFloat = 0.0
 let kTopicCommentCellLeftMargin: CGFloat = 8.0
@@ -30,7 +29,6 @@ let kTopicCommentCellNameColor = kColorFromHexA(0x0099ff) // 名字字体颜色
 let kTopicCommentCellTimeHeight: CGFloat = 18.0   // 时间高度
 let kTopicCommentCellTimeFontSize: CGFloat = 12.0      // 时间字体大小
 let kTopicCommentCellTimeColor = kColorFromHexA(0x333333) // 时间字体颜色
-
 
 let kTopicCommentCellIconTopMargin: CGFloat = 8.0
 let kTopicCommentCellIconLeftMargin = kTopicCommentCellContentLeftMargin
@@ -52,7 +50,6 @@ let kTopicCommentCellLikeWidth: CGFloat = 60           // 喜欢按钮 宽度
 let kTopicCommentCellFavoriteWidth: CGFloat = 30       // 收藏按钮 宽度
 let kTopicCommentCellCommentWidth: CGFloat = 40        // 评论按钮 宽度
 let kTopicCommentCellShareWidth: CGFloat = 30          // 分享按钮 宽度
-
 
 let kTopicCommentCellLikeHeight: CGFloat = 24   // 喜欢高度
 let kTopicCommentCellLikeFontSize: CGFloat = 12      // 喜欢字体大小
@@ -76,37 +73,36 @@ class MLTopicCommentCell: TUBaseTableViewCell {
     var layout: MLTopicCommentCellLayout!
     var statusView: MLTopicCommentCellBodyView!
     var delegate: MLTopicCommentCellDelegate?
-    
+
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        self.selectionStyle = UITableViewCellSelectionStyle.none;
+
+        self.selectionStyle = UITableViewCellSelectionStyle.none
         self.backgroundView?.backgroundColor = UIColor.clear
         self.backgroundColor = UIColor.clear
         self.contentView.backgroundColor = UIColor.clear
-        
-        statusView = MLTopicCommentCellBodyView();
-        statusView.cell = self;
-        self.contentView.addSubview(statusView);
+
+        statusView = MLTopicCommentCellBodyView()
+        statusView.cell = self
+        self.contentView.addSubview(statusView)
     }
-    
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-    
+
     func setInfo(_ layout: MLTopicCommentCellLayout) {
-        self.layout = layout;
+        self.layout = layout
         self.setHeight(layout.height)
         self.contentView.setHeight(layout.height)
         statusView.setInfo(layout)
     }
-    
+
     class func height(_ layout: MLTopicCommentCellLayout) -> CGFloat {
         return layout.height
     }
@@ -120,14 +116,14 @@ class MLTopicCommentCell: TUBaseTableViewCell {
 }
 
 protocol MLTopicCommentCellDelegate {
-    func cell(_ cell: MLTopicCommentCell, didClickTextInLabel label: YYLabel!, textRange: NSRange);
-    func cell(_ cell: MLTopicCommentCell, didClickContentWithLongPress longPress: Bool);
-    
-    func cellDidClickLike(_ cell: MLTopicCommentCell);
-    func cellDidClickOther(_ cell: MLTopicCommentCell);
-    func cellDidClickName(_ cell: MLTopicCommentCell);
-    func cellDidClickIcon(_ cell: MLTopicCommentCell);
-    
+    func cell(_ cell: MLTopicCommentCell, didClickTextInLabel label: YYLabel!, textRange: NSRange)
+    func cell(_ cell: MLTopicCommentCell, didClickContentWithLongPress longPress: Bool)
+
+    func cellDidClickLike(_ cell: MLTopicCommentCell)
+    func cellDidClickOther(_ cell: MLTopicCommentCell)
+    func cellDidClickName(_ cell: MLTopicCommentCell)
+    func cellDidClickIcon(_ cell: MLTopicCommentCell)
+
 }
 
 class MLTopicCommentCellBodyView: UIView {
@@ -141,80 +137,78 @@ class MLTopicCommentCellBodyView: UIView {
     var textLabel: YYLabel!
     var layout: MLTopicCommentCellLayout!
     var cell: MLTopicCommentCell!
-    
+
     override init(frame: CGRect) {
-        var frame = frame;
+        var frame = frame
         if (frame.size.width == 0 && frame.size.height == 0) {
-            frame.size.width = kScreenWidth;
-            frame.size.height = 1;
+            frame.size.width = kScreenWidth
+            frame.size.height = 1
         }
         super.init(frame: frame)
-        
+
         self.backgroundColor = UIColor.clear
-        self.isExclusiveTouch = true;
-        
-        
+        self.isExclusiveTouch = true
+
         contentView = UIView()
         contentView.setWidth(kTopicCommentCellWidth)
         contentView.setHeight(1)
         contentView.setLeft(kTopicCommentCellLeftMargin)
         contentView.backgroundColor = UIColor.white
         self.addSubview(contentView)
-        
-        nameLabel = YYLabel() ;
+
+        nameLabel = YYLabel()
         //    nameLabel.setLeft(kTopicCommentCellTextLeftMargin;
         nameLabel.setWidth(kTopicCommentCellContentWidth)
-        nameLabel.textAlignment = NSTextAlignment.left;
-        nameLabel.displaysAsynchronously = true;
-        nameLabel.ignoreCommonProperties = true;
-        nameLabel.fadeOnAsynchronouslyDisplay = false;
-        nameLabel.fadeOnHighlight = false;
+        nameLabel.textAlignment = NSTextAlignment.left
+        nameLabel.displaysAsynchronously = true
+        nameLabel.ignoreCommonProperties = true
+        nameLabel.fadeOnAsynchronouslyDisplay = false
+        nameLabel.fadeOnHighlight = false
         nameLabel.textTapAction = {[unowned self] (containerView: UIView, text: NSAttributedString, range: NSRange, rect: CGRect) in
             self.cell.delegate?.cellDidClickName(self.cell)
-        };
+        }
         contentView.addSubview(nameLabel)
-        
-        timeLabel = YYLabel() ;
+
+        timeLabel = YYLabel()
         timeLabel.setTop(nameLabel.frame.maxY)
-        timeLabel.setLeft(kTopicCommentCellContentLeftMargin);
-        timeLabel.setWidth(kTopicCommentCellContentWidth);
-        timeLabel.textAlignment = NSTextAlignment.left;
-        timeLabel.displaysAsynchronously = true;
-        timeLabel.ignoreCommonProperties = true;
-        timeLabel.fadeOnAsynchronouslyDisplay = false;
-        timeLabel.fadeOnHighlight = false;
+        timeLabel.setLeft(kTopicCommentCellContentLeftMargin)
+        timeLabel.setWidth(kTopicCommentCellContentWidth)
+        timeLabel.textAlignment = NSTextAlignment.left
+        timeLabel.displaysAsynchronously = true
+        timeLabel.ignoreCommonProperties = true
+        timeLabel.fadeOnAsynchronouslyDisplay = false
+        timeLabel.fadeOnHighlight = false
         contentView.addSubview(timeLabel)
-        
-        textLabel = YYLabel() ;
-        textLabel.setTop(timeLabel.frame.maxY);
-        textLabel.setLeft(kTopicCommentCellContentLeftMargin);
-        textLabel.setWidth(kTopicCommentCellContentWidth);
-        textLabel.textVerticalAlignment = YYTextVerticalAlignment.top;
-        textLabel.displaysAsynchronously = true;
-        textLabel.ignoreCommonProperties = true;
-        textLabel.fadeOnAsynchronouslyDisplay = false;
-        textLabel.fadeOnHighlight = false;
-        
+
+        textLabel = YYLabel()
+        textLabel.setTop(timeLabel.frame.maxY)
+        textLabel.setLeft(kTopicCommentCellContentLeftMargin)
+        textLabel.setWidth(kTopicCommentCellContentWidth)
+        textLabel.textVerticalAlignment = YYTextVerticalAlignment.top
+        textLabel.displaysAsynchronously = true
+        textLabel.ignoreCommonProperties = true
+        textLabel.fadeOnAsynchronouslyDisplay = false
+        textLabel.fadeOnHighlight = false
+
         textLabel.highlightTapAction = {[unowned self] (containerView: UIView, text: NSAttributedString, range: NSRange, rect: CGRect) in
             self.cell.delegate?.cell(self.cell, didClickTextInLabel: containerView as! YYLabel, textRange: range)
-        };
+        }
         contentView.addSubview(textLabel)
-        
-        
+
         let imageView = YYAnimatedImageView()
-        imageView.clipsToBounds = true;
-        imageView.isExclusiveTouch = true;
-        
+        imageView.clipsToBounds = true
+        imageView.isExclusiveTouch = true
+
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapIcon(sender:)))
 
-        imageView.isUserInteractionEnabled = true;
+        imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(tap)
-        
+
         contentView.addSubview(imageView)
-        iconImageView = imageView;
-        
+        iconImageView = imageView
+
 //        let likeHeight = kTopicCommentCellLikeHeight;
-        
+
 //        otherButton = UIButton.init(type: UIButtonType.Custom)
 //        otherButton.setTitle("举报", forState: .Normal)
 //        otherButton.titleLabel?.font = UIFont.systemFontOfSize(kTopicCommentCellTimeFontSize)
@@ -228,21 +222,19 @@ class MLTopicCommentCellBodyView: UIView {
 //        otherButton.addBlockForControlEvents(UIControlEvents.TouchUpInside) { (sender) in
 //            self.cell.delegate?.cellDidClickOther(self.cell)
 //        }
-        
-        
+
         bottomImageView = UIImageView(image: UIImage(named: "dotted_line_320x0_"))
         bottomImageView.frame.origin.x = kTopicCommentCellLeftMargin
         bottomImageView.frame.size = CGSize(width: kTopicCommentCellBottomImageWidth, height: kTopicCommentCellBottomImageHeight)
         self.addSubview(bottomImageView)
-        
+
         bestImageView = UIImageView(image: UIImage(named: "social_best_reply_flag_40x40_"))
         bestImageView.frame.size = CGSize(width: kSquareCellBestImageWidth, height: kSquareCellBestImageHeight)
         bestImageView.frame.origin.x = contentView.frame.width - kSquareCellBestImageWidth
         bestImageView.isHidden = true
         contentView.addSubview(bestImageView)
     }
-    
-    
+
     @objc func tapIcon(sender: UITapGestureRecognizer) {
         //let sender = sender as! UITapGestureRecognizer
         if (sender.state == UIGestureRecognizerState.ended) {
@@ -252,42 +244,42 @@ class MLTopicCommentCellBodyView: UIView {
             }
         }
     }
-    
+
     func setInfo(_ layout: MLTopicCommentCellLayout) {
-        self.layout = layout;
-        
-        self.setHeight(layout.height);
-        contentView.setTop(layout.marginTop);
-        contentView.setHeight(layout.height - layout.marginTop - layout.marginBottom - kTopicCommentCellBottomImageHeight);
-        
+        self.layout = layout
+
+        self.setHeight(layout.height)
+        contentView.setTop(layout.marginTop)
+        contentView.setHeight(layout.height - layout.marginTop - layout.marginBottom - kTopicCommentCellBottomImageHeight)
+
         self._setImageView()
-        
-        var top: CGFloat = layout.textMarginTop;
-        nameLabel.setTop(top);
-        nameLabel.setLeft(layout.nameTextLeft);
+
+        var top: CGFloat = layout.textMarginTop
+        nameLabel.setTop(top)
+        nameLabel.setLeft(layout.nameTextLeft)
         nameLabel.setWidth(layout.nameTextLayout.textBoundingSize.width)
-        nameLabel.setHeight(layout.nameTextHeight);
-        nameLabel.textLayout = layout.nameTextLayout;
-        top += layout.nameTextHeight;
-        
-        timeLabel.setTop(top);
-        timeLabel.setLeft(layout.nameTextLeft);
+        nameLabel.setHeight(layout.nameTextHeight)
+        nameLabel.textLayout = layout.nameTextLayout
+        top += layout.nameTextHeight
+
+        timeLabel.setTop(top)
+        timeLabel.setLeft(layout.nameTextLeft)
         timeLabel.setWidth(layout.timeTextLayout?.textBoundingSize.width ?? 0)
-        timeLabel.setHeight(layout.timeTextHeight);
-        timeLabel.textLayout = layout.timeTextLayout;
-        top += layout.timeTextHeight;
-        
-        top += layout.textTop;
-        textLabel.setTop(top);
-        textLabel.setHeight(layout.textHeight);
-        textLabel.textLayout = layout.textLayout;
-        top += layout.textHeight;
-        
+        timeLabel.setHeight(layout.timeTextHeight)
+        timeLabel.textLayout = layout.timeTextLayout
+        top += layout.timeTextHeight
+
+        top += layout.textTop
+        textLabel.setTop(top)
+        textLabel.setHeight(layout.textHeight)
+        textLabel.textLayout = layout.textLayout
+        top += layout.textHeight
+
         top += layout.textMarginBottom
-        
+
         //        top += layout.toolbarHeight
         bottomImageView.frame.origin.y = layout.height - kTopicCommentCellBottomImageHeight - layout.marginBottom
-        
+
         if layout.joke.best_reply {
             bestImageView.isHidden = false
             contentView.backgroundColor = kColorFromHexA(0xFF99CC)
@@ -296,14 +288,14 @@ class MLTopicCommentCellBodyView: UIView {
             contentView.backgroundColor = UIColor.white
         }
     }
-    
+
     func _setImageView() {
-        
-        let imageView = self.iconImageView;
-        imageView?.frame = CGRect(x: layout.iconX, y: layout.iconY, width: layout.iconWidth, height: layout.iconHeight);
-        imageView?.isHidden = false;
+
+        let imageView = self.iconImageView
+        imageView?.frame = CGRect(x: layout.iconX, y: layout.iconY, width: layout.iconWidth, height: layout.iconHeight)
+        imageView?.isHidden = false
         imageView?.layer.removeAnimation(forKey: "contents")
-        
+
         imageView?.yy_setImage(with: layout.joke.isAnonymous ? nil : layout.joke.uface,
                                      placeholder: UIImage(named: layout.joke.randomImage),
                                      options: YYWebImageOptions.avoidSetImage,
@@ -311,21 +303,20 @@ class MLTopicCommentCellBodyView: UIView {
                                      progress: nil,
                                      transform: nil) { (image, url, from, stage, error) in
                                         if (image != nil && stage == YYWebImageStage.finished) {
-                                            imageView?.image = image;
+                                            imageView?.image = image
                                             if (from != YYWebImageFromType.memoryCacheFast) {
                                                 let transition = CATransition()
-                                                transition.duration = 0.15;
-                                                transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseOut);
-                                                transition.type = kCATransitionFade;
+                                                transition.duration = 0.15
+                                                transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+                                                transition.type = kCATransitionFade
                                                 imageView?.layer.add(transition, forKey: "contents")
                                             }
                                         }
         }
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-}
 
+}

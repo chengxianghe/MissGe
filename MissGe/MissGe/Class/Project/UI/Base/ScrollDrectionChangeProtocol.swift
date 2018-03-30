@@ -9,10 +9,10 @@
 import Foundation
 import UIKit
 
-let offsetChange: CGFloat = 20;
-let offsetChangeBegin: CGFloat = 0;
+let offsetChange: CGFloat = 20
+let offsetChangeBegin: CGFloat = 0
 
-typealias ScrollDirectionChangeBlock = (_ isUp: Bool) -> Void;
+typealias ScrollDirectionChangeBlock = (_ isUp: Bool) -> Void
 
 protocol ScrollDrectionChangeProtocol: UIScrollViewDelegate {
     var weakScrollView: UIScrollView! { get set }
@@ -26,18 +26,18 @@ protocol ScrollDrectionChangeProtocol: UIScrollViewDelegate {
 }
 
 extension ScrollDrectionChangeProtocol {
-    
+
     func setWeakScrollView(_ scrollView: UIScrollView) {
         self.weakScrollView = scrollView
     }
-    
+
     func updateWeakScrollViewPosition() {
         self.isUp = false
         self.lastOffsetY = self.weakScrollView.contentOffset.y
     }
-    
+
     func setWeakScrollDirectionChangeBlock(_ scrollBlock: ScrollDirectionChangeBlock?) {
         self.scrollBlock = scrollBlock
     }
-    
+
 }
