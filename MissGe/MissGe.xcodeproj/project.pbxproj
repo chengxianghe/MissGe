@@ -973,9 +973,9 @@
 				TargetAttributes = {
 					14D6FE0B1E9E0DEE0038C7D1 = {
 						CreatedOnToolsVersion = 8.3;
-						DevelopmentTeam = 5V78W4B7F5;
+						DevelopmentTeam = E56PJSX4T7;
 						LastSwiftMigration = 0830;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -1382,8 +1382,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 20180330.01;
-				DEVELOPMENT_TEAM = 5V78W4B7F5;
+				DEVELOPMENT_TEAM = E56PJSX4T7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MissGe/Share/QQ",
@@ -1398,6 +1399,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.itwu.MissGe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "ca1baece-7e89-4843-9b79-643fd408c8ce";
+				PROVISIONING_PROFILE_SPECIFIER = wildcard;
 				SWIFT_OBJC_BRIDGING_HEADER = "MissGe/MissGe-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -1410,8 +1413,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 20180330.01;
-				DEVELOPMENT_TEAM = 5V78W4B7F5;
+				DEVELOPMENT_TEAM = E56PJSX4T7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MissGe/Share/QQ",
@@ -1426,6 +1430,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.itwu.MissGe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "ca1baece-7e89-4843-9b79-643fd408c8ce";
+				PROVISIONING_PROFILE_SPECIFIER = wildcard;
 				SWIFT_OBJC_BRIDGING_HEADER = "MissGe/MissGe-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};
