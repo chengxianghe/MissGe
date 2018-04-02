@@ -139,6 +139,8 @@
 		14F53D8C1EA4639B00FBF649 /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F53D881EA4639B00FBF649 /* NSDate+Utilities.m */; };
 		14F53D8D1EA4639B00FBF649 /* NSDateFormatter+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F53D8A1EA4639B00FBF649 /* NSDateFormatter+Category.m */; };
 		AD54B668ADE1BB93361778D5 /* Pods_MissGe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 519CCE7A7316DB5D50DB38D1 /* Pods_MissGe.framework */; };
+		FB3B8CB7207234C30022C080 /* MLSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3B8CB6207234C30022C080 /* MLSearchViewController.swift */; };
+		FB3B8CB920723FC70022C080 /* MLNavTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3B8CB820723FC70022C080 /* MLNavTitleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -301,6 +303,8 @@
 		519CCE7A7316DB5D50DB38D1 /* Pods_MissGe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MissGe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6443ABEE646BF31F754A860 /* Pods-MissGe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MissGe.release.xcconfig"; path = "Pods/Target Support Files/Pods-MissGe/Pods-MissGe.release.xcconfig"; sourceTree = "<group>"; };
 		C89BFF490CCE9425BCE28A15 /* Pods-MissGe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MissGe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MissGe/Pods-MissGe.debug.xcconfig"; sourceTree = "<group>"; };
+		FB3B8CB6207234C30022C080 /* MLSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSearchViewController.swift; sourceTree = "<group>"; };
+		FB3B8CB820723FC70022C080 /* MLNavTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLNavTitleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -426,6 +430,7 @@
 			isa = PBXGroup;
 			children = (
 				143AA8EF1F989E1300E05D0F /* TUSearchBar.swift */,
+				FB3B8CB820723FC70022C080 /* MLNavTitleView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -745,6 +750,7 @@
 			children = (
 				14D6FE6D1E9E0FFC0038C7D1 /* MLDiscoverController.swift */,
 				14D6FE6E1E9E0FFC0038C7D1 /* MLDiscoverMoreController.swift */,
+				FB3B8CB6207234C30022C080 /* MLSearchViewController.swift */,
 			);
 			path = Discover;
 			sourceTree = "<group>";
@@ -955,7 +961,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = cn;
 				TargetAttributes = {
 					14D6FE0B1E9E0DEE0038C7D1 = {
@@ -1141,6 +1147,7 @@
 				14D6FE951E9E0FFC0038C7D1 /* MLAPPStartRequest.swift in Sources */,
 				14D6FEAA1E9E0FFC0038C7D1 /* MLDiscoverHeaderCell.swift in Sources */,
 				1488B5D91EA4B0E10096B0BE /* AppDelegate.swift in Sources */,
+				FB3B8CB7207234C30022C080 /* MLSearchViewController.swift in Sources */,
 				14D6FEC61E9E0FFC0038C7D1 /* MLTopicDetailController.swift in Sources */,
 				14CD209A1EB869E700F0B920 /* String+Emoji.swift in Sources */,
 				1471CB291EAF0B9600226C56 /* XHUploadImagesHelper.swift in Sources */,
@@ -1183,6 +1190,7 @@
 				14D6FEAB1E9E0FFC0038C7D1 /* MLHomePageAlbumCell.swift in Sources */,
 				14F53D761EA4604800FBF649 /* GMBScrollAdView.m in Sources */,
 				14C1DA121ECE930500517155 /* MLMineFavoriteController.swift in Sources */,
+				FB3B8CB920723FC70022C080 /* MLNavTitleView.swift in Sources */,
 				14D6FEB01E9E0FFC0038C7D1 /* MLTopicCommentCellLayout.swift in Sources */,
 				14C1DA161ECE98AC00517155 /* MLMineCommentController.swift in Sources */,
 				144B6A0D1EA451A70000BB1B /* TZTestCell.swift in Sources */,
@@ -1257,6 +1265,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -1264,6 +1273,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -1314,6 +1324,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -1321,6 +1332,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

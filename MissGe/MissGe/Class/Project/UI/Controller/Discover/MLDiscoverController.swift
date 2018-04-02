@@ -27,7 +27,8 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIC
     var dataSource = [MLHomePageModel]()
     var tagsArray = [MLDiscoverTagModel]()
     var requestCount = 0
-    
+    var searchBar: UISearchBar!
+
 //    override func viewDidAppear(_ animated: Bool) {
 //        super.viewDidAppear(animated)
 //        
@@ -40,16 +41,15 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIC
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
 
-        let searchBar = UISearchBar.init(frame: CGRect.init(x: 10, y: 10, width: kScreenWidth - 20, height: 30))
-//        searchBar.searchBarStyle = .minimal;
-//        searchBar.contentInset = UIEdgeInsetsMake(10, 20, 10, 20)
+        searchBar = UISearchBar.init(frame: CGRect.init(x: 10, y: 10, width: kScreenWidth - 20, height: 30))
         searchBar.tintColor = UIColor.white
         searchBar.placeholder = "搜索"
         searchBar.delegate = self
-//        self.navView.frame = CGRect(x: 10, y: 7, width: kScreenWidth - 20, height: 30)
-//        self.navigationController?.navigationBar.addSubview(self.navView)
         self.navigationItem.titleView = searchBar;
-        
+
+        if #available(iOS 11.0, *) {
+            searchBar.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
+        }
         
         let titleHeight = ceil((kScreenWidth - 20) / 305 * 16)
         let collectionViewLineSpace = collectionViewLayout.minimumLineSpacing
@@ -143,7 +143,17 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIC
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - Collection view data source
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        let vc = MLSearchViewController.init()
+        self.navigationController?.pushViewController(vc, animated: true)
+        return false
+    }
     
+    //    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    //        self.performSegue(withIdentifier: "SearchToSubject", sender: searchBar.text)
+    //    }
+
     // MARK: - Collection view data source
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -207,10 +217,6 @@ class MLDiscoverController: UITableViewController, UICollectionViewDelegate, UIC
 //        }
 //   
 //    }
-
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.performSegue(withIdentifier: "SearchToSubject", sender: searchBar.text)
-    }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
