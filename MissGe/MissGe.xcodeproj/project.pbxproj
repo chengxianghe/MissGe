@@ -138,6 +138,7 @@
 		14F53D8C1EA4639B00FBF649 /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F53D881EA4639B00FBF649 /* NSDate+Utilities.m */; };
 		14F53D8D1EA4639B00FBF649 /* NSDateFormatter+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F53D8A1EA4639B00FBF649 /* NSDateFormatter+Category.m */; };
 		AD54B668ADE1BB93361778D5 /* Pods_MissGe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 519CCE7A7316DB5D50DB38D1 /* Pods_MissGe.framework */; };
+		FB3B8CBB207245DF0022C080 /* MLSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3B8CBA207245DF0022C080 /* MLSearchViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -299,6 +300,7 @@
 		519CCE7A7316DB5D50DB38D1 /* Pods_MissGe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MissGe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6443ABEE646BF31F754A860 /* Pods-MissGe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MissGe.release.xcconfig"; path = "Pods/Target Support Files/Pods-MissGe/Pods-MissGe.release.xcconfig"; sourceTree = "<group>"; };
 		C89BFF490CCE9425BCE28A15 /* Pods-MissGe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MissGe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MissGe/Pods-MissGe.debug.xcconfig"; sourceTree = "<group>"; };
+		FB3B8CBA207245DF0022C080 /* MLSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSearchViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -758,6 +760,7 @@
 			children = (
 				14D6FE6D1E9E0FFC0038C7D1 /* MLDiscoverController.swift */,
 				14D6FE6E1E9E0FFC0038C7D1 /* MLDiscoverMoreController.swift */,
+				FB3B8CBA207245DF0022C080 /* MLSearchViewController.swift */,
 			);
 			path = Discover;
 			sourceTree = "<group>";
@@ -1153,6 +1156,7 @@
 				14D6FEB91E9E0FFC0038C7D1 /* MLHomeCommentController.swift in Sources */,
 				14D6FEA71E9E0FFC0038C7D1 /* MLBaseNavigationController.swift in Sources */,
 				14D6FEBE1E9E0FFC0038C7D1 /* MLMineViewController.swift in Sources */,
+				FB3B8CBB207245DF0022C080 /* MLSearchViewController.swift in Sources */,
 				1417A9B31EA70CD9003931C5 /* TUBaseTableView.swift in Sources */,
 				14D6FEA91E9E0FFC0038C7D1 /* MLDiscoverCell.swift in Sources */,
 				1417A9F21EA72E78003931C5 /* UIColorExtension.swift in Sources */,
