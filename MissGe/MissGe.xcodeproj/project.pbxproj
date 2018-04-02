@@ -140,7 +140,6 @@
 		14F53D8D1EA4639B00FBF649 /* NSDateFormatter+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F53D8A1EA4639B00FBF649 /* NSDateFormatter+Category.m */; };
 		AD54B668ADE1BB93361778D5 /* Pods_MissGe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 519CCE7A7316DB5D50DB38D1 /* Pods_MissGe.framework */; };
 		FB3B8CB7207234C30022C080 /* MLSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3B8CB6207234C30022C080 /* MLSearchViewController.swift */; };
-		FB3B8CB920723FC70022C080 /* MLNavTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3B8CB820723FC70022C080 /* MLNavTitleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -304,7 +303,6 @@
 		A6443ABEE646BF31F754A860 /* Pods-MissGe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MissGe.release.xcconfig"; path = "Pods/Target Support Files/Pods-MissGe/Pods-MissGe.release.xcconfig"; sourceTree = "<group>"; };
 		C89BFF490CCE9425BCE28A15 /* Pods-MissGe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MissGe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MissGe/Pods-MissGe.debug.xcconfig"; sourceTree = "<group>"; };
 		FB3B8CB6207234C30022C080 /* MLSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSearchViewController.swift; sourceTree = "<group>"; };
-		FB3B8CB820723FC70022C080 /* MLNavTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLNavTitleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -430,7 +428,6 @@
 			isa = PBXGroup;
 			children = (
 				143AA8EF1F989E1300E05D0F /* TUSearchBar.swift */,
-				FB3B8CB820723FC70022C080 /* MLNavTitleView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1190,7 +1187,6 @@
 				14D6FEAB1E9E0FFC0038C7D1 /* MLHomePageAlbumCell.swift in Sources */,
 				14F53D761EA4604800FBF649 /* GMBScrollAdView.m in Sources */,
 				14C1DA121ECE930500517155 /* MLMineFavoriteController.swift in Sources */,
-				FB3B8CB920723FC70022C080 /* MLNavTitleView.swift in Sources */,
 				14D6FEB01E9E0FFC0038C7D1 /* MLTopicCommentCellLayout.swift in Sources */,
 				14C1DA161ECE98AC00517155 /* MLMineCommentController.swift in Sources */,
 				144B6A0D1EA451A70000BB1B /* TZTestCell.swift in Sources */,
