@@ -12,10 +12,10 @@ import ObjectMapper
 class MLHomeDetailModel: Mappable {
     var uid: String = ""
     var tid: String = ""
-    
+
     var uname: String = ""
     var avatar: String = ""
-    
+
     var summary: String = ""
     var title: String = ""
     var date: String = ""
@@ -30,7 +30,7 @@ class MLHomeDetailModel: Mappable {
     var model: Int = 0
     var is_special: Bool = false
     var type: Int = 0
-    
+
     var author: String = ""
     var source: String = ""
     var detail: String = ""
@@ -39,11 +39,11 @@ class MLHomeDetailModel: Mappable {
     var link_url: URL?
     var imglist: Array<String>?
     var goods: Array<String>?
-    
+
     required init?(map: Map) {
-        
+
     }
-    
+
     // Mappable
     func mapping(map: Map) {
         uid         <- map["uid"]
@@ -69,7 +69,7 @@ class MLHomeDetailModel: Mappable {
         detail      <- map["detail"]
         allow_comment  <- map["allow_comment"]
         is_collect  <- map["is_collect"]
-        
+
         link_url    <- (map["link_url"], transfromOfURLAndString())
         imglist     <- map["imglist"]
         goods       <- map["goods"]

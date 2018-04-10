@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 /*
 {
     "msg": "亲爱的，18500522314 欢迎您，登录成功！",
@@ -37,16 +35,14 @@ class MLLoginRequest: MLBaseRequest {
     var username = ""
 
     //c=user&a=login&username=18500522314&password=cheng613637
-    override func requestParameters() -> [String : Any]? {
-        let dict = ["c":"user","a":"login","username":"\(username)", "password":"\(password)"]
+    override func requestParameters() -> [String: Any]? {
+        let dict = ["c":"user", "a":"login", "username":"\(username)", "password":"\(password)"]
         return dict
     }
-    
+
     override func requestHandleResult() {
         print("requestHandleResult -- \(self.classForCoder)")
     }
-    
-
 
 }
 
@@ -54,17 +50,16 @@ class MLLoginRequest: MLBaseRequest {
 //http://t.gexiaojie.com/api.php?&output=json&_app_key=f722d367b8a96655c4f3365739d38d85&_app_secret=30248115015ec6c79d3bed2915f9e4cc&c=sms&a=getRegSMS&mobile=18500522314
 class MLRegisterVerificationCodeRequest: MLBaseRequest {
     var mobile = ""
-    
+
     //c=sms&a=getRegSMS&mobile=18500522314
-    override func requestParameters() -> [String : Any]? {
-        let dict = ["c":"sms","a":"getRegSMS","mobile":"\(mobile)"]
+    override func requestParameters() -> [String: Any]? {
+        let dict = ["c":"sms", "a":"getRegSMS", "mobile":"\(mobile)"]
         return dict
     }
-    
+
     override func requestHandleResult() {
         print("requestHandleResult -- \(self.classForCoder)")
     }
-    
 
 }
 
@@ -73,17 +68,16 @@ class MLRegisterVerificationCodeRequest: MLBaseRequest {
 class MLRegisterCheckVerificationCodeRequest: MLBaseRequest {
     var verificationCode = ""
     var mobile = ""
-    
+
     //c=sms&a=verifyCode&mobile=18500522314&captcha=338274
-    override func requestParameters() -> [String : Any]? {
-        let dict = ["c":"sms","a":"verifyCode","mobile":"\(mobile)", "captcha":"\(verificationCode)"]
+    override func requestParameters() -> [String: Any]? {
+        let dict = ["c":"sms", "a":"verifyCode", "mobile":"\(mobile)", "captcha":"\(verificationCode)"]
         return dict
     }
-    
+
     override func requestHandleResult() {
         print("requestHandleResult -- \(self.classForCoder)")
     }
-    
 
 }
 
@@ -94,15 +88,14 @@ class MLRegisterRequest: MLBaseRequest {
     var mobile = ""
 
     //c=user&a=doregV2&username=%E4%BA%91%E9%80%B8&password=cheng613637&mobile=18500522314
-    override func requestParameters() -> [String : Any]? {
-        let dict = ["c":"user","a":"doregV2","username":"\(username)", "password":"\(password)", "mobile":"\(mobile)"]
+    override func requestParameters() -> [String: Any]? {
+        let dict = ["c":"user", "a":"doregV2", "username":"\(username)", "password":"\(password)", "mobile":"\(mobile)"]
         return dict
     }
-    
+
     override func requestHandleResult() {
         print("requestHandleResult -- \(self.classForCoder)")
     }
-    
 
 }
 
@@ -111,17 +104,16 @@ class MLRegisterRequest: MLBaseRequest {
 class MLFindPasswordRequest: MLBaseRequest {
 
     var user = ""
-    
+
     //c=sms&a=findpwd&user=18866575582
-    override func requestParameters() -> [String : Any]? {
-        let dict = ["c":"sms","a":"findpwd","user":"\(user)"]
+    override func requestParameters() -> [String: Any]? {
+        let dict = ["c":"sms", "a":"findpwd", "user":"\(user)"]
         return dict
     }
-    
+
     override func requestHandleResult() {
         print("requestHandleResult -- \(self.classForCoder)")
     }
-    
 
 }
 
@@ -130,17 +122,16 @@ class MLFindPasswordRequest: MLBaseRequest {
 class MLFindPasswordVerificationCodeRequest: MLBaseRequest {
     var verificationCode = ""
     var user = ""
-    
+
     //c=sms&a=verifyForgot&user=18500522314&code=196631
-    override func requestParameters() -> [String : Any]? {
-        let dict = ["c":"sms","a":"verifyForgot","user":"\(user)", "code":"\(verificationCode)"]
+    override func requestParameters() -> [String: Any]? {
+        let dict = ["c":"sms", "a":"verifyForgot", "user":"\(user)", "code":"\(verificationCode)"]
         return dict
     }
-    
+
     override func requestHandleResult() {
         print("requestHandleResult -- \(self.classForCoder)")
     }
-    
 
 }
 
@@ -150,21 +141,18 @@ class MLFindPasswordNewPasswordRequest: MLBaseRequest {
     var verificationCode = ""
     var user = ""
     var newpwd = ""
-    
+
     //c=sms&a=renewPwd&user=18500522314&code=196631&newpwd=613637
-    override func requestParameters() -> [String : Any]? {
-        let dict = ["c":"sms","a":"renewPwd","user":"\(user)", "code":"\(verificationCode)", "newpwd":"\(newpwd)"]
+    override func requestParameters() -> [String: Any]? {
+        let dict = ["c":"sms", "a":"renewPwd", "user":"\(user)", "code":"\(verificationCode)", "newpwd":"\(newpwd)"]
         return dict
     }
-    
+
     override func requestHandleResult() {
         print("requestHandleResult -- \(self.classForCoder)")
     }
-    
 
 }
-
-
 
 //注册 手机验证码
 //http://t.gexiaojie.com/api.php?&output=json&_app_key=f722d367b8a96655c4f3365739d38d85&_app_secret=30248115015ec6c79d3bed2915f9e4cc&c=sms&a=getRegSMS&mobile=18500522314

@@ -12,10 +12,10 @@ import Foundation
 
 let kAppId                      = "1014939463"
 
-//MARK: - Bugtags
+// MARK: - Bugtags
 let kBugAppKey                  = "f91d711b425044544225d135b1f51903"
 
-//MARK: - Share - Login
+// MARK: - Share - Login
 let kWeiBoAppKey                = "1511606524"
 
 let kQQAppID                    = "1104929797"

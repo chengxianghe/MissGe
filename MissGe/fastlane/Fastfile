@@ -1,0 +1,87 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Description of what the lane does"
+  lane :custom_lane do
+    # add actions here: https://docs.fastlane.tools/actions
+  end
+end
+
+# 定义fastlane版本号
+fastlane_version "2.88.0"
+
+# 定义打包平台
+default_platform :ios
+
+def updateProjectBuildNumber
+
+currentTime = Time.new.strftime("%Y%m%d")
+build = get_build_number()
+if build.include?"#{currentTime}."
+# => 为当天版本 计算迭代版本号
+lastStr = build[build.length-2..build.length-1]
+lastNum = lastStr.to_i
+lastNum = lastNum + 1
+lastStr = lastNum.to_s
+if lastNum < 10
+lastStr = lastStr.insert(0,"0")
+end
+build = "#{currentTime}.#{lastStr}"
+else
+# => 非当天版本 build 号重置
+build = "#{currentTime}.01"
+end
+puts("*************| 更新build #{build} |*************")
+# => 更改项目 build 号
+increment_build_number(
+build_number: "#{build}"
+)
+end
+
+#指定项目的scheme名称
+scheme="MissGe"
+#蒲公英api_key和user_key
+api_key="688523a3b55e3987d594c9f6b1f37010"
+user_key="e728f3722fcd90aa2fbeae4213b26cd4"
+
+# 任务脚本
+platform :ios do
+lane :development_build do|options|
+branch = options[:branch]
+
+puts "开始打development ipa"
+
+updateProjectBuildNumber #更改项目build号
+
+# 开始打包
+gym(
+#输出的ipa名称
+output_name:"#{scheme}_#{get_build_number()}",
+# 是否清空以前的编译信息 true：是
+clean:true,
+# 指定打包方式，Release 或者 Debug
+configuration:"Release",
+# 指定打包所使用的输出方式，目前支持app-store, package, ad-hoc, enterprise, development
+export_method:"development",
+# 指定输出文件夹
+output_directory:"./fastlane/build",
+)
+
+puts "开始上传蒲公英"
+# 开始上传蒲公英
+pgyer(api_key: "#{api_key}", user_key: "#{user_key}")
+
+end
+end
+

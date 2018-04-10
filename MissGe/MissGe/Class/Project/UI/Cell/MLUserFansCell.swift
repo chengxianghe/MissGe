@@ -22,7 +22,7 @@ class MLUserFansCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-    
+
     func setInfo(model: MLUserModel) {
         self.iconButton.yy_setImage(with: model.avatar, for: UIControlState.normal, placeholder: nil)
         self.nameButton.setTitle(model.nickname ?? model.username, for: .normal)
@@ -33,11 +33,11 @@ class MLUserFansCell: UITableViewCell {
     @IBAction func onFollowButton(_ sender: TUIBButton) {
         self.onFollowButtonTapClosure?(sender)
     }
-    
+
     @IBAction func onIconButton(_ sender: UIButton) {
         self.onIconButtonTapClosure?(sender)
     }
-    
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

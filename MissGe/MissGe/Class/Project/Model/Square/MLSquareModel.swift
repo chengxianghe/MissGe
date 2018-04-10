@@ -9,12 +9,12 @@
 import Foundation
 import ObjectMapper
 
-class MLSquareModel : Mappable {
+class MLSquareModel: Mappable {
     var pid: String = ""
     var fid: String = ""
     var uid: String = ""
     var tid: String = ""
-    
+
     var fname: String?
     var nickname: String?
     var uname: String?
@@ -29,7 +29,7 @@ class MLSquareModel : Mappable {
     var content: String?
     var thumb: Array<String>?
     var thumb_small: Array<String>?
-    
+
 //    var add_date: String?
 //    var date: String?
     var digest: String = ""
@@ -37,13 +37,12 @@ class MLSquareModel : Mappable {
     var like: String = ""
     var replies: String = ""
     var views: String = ""
-    
+
     var showTime: String?
     var isAnonymous: Bool = false // 是否匿名
     var isLike: Bool = false
     var isFavorite: Bool = false
 
-    
     // 详情Model需要的
     var closed: Bool = false
     var imglist: [MLTopicPhotoModel]? // [MLTopicPhotoModel]
@@ -56,13 +55,13 @@ class MLSquareModel : Mappable {
                 self.nickname = uname
             }
         }
-        
+
         if let date = map.JSON["date"] as? String {
-            showTime = NSDate(fromStringOrNumber:(date)).customTimeDescription()
+            showTime = NSDate(fromStringOrNumber: (date)).customTimeDescription()
         } else if let add_date = map.JSON["add_date"] as? String {
-            showTime = NSDate(fromStringOrNumber:(add_date)).customTimeDescription()
+            showTime = NSDate(fromStringOrNumber: (add_date)).customTimeDescription()
         }
-        
+
         // 0-6
         self.randomImage = "anonymous_" + "\(arc4random() % 7)" + "_32x32_"
 	}
@@ -99,17 +98,16 @@ class MLSquareModel : Mappable {
 	}
 }
 
-class MLTopicPhotoModel : Mappable {
+class MLTopicPhotoModel: Mappable {
     var thumb: URL?
-    
+
     var width: String = ""
     var height: String = ""
     var ext: String = ""
     var path: String = ""
-    
+
     var alt: String = ""
     var desc: String = ""
-
 
 	required init?(map: Map) {
 

@@ -19,25 +19,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
+
         SVProgressHUD.JCHUDConfig()
-        
+
         let navigationBarAppearance = UINavigationBar.appearance() as UINavigationBar
         navigationBarAppearance.setBackgroundImage(UIImage(named: "nav_bg_320x64_")?.stretchableImage(withLeftCapWidth: 5, topCapHeight: 5), for: UIBarMetrics.default)
         navigationBarAppearance.isTranslucent = false
-        
+
         navigationBarAppearance.tintColor = kColorFromHexA(0xffffff)
         navigationBarAppearance.titleTextAttributes = [NSAttributedStringKey.font:UIFont.boldSystemFont(ofSize: 17),
                                                        NSAttributedStringKey.foregroundColor:kColorFromHexA(0xffffff)]
-        
+
         self.configThird()
-        
+
         self.configThirdLoginAndShare()
-        
+
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.rootViewController = self.customIrregularityStyle(delegate: self)
         self.window?.makeKeyAndVisible()
-        
+
         return true
     }
 
@@ -63,54 +63,54 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-    //MARK: - 第三方登录－分享
+    // MARK: - 第三方登录－分享
     func configThirdLoginAndShare() {
-        
+
         //注册微信api
         WXApi.registerApp(kWeiXinAppID)
-        
+
         //新浪微博注册
         WeiboSDK.enableDebugMode(true)
         WeiboSDK.registerApp(kWeiBoAppKey)
-        
+
         //QQ
         self.tencentOAuth = TencentOAuth(appId: kQQAppID, andDelegate: nil)
-        self.tencentOAuth.redirectURI = kQQRedirectURI;
+        self.tencentOAuth.redirectURI = kQQRedirectURI
     }
-    
+
     func configThird() {
         //bugtags
         let options = BugtagsOptions()
         options.trackingUserSteps = true // 具体可设置的属性请查看 Bugtags.h
         Bugtags.start(withAppKey: kBugAppKey, invocationEvent: BTGInvocationEventShake, options: options)
     }
-    
+
     // 打开第三方应用
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        
+
         //        let QQ = "tencent1104929797://response_from_qq?error_description=dGhlIHVzZXIgZ2l2ZSB1cCB0aGUgY3VycmVudCBvcGVyYXRpb24=&source=qq&source_scheme=mqqapi&error=-4&version=1"
         // let WeiBo = "wb1511606524://response?id=DA7C7270-25A9-4357-8736-721BECDC4FE7&sdkversion=2.5"
-        
+
         return
             TencentOAuth.handleOpen(url) ||
                 WXApi.handleOpen(url, delegate: WeiXinshareDelegate.currenWeiXinshareDelegate) ||
-                WeiboSDK.handleOpen(url, delegate:SinaShareDelegate.currenSinaShareDelegate)
-        
+                WeiboSDK.handleOpen(url, delegate: SinaShareDelegate.currenSinaShareDelegate)
+
     }
-    
+
     // 第三方应用的回调
     // 两个方法都存在的时候 优先调用 openURL: sourceApplication:annotation:
     func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
-        
+
         QQApiInterface.handleOpen(url, delegate: QQShareDelegate.currenQQshareDelegate)
-        
+
         return
             TencentOAuth.handleOpen(url) ||
                 WXApi.handleOpen(url, delegate: WeiXinshareDelegate.currenWeiXinshareDelegate) ||
-                WeiboSDK.handleOpen(url, delegate:SinaShareDelegate.currenSinaShareDelegate)
+                WeiboSDK.handleOpen(url, delegate: SinaShareDelegate.currenSinaShareDelegate)
     }
-    
-//MARK: tabbar
+
+// MARK: tabbar
     func customIrregularityStyle(delegate: UITabBarControllerDelegate?) -> ESTabBarController {
         let tabBarController = ESTabBarController()
         tabBarController.delegate = delegate
@@ -126,7 +126,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         }
         tabBarController.didHijackHandler = {
             [weak tabBarController] tabbarController, viewController, index in
-            
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 let alertController = UIAlertController.init(title: nil, message: nil, preferredStyle: .actionSheet)
                 let takePhotoAction = UIAlertAction(title: "Take a photo", style: .default, handler: nil)
@@ -138,7 +138,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                 tabBarController?.present(alertController, animated: true, completion: nil)
             }
         }
-        
+
         let v1 = kLoadVCFromSB("HomeViewController", stroyBoard: nil)!
         let nav1 = MLBaseNavigationController.init(rootViewController: v1)
 
@@ -175,57 +175,55 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                                             image: UIImage(named: "tabbar_mine_nor"),
                                             selectedImage: UIImage(named: "tabbar_mine_sel"))
 
-        (nav1.tabBarItem as! ESTabBarItem).contentView?.renderingMode = .automatic;
-        (nav2.tabBarItem as! ESTabBarItem).contentView?.renderingMode = .automatic;
+        (nav1.tabBarItem as! ESTabBarItem).contentView?.renderingMode = .automatic
+        (nav2.tabBarItem as! ESTabBarItem).contentView?.renderingMode = .automatic
 //        (nav3.tabBarItem as! ESTabBarItem).contentView?.renderingMode = .automatic;
-        (nav4.tabBarItem as! ESTabBarItem).contentView?.renderingMode = .automatic;
-        (nav5.tabBarItem as! ESTabBarItem).contentView?.renderingMode = .automatic;
+        (nav4.tabBarItem as! ESTabBarItem).contentView?.renderingMode = .automatic
+        (nav5.tabBarItem as! ESTabBarItem).contentView?.renderingMode = .automatic
 
         tabBarController.viewControllers = [nav1, nav2, nav3, nav4, nav5]
-        
+
         return tabBarController
     }
-    
+
 }
 
-
 class ExampleBouncesContentView: ESTabBarItemContentView {
-    
+
     public var duration = 0.3
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
-    
+
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override func selectAnimation(animated: Bool, completion: (() -> ())?) {
+
+    override func selectAnimation(animated: Bool, completion: (() -> Void)?) {
         self.bounceAnimation()
         completion?()
     }
-    
-    override func reselectAnimation(animated: Bool, completion: (() -> ())?) {
+
+    override func reselectAnimation(animated: Bool, completion: (() -> Void)?) {
 //        self.bounceAnimation()
 //        completion?()
     }
-    
+
     func bounceAnimation() {
         let impliesAnimation = CAKeyframeAnimation(keyPath: "transform.scale")
-        impliesAnimation.values = [1.0 ,1.4, 0.9, 1.15, 0.95, 1.02, 1.0]
+        impliesAnimation.values = [1.0, 1.4, 0.9, 1.15, 0.95, 1.02, 1.0]
         impliesAnimation.duration = duration * 2
         impliesAnimation.calculationMode = kCAAnimationCubic
         imageView.layer.add(impliesAnimation, forKey: nil)
     }
 }
 
-
 class ExampleIrregularityBasicContentView: ExampleBouncesContentView {
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
 //        textColor = UIColor.init(white: 255.0 / 255.0, alpha: 1.0)
 //        highlightTextColor = UIColor.init(red: 23/255.0, green: 149/255.0, blue: 158/255.0, alpha: 1.0)
 //        iconColor = UIColor.init(red: 124/255.0, green: 114/255.0, blue: 119/255.0, alpha: 1.0)
@@ -233,29 +231,29 @@ class ExampleIrregularityBasicContentView: ExampleBouncesContentView {
 //        backdropColor = UIColor.init(red: 10/255.0, green: 66/255.0, blue: 91/255.0, alpha: 1.0)
 //        highlightBackdropColor = UIColor.init(red: 10/255.0, green: 66/255.0, blue: 91/255.0, alpha: 1.0)
     }
-    
+
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 
 class ExampleIrregularityContentView: ESTabBarItemContentView, CAAnimationDelegate {
-    
-    var scaleCompletion: (() -> ())?
-    
+
+    var scaleCompletion: (() -> Void)?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         //128*99
         self.imageView.backgroundColor = UIColor.init(red: 251/255.0, green: 0/255.0, blue: 153/255.0, alpha: 1.0)
         self.imageView.layer.borderWidth = 3.0
         self.imageView.layer.borderColor = UIColor.init(white: 235 / 255.0, alpha: 1.0).cgColor
         self.imageView.layer.cornerRadius = 35
-        self.insets = UIEdgeInsetsMake(-32, 0, 0, 0)
+        self.insets = UIEdgeInsets(top: -32, left: 0, bottom: 0, right: 0)
         let transform = CGAffineTransform.identity
         self.imageView.transform = transform
         self.superview?.bringSubview(toFront: self)
-        
+
         textColor = UIColor.init(white: 255.0 / 255.0, alpha: 1.0)
         highlightTextColor = UIColor.init(white: 255.0 / 255.0, alpha: 1.0)
         iconColor = UIColor.init(white: 255.0 / 255.0, alpha: 1.0)
@@ -263,7 +261,7 @@ class ExampleIrregularityContentView: ESTabBarItemContentView, CAAnimationDelega
         backdropColor = .clear
         highlightBackdropColor = .clear
     }
-    
+
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -272,9 +270,9 @@ class ExampleIrregularityContentView: ESTabBarItemContentView, CAAnimationDelega
         let p = CGPoint.init(x: point.x - imageView.frame.origin.x, y: point.y - imageView.frame.origin.y)
         return sqrt(pow(imageView.bounds.size.width / 2.0 - p.x, 2) + pow(imageView.bounds.size.height / 2.0 - p.y, 2)) < imageView.bounds.size.width / 2.0
     }
-    
-    public override func selectAnimation(animated: Bool, completion: (() -> ())?) {
-        
+
+    public override func selectAnimation(animated: Bool, completion: (() -> Void)?) {
+
         let view = UIView.init(frame: CGRect.init(origin: CGPoint.zero, size: CGSize(width: 2.0, height: 2.0)))
         view.layer.cornerRadius = 1.0
         view.layer.opacity = 0.5
@@ -286,16 +284,16 @@ class ExampleIrregularityContentView: ESTabBarItemContentView, CAAnimationDelega
             completion?()
         })
     }
-    
-    public override func reselectAnimation(animated: Bool, completion: (() -> ())?) {
+
+    public override func reselectAnimation(animated: Bool, completion: (() -> Void)?) {
 //        completion?()
     }
-    
-    public override func deselectAnimation(animated: Bool, completion: (() -> ())?) {
+
+    public override func deselectAnimation(animated: Bool, completion: (() -> Void)?) {
         completion?()
     }
-    
-    public override func highlightAnimation(animated: Bool, completion: (() -> ())?) {
+
+    public override func highlightAnimation(animated: Bool, completion: (() -> Void)?) {
         UIView.beginAnimations("small", context: nil)
         UIView.setAnimationDuration(0.2)
         let transform = self.imageView.transform.scaledBy(x: 0.8, y: 0.8)
@@ -303,8 +301,8 @@ class ExampleIrregularityContentView: ESTabBarItemContentView, CAAnimationDelega
         UIView.commitAnimations()
         completion?()
     }
-    
-    public override func dehighlightAnimation(animated: Bool, completion: (() -> ())?) {
+
+    public override func dehighlightAnimation(animated: Bool, completion: (() -> Void)?) {
         UIView.beginAnimations("big", context: nil)
         UIView.setAnimationDuration(0.2)
         let transform = CGAffineTransform.identity
@@ -312,10 +310,9 @@ class ExampleIrregularityContentView: ESTabBarItemContentView, CAAnimationDelega
         UIView.commitAnimations()
         completion?()
     }
-    
-    private func playMaskAnimation(animateView view: UIView, target: UIView, completion: (() -> ())?) {
+
+    private func playMaskAnimation(animateView view: UIView, target: UIView, completion: (() -> Void)?) {
         view.center = CGPoint.init(x: target.frame.origin.x + target.frame.size.width / 2.0, y: target.frame.origin.y + target.frame.size.height / 2.0)
-        
 
         let scale = CABasicAnimation.init(keyPath: "transform.scale")
         scale.fromValue = NSValue.init(cgSize: CGSize.init(width: 1.0, height: 1.0))
@@ -333,20 +330,20 @@ class ExampleIrregularityContentView: ESTabBarItemContentView, CAAnimationDelega
         alpha.duration = 0.25
         alpha.timingFunction = CAMediaTimingFunction.init(name: kCAMediaTimingFunctionEaseOut)
         alpha.isRemovedOnCompletion = true
-        
+
         view.layer.add(scale, forKey: "scale")
         view.layer.add(alpha, forKey: "alpha")
-        
+
         self.scaleCompletion = completion
 //        scale.completionBlock = ({ animation, finished in
 //            completion?()
 //        })
     }
-    
+
     //    func animationDidStart(_ anim: CAAnimation) {
     //
     //    }
-    
+
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         //方法中的flag参数表明了动画是自然结束还是被打断,比如调用了removeAnimationForKey:方法或removeAnimationForKey方法，flag为NO，如果是正常结束，flag为YES。
         scaleCompletion?()

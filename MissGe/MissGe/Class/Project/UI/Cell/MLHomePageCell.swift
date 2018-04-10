@@ -13,24 +13,24 @@ class MLHomePageCell: UITableViewCell {
     @IBOutlet weak var hotTagImageView: UIImageView!
     @IBOutlet weak var tagImageView: UIImageView!
     @IBOutlet weak var iconImageView: UIImageView!
-    
+
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var likeLabel: UILabel!
-        
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
 
     func setInfo(_ model: MLHomePageModel) {
-        
+
         iconImageView.yy_setImage(with: model.cover, placeholder: UIImage(named: "cell_img_default_70x70_"))
         titleLabel.text = model.title
         contentLabel.text = model.summary
-        
+
         likeLabel.text = String(format: "%d", model.like)
-        
+
         if model.index_recommend == "1" {
             hotTagImageView.isHidden = false
             hotTagImageView.image = UIImage(named: "article_cell_hot_flag_23x23_")
@@ -59,9 +59,9 @@ class MLHomePageCell: UITableViewCell {
         default:
             tagImageView.image = nil
         }
-        
+
     }
-    
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

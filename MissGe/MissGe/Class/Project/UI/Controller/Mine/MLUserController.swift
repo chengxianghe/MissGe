@@ -23,16 +23,16 @@ class MLUserController: UITableViewController {
     @IBOutlet weak var fansNumButton: UIButton!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var userEditButton: UIButton!
-    
+
     var uid = ""
-    
+
     fileprivate var dataSource = [MLTopicCellLayout]()
     fileprivate let infoRequest = MLUserInfoRequest()
     fileprivate let followRequest = MLUserFollowRequest()
     fileprivate let topicListRequest = MLUserTopicListRequest()
     fileprivate var currentIndex = 0
     fileprivate var isNeedEdit = false
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -44,43 +44,42 @@ class MLUserController: UITableViewController {
             self.followButton.isHidden = false
         }
 
-        
         self.configRefresh()
     }
-    
-    //MARK: - 刷新
+
+    // MARK: - 刷新
     func configRefresh() {
-        
+
         self.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {[unowned self] () -> Void in
             if self.tableView.mj_footer.isRefreshing {
                 return
             }
             self.loadData(1)
             })
-        
+
         self.tableView.mj_footer = MJRefreshAutoNormalFooter(refreshingBlock: {[unowned self] () -> Void in
             if self.tableView.mj_header.isRefreshing {
                 return
             }
             self.loadData(self.currentIndex + 1)
             })
-        
+
         (self.tableView.mj_footer as! MJRefreshAutoNormalFooter).huaBanFooterConfig()
         (self.tableView.mj_header as! MJRefreshNormalHeader).huaBanHeaderConfig()
-        
+
         self.tableView.mj_header.beginRefreshing()
     }
-    
-    //MARK: - 数据请求
-    func loadData(_ page: Int){
+
+    // MARK: - 数据请求
+    func loadData(_ page: Int) {
         self.showLoading("正在加载...")
-        
+
         if page == 1 {
             infoRequest.uid = self.uid
             infoRequest.send(success: {[unowned self] (baseRequest, responseObject) in
                 self.tableView.mj_header.endRefreshing()
-                let user = MLUserModel(JSON: (((responseObject as! [String:Any])["content"])as! [String:Any])["userinfo"] as! [String:Any])!
-                
+                let user = MLUserModel(JSON: (((responseObject as! [String: Any])["content"])as! [String: Any])["userinfo"] as! [String: Any])!
+
 //                let user = MLUserModel(JSON: ((responseObject as! NSDictionary)["content"] as! NSDictionary)["userinfo"]!) as MLUserModel
                 print(user)
                 self.bestAnswerLabel.text = "最佳答案\(user.p_bests)个"
@@ -104,21 +103,21 @@ class MLUserController: UITableViewController {
         topicListRequest.send(success: {[unowned self] (baseRequest, responseObject) in
             self.hideHud()
             self.tableView.mj_header.endRefreshing()
-            
-            guard let artlist = (((responseObject as? NSDictionary)?["content"] as? NSDictionary)?["artlist"]) as? [[String:Any]] else {
+
+            guard let artlist = (((responseObject as? NSDictionary)?["content"] as? NSDictionary)?["artlist"]) as? [[String: Any]] else {
                 return
             }
-            
+
             let tempArr = artlist.map({ MLSquareModel(JSON: $0) })
-            
+
             guard let modelArray = tempArr as? [MLSquareModel] else {
                 return
             }
-            
+
             let array = modelArray.map({ (model) -> MLTopicCellLayout in
                 return MLTopicCellLayout(model: model)
             })
-            
+
             if array.count > 0 {
                 if page == 1 {
                     self.dataSource.removeAll()
@@ -145,31 +144,31 @@ class MLUserController: UITableViewController {
                 }
                 self.tableView.mj_footer.endRefreshingWithNoMoreData()
             }
-            
+
         }) { (baseRequest, error) in
             self.tableView.mj_header.endRefreshing()
             self.tableView.mj_footer.endRefreshing()
-            
+
             print(error)
         }
     }
-    
+
     // MARK: - Action
-    
+
     @IBAction func onFollowBtnClick(_ sender: UIButton) {
-        
+
         if !MLNetConfig.isUserLogin() {
             let goLogin = UIAlertAction.init(title: "去登录", style: UIAlertActionStyle.default, handler: {[weak self] (action) in
                 let loginVCNav = kLoadVCFromSB(nil, stroyBoard: "Account")!
                 self?.present(loginVCNav, animated: true, completion: nil)
             })
-            
+
             let cancel = UIAlertAction.init(title: "取消", style: UIAlertActionStyle.cancel, handler: nil)
             self.showAlert("您还未登录", message: nil, actions: [cancel, goLogin])
-            
+
             return
         }
-        
+
         if !sender.isSelected {
             // 去关注
             MLRequestHelper.userFollow(self.uid, succeed: { (base, res) in
@@ -190,22 +189,22 @@ class MLUserController: UITableViewController {
             })
         }
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: "MLTopicCell") as? MLTopicCell
         if cell == nil {
             cell = MLTopicCell(style: .default, reuseIdentifier: "MLTopicCell")
             cell?.delegate = self
         }
-        cell!.setInfo(self.dataSource[(indexPath as NSIndexPath).row]);
+        cell!.setInfo(self.dataSource[(indexPath as NSIndexPath).row])
         return cell!
     }
-    
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let model = self.dataSource[(indexPath as NSIndexPath).row]
         return MLTopicCell.height(model)
     }
-    
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.count
     }
@@ -213,16 +212,16 @@ class MLUserController: UITableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "闺蜜圈"
     }
-    
+
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
     }
-    
+
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return CGFloat.leastNormalMagnitude
     }
-    
-    override var preferredStatusBarStyle : UIStatusBarStyle {
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
 
@@ -230,7 +229,6 @@ class MLUserController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     // MARK: - Navigation
 
@@ -261,11 +259,11 @@ class MLUserController: UITableViewController {
 }
 
 extension MLUserController: MLSquareCellDelegate {
-    
+
     func topicCellDidClickOther(_ cell: MLTopicCell) {
         if MLNetConfig.isUserLogin() && MLNetConfig.shareInstance.userId == cell.layout.joke.uid {
             // 删除
-            MLRequestHelper.deleteTopicWith(cell.layout.joke.pid, succeed: {[weak self] (base, res) in
+            MLRequestHelper.deleteTopicWith(cell.layout.joke.pid, success: {[weak self] (res) in
                 guard let _self = self else {
                     return
                 }
@@ -273,7 +271,7 @@ extension MLUserController: MLSquareCellDelegate {
                 let index = _self.dataSource.index(of: cell.layout)!
                 _self.dataSource.remove(at: index)
                 _self.tableView.deleteRows(at: [IndexPath.init(row: index, section: 0)], with: .automatic)
-                }, failed: {[weak self] (base, error) in
+                }, failure: {[weak self] (error) in
                     guard let _self = self else {
                         return
                     }
@@ -284,66 +282,64 @@ extension MLUserController: MLSquareCellDelegate {
             self.showSuccess("已举报")
         }
     }
-    
+
     /// 点击了评论
     func topicCellDidClickComment(_ cell: MLTopicCell) {
         self.performSegue(withIdentifier: "UserToTopicDetail", sender: cell.layout)
     }
-    
-    
+
     /// 点击了图片
     func topicCell(_ cell: MLTopicCell, didClickImageAtIndex index: UInt) {
         print("点击了图片")
 
         var items = [XHPhotoItem]()
-        let status = cell.layout.joke;
-        
+        let status = cell.layout.joke
+
         guard let thumb = status?.thumb else {
             return
         }
-        
+
         for i in 0..<thumb.count {
-            let imgView = cell.statusView.picViews![i];
-            let pic = thumb[i];
-            
+            let imgView = cell.statusView.picViews![i]
+            let pic = thumb[i]
+
             let item = XHPhotoItem()
-            item.thumbView = imgView;
-            item.largeImageURL = URL(string: pic);
+            item.thumbView = imgView
+            item.largeImageURL = URL(string: pic)
             //            item.largeImageSize = CGSizeMake(layout.iconWidth, layout.iconHeight);
             items.append(item)
         }
-        
+
         let v = XHPhotoBrowser.init(groupItems: items)
         v.fromItemIndex = Int(index)
         v.toolBarShowStyle = .show
         v.showCloseButton = false
         v.show(inContaioner: self.tabBarController!.view, animated: true, completion: nil)
-        
+
     }
-    
+
     /// 点击了 Label 的链接
     func topicCell(_ cell: MLTopicCell, didClickInLabel label: YYLabel!, textRange: NSRange) {
-        
-        let text = label.textLayout!.text;
-        if (textRange.location >= text.length) {return};
-        
+
+        let text = label.textLayout!.text
+        if (textRange.location >= text.length) {return}
+
         let highlight = text.yy_attribute(YYTextHighlightAttributeName, at: UInt(textRange.location)) as! YYTextHighlight
-        
-        let info = highlight.userInfo;
-        
-        if (info?.count == 0) {return};
-        
+
+        let info = highlight.userInfo
+
+        if (info?.count == 0) {return}
+
         if (info?[kSquareLinkAtName] != nil) {
             let name = info![kSquareLinkAtName] as! String
-            print("kJokeLinkAtName: \(name)");
+            print("kJokeLinkAtName: \(name)")
             //        name = [name stringByURLEncode];
             //        if (name.length) {
             //            NSString *url = [NSString stringWithFormat:@"http://m.weibo.cn/n/%@",name];
             //            YYSimpleWebViewController *vc = [[YYSimpleWebViewController alloc] initWithURL:[NSURL URLWithString:url]];
             //            [self.navigationController pushViewController:vc animated:YES];
             //        }
-            return;
+            return
         }
     }
 }
-

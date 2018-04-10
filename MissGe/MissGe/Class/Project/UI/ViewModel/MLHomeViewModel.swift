@@ -164,7 +164,7 @@ class MLHomeViewModel: NSObject {
 
                         self.bannerModelObserable.value = array
 
-                        let urls = array.compactMap({ $0.path })
+                        let urls = array.flatMap({ $0.path })
 
                         self.scrollAdView.updateImages(urls, titles: nil)
 

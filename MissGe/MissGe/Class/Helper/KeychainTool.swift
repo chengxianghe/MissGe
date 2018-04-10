@@ -10,18 +10,18 @@ import Foundation
 import KeychainAccess
 
 class KeychainTool {
-        
+
     static func save(service: String, data: String?) {
         let keychain = Keychain(service: service)
         keychain[service] = data
     }
-    
+
     static func load(_ service: String) -> String? {
         let keychain = Keychain(service: service)
         let token = keychain[service]
         return token
     }
-    
+
     static func delete(service: String) {
         let keychain = Keychain(service: service)
         do {
