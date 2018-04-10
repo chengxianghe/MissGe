@@ -3,7 +3,8 @@
 - 练习作品，仅供学习交流使用. 
 - 项目使用 ARC 和 CocoaPods 
 - iOS 8.1
-- swift 3.0
+- ~~swift 3.0~~ 
+- Swift 4.0
 
 
 #### GitHub：[chengxianghe](https://github.com/chengxianghe) 

@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-// MARK: - 替代oc中的#define, 列举一些常用宏
+//MARK: - 替代oc中的#define, 列举一些常用宏
 let kScreenSize = UIScreen.main.bounds.size
 
 // 屏幕的物理宽度
@@ -53,7 +53,7 @@ let kisiPhone6PlusInch = kisCurrentModeEqualToSize(CGSize(width: 1242, height: 2
 
 // MARK: - Color
 /** RGBA的颜色设置 */
-func kRGBA(_ r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) -> UIColor {
+func kRGBA(_ r:CGFloat, g:CGFloat, b:CGFloat, a:CGFloat) -> UIColor {
     return UIColor(red: r/255.0, green: g/255.0, blue: b/255.0, alpha: a)
 }
 
@@ -86,13 +86,13 @@ func kCachesPath() -> String! {
     return NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first
 }
 
-// MARK: - 通知
+//MARK:- 通知
 let kNotificationCenter = NotificationCenter.default
 
-// MARK: - block
+//MARK: - block
 typealias kBlankActionClosure = (_ sender: AnyObject?) -> Void
 
-// MARK: - 跳转
+//MARK: - 跳转
 
 /// 跳转到App设置页 >=ios8 有效
 func kJumpToAppSetting() -> Bool {
@@ -120,7 +120,8 @@ func kJumpToiTunesStore(appid: String) -> Bool {
     return UIApplication.shared.openURL(URL(string: url)!)
 }
 
-// MARK: Load Xib
+
+//MARK: Load Xib
 func kLoadNib(_ nibName: String!) -> AnyObject? {
     return Bundle.main.loadNibNamed(nibName, owner: nil, options: nil)?.first as AnyObject?
 }
@@ -131,7 +132,7 @@ func kLoadVCFromSB(_ vc: String?, stroyBoard: String?) -> UIViewController? {
 
 func kLoad(viewController vc: String?, fromSB stroyBoard: String?) -> UIViewController? {
     let sb = stroyBoard == nil ? UIStoryboard(name: "Main", bundle: nil) : UIStoryboard(name: stroyBoard!, bundle: nil)
-
+    
     if vc == nil {
         return sb.instantiateInitialViewController()
     } else {

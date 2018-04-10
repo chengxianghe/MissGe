@@ -31,13 +31,6 @@ typedef void (^GMBScrollAdViewDidSelect)(NSInteger index);
 /** 是否隐藏pagecontrol，默认为NO */
 @property (nonatomic, assign) BOOL hidePageControl;
 
-@property (nonatomic,   copy) GMBScrollAdViewDidSelect didSelect;
-@property (nonatomic,   weak) id<GMBScrollAdViewDelegate> delegate;
-
-- (instancetype)initWithFrame:(CGRect)frame
-                     autoPlay:(BOOL)autoPlay
-                        delay:(NSTimeInterval)delay;
-
 - (instancetype)initWithDelegate:(id<GMBScrollAdViewDelegate>)delegate
                            frame:(CGRect)frame
                           images:(NSArray *)images

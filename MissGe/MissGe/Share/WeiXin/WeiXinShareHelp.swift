@@ -9,12 +9,12 @@
 import UIKit
 
 class WeiXinShareHelp: NSObject {
-
+    
     static let instance = WeiXinShareHelp()
     class func currentHelp() -> WeiXinShareHelp {
         return instance
     }
-
+    
     /**
      发送文本数据
      
@@ -23,16 +23,16 @@ class WeiXinShareHelp: NSObject {
      
      - returns: Bool
      */
-    func sendText(_ text: String, InScene scene: WXScene) -> Bool {
+    func sendText(_ text: String, InScene scene:WXScene) -> Bool {
         if !WeiXinShareHelp.checkWeiXinClient() {
-            return false
+            return false;
         }
 
         let req = self.requestWithText(text, mediaMessage: nil, bText: true, InScene: scene)
-
-        return WXApi.send(req)
+        
+        return WXApi.send(req);
     }
-
+    
     /**
      发送图片数据
      
@@ -41,36 +41,36 @@ class WeiXinShareHelp: NSObject {
      
      - returns: Bool
      */
-    func sendImageData(_ image: UIImage?, InScene scene: WXScene) -> Bool {
+    func sendImageData(_ image: UIImage?, InScene scene:WXScene) -> Bool {
         if !WeiXinShareHelp.checkWeiXinClient() {
-            return false
+            return false;
         }
         // 原图 最多不能超过10M 10485760
-        let imageData = ShareManager.scaleImageDataForSize(image!, limitDataSize: 10000000)
+        let imageData = ShareManager.scaleImageDataForSize(image!, limitDataSize: 10000000);
         print(imageData?.count ?? 0)
-
+        
         //
         let ext = WXImageObject()
-        ext.imageData = imageData
-
+        ext.imageData = imageData;
+        
         let message = WXMediaMessage()
 //        message.title = "titlesss";
 //        message.description = "description";
-        message.mediaObject = ext
-
+        message.mediaObject = ext;
+        
         //缩略图数据大小不能超过32K - 32768
-        let thumbImageData = ShareManager.scaleImageDataForSize(image!, limitDataSize: 30000)
+        let thumbImageData = ShareManager.scaleImageDataForSize(image!, limitDataSize: 30000);
         print(thumbImageData?.count ?? 0)
-        message.thumbData = thumbImageData
-
+        message.thumbData = thumbImageData;
+        
         let req = SendMessageToWXReq()
-        req.bText = false
-        req.message = message
+        req.bText = false;
+        req.message = message;
         req.scene = Int32(scene.rawValue)
-
-        return WXApi.send(req)
+        
+        return WXApi.send(req);
     }
-
+    
     /**
      发送链接数据
      
@@ -82,45 +82,45 @@ class WeiXinShareHelp: NSObject {
      
      - returns: Bool
      */
-    func sendLinkURL(_ urlString: String, title: String, description: String, thumbImage: UIImage?, InScene scene: WXScene) -> Bool {
+    func sendLinkURL(_ urlString: String, title: String, description: String, thumbImage: UIImage?, InScene scene:WXScene) -> Bool {
         if !WeiXinShareHelp.checkWeiXinClient() {
-            return false
+            return false;
         }
         let ext = WXWebpageObject()
-        ext.webpageUrl = urlString
+        ext.webpageUrl = urlString;
 
         let message = WXMediaMessage()
-        message.title = title
-        message.description = description
-        message.mediaObject = ext
+        message.title = title;
+        message.description = description;
+        message.mediaObject = ext;
         message.mediaTagName = "tagName"
         if thumbImage != nil {
-            let thumbImageData = ShareManager.scaleImageDataForSize(thumbImage!, limitDataSize: 30000)
-            message.thumbData = thumbImageData
+            let thumbImageData = ShareManager.scaleImageDataForSize(thumbImage!, limitDataSize: 30000);
+            message.thumbData = thumbImageData;
             print(thumbImageData?.count ?? 0)
         }
-
+        
         let req = self.requestWithText(nil, mediaMessage: message, bText: false, InScene: scene)
-
-        return WXApi.send(req)
+        
+        return WXApi.send(req);
     }
-
+    
     func requestWithText(_ text: String?,
                          mediaMessage: WXMediaMessage?,
                          bText: Bool,
                          InScene scene: WXScene) -> SendMessageToWXReq {
-        let req = SendMessageToWXReq()
-        req.bText = bText
-        req.scene = Int32(scene.rawValue)
+        let req = SendMessageToWXReq();
+        req.bText = bText;
+        req.scene = Int32(scene.rawValue);
         if (bText) {
-            req.text = text
+            req.text = text;
         } else {
-            req.message = mediaMessage
+            req.message = mediaMessage;
         }
-        return req
-
+        return req;
+        
     }
-
+    
     /**
      检测微信客户端
      
@@ -129,14 +129,14 @@ class WeiXinShareHelp: NSObject {
     class func checkWeiXinClient() -> Bool {
         if(WXApi.isWXAppInstalled() == false) {
             print("抱歉,您没有安装微信")
-            return false
+            return false;
         }
-
+        
         if(WXApi.isWXAppSupport() == false) {
             print("请下载最新的微信")
-            return false
+            return false;
         }
-
+        
         return true
     }
 }

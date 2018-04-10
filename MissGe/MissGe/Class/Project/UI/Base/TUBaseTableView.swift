@@ -9,22 +9,22 @@
 import UIKit
 
 class TUBaseTableView: UITableView {
-
+   
     override init(frame: CGRect, style: UITableViewStyle) {
         super.init(frame: frame, style: style)
         configUI()
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         configUI()
     }
-
+    
     func configUI() {
         self.delaysContentTouches = false
         self.canCancelContentTouches = true
         self.separatorStyle = .none
-
+        
         // Remove touch delay (since iOS 8)
         guard let wrapView = self.subviews.first else {
             return
@@ -38,7 +38,7 @@ class TUBaseTableView: UITableView {
             }
         }
     }
-
+    
     override func touchesShouldCancel(in view: UIView) -> Bool {
         if view.isKind(of: UIControl.classForCoder()) {
             return true

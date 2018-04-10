@@ -19,12 +19,12 @@ class BaseWebViewController: UIViewController {
         self.url = url
         self.showTitle = title
     }
-
+        
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.title = self.showTitle
-
+        
         self.webView.frame = self.view.bounds
         self.view.addSubview(self.webView)
         self.webView.loadRequest(URLRequest(url: URL(string: url)!))
@@ -34,6 +34,7 @@ class BaseWebViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
 
     /*
     // MARK: - Navigation

@@ -12,7 +12,7 @@ import MJRefresh
 extension MJRefreshNormalHeader {
 
     func huaBanHeaderConfig() {
-
+        
         // 普通闲置状态的文字
 //        self.setTitle("", forState: MJRefreshState.Idle)
 //        self.setTitle("", forState: MJRefreshState.WillRefresh)
@@ -22,5 +22,6 @@ extension MJRefreshNormalHeader {
         // 隐藏时间
         self.lastUpdatedTimeLabel?.isHidden = true
     }
+
 
 }

@@ -20,23 +20,23 @@ import UIKit
 import Foundation
 
 @available(iOS 8.0, *)
-extension UIView {
-
+extension UIView   {
+    
     func addBlur(_ style: UIBlurEffectStyle = .light) {
-
+        
         self.removeBlur()
-
+        
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle(rawValue: style.rawValue)!)
         let blurView = UIVisualEffectView(effect: blurEffect)
         blurView.frame = self.bounds
         blurView.tintColor = UIColor.black
         self.addSubview(blurView)
-
-        self.setNeedsDisplay()
+        
+        self.setNeedsDisplay();
         self.layoutIfNeeded()
-
+        
     }
-
+    
     func removeBlur() {
         for view in self.subviews {
             if view.isKind(of: UIVisualEffectView.classForCoder()) {
@@ -44,24 +44,26 @@ extension UIView {
             }
         }
     }
-
+    
+    
+    
 }
 
 @available(iOS 8.0, *)
 @IBDesignable
 class BlurView: UIView {
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-
+        
     }
-
+    
     var blurEffect = UIBlurEffectStyle.extraLight
-
+    
     /**
      @IBInspectable目前支持 NSNumber 及 CGPoint、CGSize、CGRect、UIColor 和 NSRange，额外增加了 UIImage。
      */
@@ -73,8 +75,8 @@ class BlurView: UIView {
             default: blurEffect = .light
             }
             self.addBlur(blurEffect)
-
+            
         }
     }
-
+    
 }

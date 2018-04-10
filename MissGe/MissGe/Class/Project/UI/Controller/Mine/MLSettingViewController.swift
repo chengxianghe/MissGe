@@ -21,27 +21,27 @@ class MLSettingViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
+    
+    override var preferredStatusBarStyle : UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
 
     // MARK: - Table view data source
-
+    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 10
     }
-
+    
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 5
     }
-
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         print(indexPath)
-
+        
         let row = indexPath.row
-
+        
         switch row {
         case 0: // 清除缓存
             YYImageCache.shared().diskCache.removeAllObjects(progressBlock: { (removedCount, totalCount) in
@@ -59,11 +59,12 @@ class MLSettingViewController: UITableViewController {
         case 2: // 分享APP
             _ = kJumpToAppStoreDetail(appid: kAppId)
 //        case 4: // 关于我们
-
+            
         default:
             break
         }
-
+        
+        
     }
 
     /*

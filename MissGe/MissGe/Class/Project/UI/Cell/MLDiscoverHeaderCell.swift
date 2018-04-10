@@ -8,25 +8,25 @@
 
 import UIKit
 
-let kTagListResource: [String: String] = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "TagList", ofType: "plist")!) as! [String: String]
+let kTagListResource: [String : String] = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "TagList", ofType: "plist")!) as! [String : String]
 
 class MLDiscoverHeaderCell: UICollectionViewCell {
-
+    
     @IBOutlet weak var iconImageView: UIImageView!
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-
+    
     func setInfo(_ model: MLDiscoverTagModel) {
-
+        
         if model.tag_name == nil {
             iconImageView.image = nil
             return
         }
-
+        
         iconImageView.image = UIImage(named: (kTagListResource[model.tag_name!] ?? ""))
 
     }
-
+    
 }

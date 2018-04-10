@@ -9,14 +9,14 @@
 import UIKit
 
 class MLSearchViewController: BaseViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
-    
+
     var dataSource = [String]()
     var searchBar: UISearchBar!
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.view.backgroundColor = UIColor.white
         
         searchBar = UISearchBar.init(frame: CGRect.init(x: 10, y: 10, width: kScreenWidth - 20, height: 30))
@@ -24,7 +24,7 @@ class MLSearchViewController: BaseViewController, UISearchBarDelegate, UITableVi
         searchBar.placeholder = "搜索"
         searchBar.delegate = self
         self.navigationItem.titleView = searchBar;
-        
+  
         if #available(iOS 11.0, *) {
             searchBar.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
         }
@@ -44,7 +44,7 @@ class MLSearchViewController: BaseViewController, UISearchBarDelegate, UITableVi
         
         searchBar.becomeFirstResponder()
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -78,7 +78,7 @@ class MLSearchViewController: BaseViewController, UISearchBarDelegate, UITableVi
         UserDefaults.standard.setValue(arr, forKey: "MLSearchTextArr")
         searchToResult(searchText: searchBar.text!)
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.count
     }
@@ -99,13 +99,13 @@ class MLSearchViewController: BaseViewController, UISearchBarDelegate, UITableVi
     }
     
     /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
 }

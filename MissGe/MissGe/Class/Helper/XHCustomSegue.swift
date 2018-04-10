@@ -29,18 +29,21 @@ class XHCustomPushSegue: UIStoryboardSegue {
     }
 }
 
+
 class XHCustomPopSegue: UIStoryboardSegue {
     override func perform() {
         let firstVCView: UIView! = self.source.view
         let secondVCView: UIView! = self.destination.view
-
+        
         let screenHeight = UIScreen.main.bounds.size.height
-
+        
         let window = UIApplication.shared.keyWindow
         window?.addSubview(secondVCView)
         window?.addSubview(firstVCView)
         secondVCView.frame = firstVCView.frame
-
+        
+        
+        
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: UIViewAnimationOptions.curveLinear, animations: { () -> Void in
             firstVCView.frame = firstVCView.frame.offsetBy(dx: 0.0, dy: screenHeight)
         }) { (finished: Bool) -> Void in

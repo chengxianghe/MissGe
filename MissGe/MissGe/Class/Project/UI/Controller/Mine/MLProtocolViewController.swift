@@ -16,7 +16,7 @@ class MLProtocolViewController: BaseViewController {
 //        let string = try? String(contentsOfFile: path!)
 //        return string!
 //    }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,11 +29,12 @@ class MLProtocolViewController: BaseViewController {
     @IBAction func onAgree(_ sender: UIButton) {
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
 
     /*
     // MARK: - Navigation

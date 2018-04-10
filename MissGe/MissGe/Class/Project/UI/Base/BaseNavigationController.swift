@@ -16,18 +16,20 @@ import UIKit
 
 class BaseNavigationController: UINavigationController {
 
+
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
-
+    
     override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -50,16 +52,16 @@ class BaseNavigationController: UINavigationController {
 //        }
 //        return vc
 //    }
-
+        
     // MARK: - Status Bar
-    override var childViewControllerForStatusBarStyle: UIViewController? {
+    override var childViewControllerForStatusBarStyle : UIViewController? {
         return self.topViewController
     }
-
+    
 //    override func preferredStatusBarStyle() -> UIStatusBarStyle {
 //        return UIStatusBarStyle.LightContent
 //    }
-
+    
     /*
     // MARK: - Navigation
 
@@ -74,5 +76,5 @@ class BaseNavigationController: UINavigationController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
 }

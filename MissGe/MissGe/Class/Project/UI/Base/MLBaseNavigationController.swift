@@ -18,7 +18,7 @@ class MLBaseNavigationController: UINavigationController, UINavigationController
     }
 
     // MARK: - Status Bar
-    override var childViewControllerForStatusBarStyle: UIViewController? {
+    override var childViewControllerForStatusBarStyle : UIViewController? {
         return self.topViewController
     }
 
@@ -26,14 +26,14 @@ class MLBaseNavigationController: UINavigationController, UINavigationController
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
         if self.viewControllers.count == 1 {
             viewController.hidesBottomBarWhenPushed = true
         }
         super.pushViewController(viewController, animated: animated)
     }
-
+    
 //    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
 //        if navigationController.viewControllers.count > 1 {
 //            viewController.hidesBottomBarWhenPushed = true
@@ -46,6 +46,7 @@ class MLBaseNavigationController: UINavigationController, UINavigationController
 //            self.hidesTabBar(false)
 //        }
 //    }
+
 
     /*
     // MARK: - Navigation

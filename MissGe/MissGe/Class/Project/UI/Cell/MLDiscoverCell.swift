@@ -11,7 +11,7 @@ import UIKit
 class MLDiscoverCell: UITableViewCell {
 
     @IBOutlet weak var iconImageView: UIImageView!
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -20,7 +20,7 @@ class MLDiscoverCell: UITableViewCell {
     func setInfo(_ url: URL?) {
         iconImageView.yy_setImage(with: url!, placeholder: UIImage(named: "banner_default_320x170_"), options: .setImageWithFadeAnimation, completion: nil)
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

@@ -54,7 +54,7 @@
     
     // 在刷新的refreshing状态
     if (self.state == MJRefreshStateRefreshing) {
-//        if (self.window == nil) return;
+        if (self.window == nil) return;
         
         // sectionheader停留解决
         CGFloat insetT = - self.scrollView.mj_offsetY > _scrollViewOriginalInset.top ? - self.scrollView.mj_offsetY : _scrollViewOriginalInset.top;
@@ -130,9 +130,7 @@
                 // 增加滚动区域top
                 self.scrollView.mj_insetT = top;
                 // 设置滚动位置
-                CGPoint offset = self.scrollView.contentOffset;
-                offset.y = -top;
-                [self.scrollView setContentOffset:offset animated:NO];
+                [self.scrollView setContentOffset:CGPointMake(0, -top) animated:NO];
             } completion:^(BOOL finished) {
                 [self executeRefreshingCallback];
             }];
@@ -141,6 +139,13 @@
 }
 
 #pragma mark - 公共方法
+- (void)endRefreshing
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.state = MJRefreshStateIdle;
+    });
+}
+
 - (NSDate *)lastUpdatedTime
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:self.lastUpdatedTimeKey];

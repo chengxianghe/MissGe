@@ -8,7 +8,7 @@
 
 import UIKit
 import ObjectMapper
-private func < <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
     return l < r
@@ -19,7 +19,7 @@ private func < <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
-private func > <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
     return l > r
@@ -28,6 +28,7 @@ private func > <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
+
 class MLRegisterController: BaseViewController, UITextFieldDelegate {
 
     @IBOutlet weak var phoneTextField: UITextField!
@@ -35,16 +36,16 @@ class MLRegisterController: BaseViewController, UITextFieldDelegate {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var surePasswordTextField: UITextField!
-
+    
     @IBOutlet weak var sureButton: UIButton!
     @IBOutlet weak var verificationCodeButton: UIButton!
     @IBOutlet weak var userAllowProtocolButton: UIButton!
-
+    
     fileprivate var timer: Timer?
     fileprivate var endDate: TimeInterval?
 
     fileprivate let registerRequest = MLRegisterRequest()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -58,10 +59,10 @@ class MLRegisterController: BaseViewController, UITextFieldDelegate {
     @IBAction func onViewClick() {
         self.view.endEditing(true)
     }
-
+    
     @IBAction func onSureBtnClick(_ sender: UIButton) {
         self.onViewClick()
-
+        
         if self.phoneTextField.text?.length > 0
             && self.verificationCodeTextField.text?.length > 0
             && self.nameTextField.text?.length > 0
@@ -69,14 +70,14 @@ class MLRegisterController: BaseViewController, UITextFieldDelegate {
             && self.surePasswordTextField.text?.length > 0 {
             sender.isEnabled = false
             self.showLoading("正在加载...")
-
+            
             registerRequest.username = phoneTextField.text!
             registerRequest.password = passwordTextField.text!
-
+            
             registerRequest.send(success: {[unowned self] (baseRequest, responseObject) in
-
-                let user = MLUserModel(JSON: ((responseObject as! NSDictionary)["content"] as! [String: Any])["userinfo"]! as! [String: Any]) as MLUserModel?
-
+                
+                let user = MLUserModel(JSON: ((responseObject as! NSDictionary)["content"] as! [String:Any])["userinfo"]! as! [String:Any]) as MLUserModel?;
+    
                 if user != nil && user?.token?.length > 0 {
                     self.showSuccess("注册成功")
 //                    MLNetConfig.updateUser(user)
@@ -86,7 +87,7 @@ class MLRegisterController: BaseViewController, UITextFieldDelegate {
                     self.showError("注册失败")
                     sender.isEnabled = true
                 }
-
+                
                 /* 登录成功的返回
                  {
                  "uid": "19793",
@@ -103,46 +104,45 @@ class MLRegisterController: BaseViewController, UITextFieldDelegate {
                  "fans_cnt": 0,
                  "autograph": "说点什么好呢"
                  }*/
-
+                
+                
             }) { (baseRequest, error) in
                 sender.isEnabled = true
-                guard let err = error as? NSError else {
-                    self.showError("注册失败\n\(error.localizedDescription)")
-                    return
-                }
+                let err = error as NSError 
                 self.showError("注册失败\n\(String(describing: err.userInfo["msg"]))")
                 print(error)
             }
         } else {
             self.showMessage("请输入账号和密码")
         }
-
+        
     }
-
+    
     func dismissPost(_ isPostSuccess: Bool) {
         self.dismiss(animated: true) {
 //            self.dismissClosure?(isPostSuccess);
         }
     }
-
+    
+    
     @IBAction func onUserProtocolBtnClick(_ sender: UIButton) {
         self.navigationController?.pushViewController(UIViewController(), animated: true)
     }
-
+    
     @IBAction func onUserAllowProtocolBtnClick(_ sender: UIButton) {
-
+        
     }
-
+    
     @IBAction func onVerificationCodeBtnClick(_ sender: UIButton) {
 //        self.onViewClick()
         if self.phoneTextField.text?.length == 0 {
             self.showMessage("请输入手机号")
             return
         }
-
+        
         sender.isUserInteractionEnabled = false
         self.showLoading("正在加载...")
-
+        
         let request = MLRegisterCheckVerificationCodeRequest()
         request.send(success: { (baseRequest, responseObject) in
             self.showSuccess("验证码发送成功")
@@ -152,39 +152,39 @@ class MLRegisterController: BaseViewController, UITextFieldDelegate {
             self.showError("发送验证码失败\n\(error.localizedDescription)")
             print(error)
         }
-
+        
     }
-
+    
     func startTimer() {
         self.stopTimer()
-        self.endDate = Date().timeIntervalSince1970 + 61
+        self.endDate = Date().timeIntervalSince1970 + 61;
         self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timerHandler), userInfo: nil, repeats: true)
     }
-
+    
     func stopTimer() {
         self.timer?.invalidate()
-        self.timer = nil
+        self.timer = nil;
     }
-
+    
     @objc func timerHandler() {
 
         let date = Date().timeIntervalSince1970
-        let time = self.endDate! - date
+        let time = self.endDate! - date;
         if (time <= 0) {
             self.stopTimer()
-            self.verificationCodeButton.isUserInteractionEnabled = true
+            self.verificationCodeButton.isUserInteractionEnabled = true;
             self.verificationCodeButton.setTitle("再次发送验证码", for: .normal)
-
+    
         } else {
             self.verificationCodeButton.setTitle(String(format: "%02d s", time), for: .normal)
         }
     }
-
+    
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         self.onViewClick()
         return true
     }
-
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == self.nameTextField {
             self.passwordTextField.becomeFirstResponder()
@@ -195,14 +195,16 @@ class MLRegisterController: BaseViewController, UITextFieldDelegate {
         } else {
             self.onViewClick()
         }
-
+        
+        
         return true
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
 
     /*
     // MARK: - Navigation

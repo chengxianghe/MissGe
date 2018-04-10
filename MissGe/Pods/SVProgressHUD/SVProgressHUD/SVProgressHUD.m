@@ -52,7 +52,6 @@ static const CGFloat SVProgressHUDLabelSpacing = 8.0f;
 @property (nonatomic, strong) SVProgressAnimatedView *backgroundRingView;
 
 @property (nonatomic, readwrite) CGFloat progress;
-@property (nonatomic, readwrite) NSUInteger activityCount;
 
 @property (nonatomic, readonly) CGFloat visibleKeyboardHeight;
 @property (nonatomic, readonly) UIWindow *frontWindow;
@@ -323,15 +322,6 @@ static const CGFloat SVProgressHUDLabelSpacing = 8.0f;
 
 #pragma mark - Dismiss Methods
 
-+ (void)popActivity {
-    if([self sharedView].activityCount > 0) {
-        [self sharedView].activityCount--;
-    }
-    if([self sharedView].activityCount == 0) {
-        [[self sharedView] dismiss];
-    }
-}
-
 + (void)dismiss {
     [self dismissWithDelay:0.0 completion:nil];
 }
@@ -367,7 +357,6 @@ static const CGFloat SVProgressHUDLabelSpacing = 8.0f;
         _isInitializing = YES;
         
         self.userInteractionEnabled = NO;
-        self.activityCount = 0;
         
         self.backgroundView.alpha = 0.0f;
         self.imageView.alpha = 0.0f;
@@ -757,10 +746,6 @@ static const CGFloat SVProgressHUDLabelSpacing = 8.0f;
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         __strong SVProgressHUD *strongSelf = weakSelf;
         if(strongSelf){
-            if(strongSelf.fadeOutTimer) {
-                strongSelf.activityCount = 0;
-            }
-            
             // Stop timer
             strongSelf.fadeOutTimer = nil;
             strongSelf.graceTimer = nil;
@@ -803,11 +788,6 @@ static const CGFloat SVProgressHUDLabelSpacing = 8.0f;
                 [CATransaction setDisableActions:YES];
                 strongSelf.ringView.strokeEnd = progress;
                 [CATransaction commit];
-                
-                // Update the activity count
-                if(progress == 0) {
-                    strongSelf.activityCount++;
-                }
             } else {
                 // Cancel the ringLayer animation, then show the indefiniteAnimatedView
                 [strongSelf cancelRingLayerAnimation];
@@ -821,9 +801,6 @@ static const CGFloat SVProgressHUDLabelSpacing = 8.0f;
                 if([strongSelf.indefiniteAnimatedView respondsToSelector:@selector(startAnimating)]) {
                     [(id)strongSelf.indefiniteAnimatedView startAnimating];
                 }
-                
-                // Update the activity count
-                strongSelf.activityCount++;
             }
             
             // Fade in delayed if a grace time is set
@@ -990,9 +967,6 @@ static const CGFloat SVProgressHUDLabelSpacing = 8.0f;
             [[NSNotificationCenter defaultCenter] postNotificationName:SVProgressHUDWillDisappearNotification
                                                                 object:nil
                                                               userInfo:[strongSelf notificationUserInfo]];
-            
-            // Reset activity count
-            strongSelf.activityCount = 0;
             
             __block void (^animationsBlock)(void) = ^{
                 // Shrink HUD a little to make a nice disappear animation

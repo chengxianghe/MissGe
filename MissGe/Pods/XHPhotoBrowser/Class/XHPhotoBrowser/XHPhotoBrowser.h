@@ -266,11 +266,4 @@ typedef NS_ENUM(NSUInteger, XHSingleTapOption) {
 - (void)reloadDataInRange:(NSRange)range;
 
 @end
-
-@interface UIImage (XHPhotoBrowser)
-
-+ (UIImage *)xh_imageNamedFromMyBundle:(NSString *)name;
-
-@end
-
 NS_ASSUME_NONNULL_END
