@@ -3,9 +3,9 @@
  
  Contains:   API for using Bugtags's SDK.
  
- Copyright:  (c) 2017 by Bugtags, Ltd., all rights reserved.
+ Copyright:  (c) 2018 by Bugtags, Ltd., all rights reserved.
  
- Version:    2.4.0
+ Version:    3.1.0
  */
 
 #import <UIKit/UIKit.h>
@@ -53,7 +53,7 @@
 @property(nonatomic, assign) BOOL trackingNetworkContinueWithInvalidCertificate;
 
 /**
- * 是否收集闪退时的界面截图，默认 YES
+ * 是否收集闪退时的界面截图，默认 NO
  */
 @property(nonatomic, assign) BOOL crashWithScreenshot;
 

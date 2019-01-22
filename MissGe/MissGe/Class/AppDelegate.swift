@@ -195,6 +195,7 @@ class ExampleBouncesContentView: ESTabBarItemContentView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.itemContentMode = .alwaysOriginal
     }
     
     public required init?(coder aDecoder: NSCoder) {
@@ -225,7 +226,7 @@ class ExampleIrregularityBasicContentView: ExampleBouncesContentView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
 //        textColor = UIColor.init(white: 255.0 / 255.0, alpha: 1.0)
 //        highlightTextColor = UIColor.init(red: 23/255.0, green: 149/255.0, blue: 158/255.0, alpha: 1.0)
 //        iconColor = UIColor.init(red: 124/255.0, green: 114/255.0, blue: 119/255.0, alpha: 1.0)
@@ -245,7 +246,8 @@ class ExampleIrregularityContentView: ESTabBarItemContentView, CAAnimationDelega
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        self.itemContentMode = .alwaysOriginal
+
         //128*99
         self.imageView.backgroundColor = UIColor.init(red: 251/255.0, green: 0/255.0, blue: 153/255.0, alpha: 1.0)
         self.imageView.layer.borderWidth = 3.0

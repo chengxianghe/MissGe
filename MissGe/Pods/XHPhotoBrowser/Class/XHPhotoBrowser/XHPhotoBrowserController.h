@@ -30,8 +30,11 @@ typedef void(^XHPhotoBrowserControllerOnMoreBlock)(void);
 /** 导航栏右侧图片 默认的是"•••" */
 @property (nonatomic, strong, nullable) UIImage *rightImage;
 
+/** 导航栏左侧图片 默认的是返回箭头 */
+@property (nonatomic, strong, nullable) UIImage *leftImage;
+
 /** 点击导航栏右侧更多 */
 @property (nonatomic, copy, nullable) XHPhotoBrowserControllerOnMoreBlock moreBlock;
 
-
 @end
+

@@ -1,55 +1,55 @@
 PODS:
-  - AFNetworking (3.1.0):
-    - AFNetworking/NSURLSession (= 3.1.0)
-    - AFNetworking/Reachability (= 3.1.0)
-    - AFNetworking/Security (= 3.1.0)
-    - AFNetworking/Serialization (= 3.1.0)
-    - AFNetworking/UIKit (= 3.1.0)
-  - AFNetworking/NSURLSession (3.1.0):
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.1.0)
-  - AFNetworking/Security (3.1.0)
-  - AFNetworking/Serialization (3.1.0)
-  - AFNetworking/UIKit (3.1.0):
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
-  - Bugtags (2.4.0):
-    - Bugtags/Core (= 2.4.0)
-  - Bugtags/Core (2.4.0)
-  - ESTabBarController-swift (2.5)
+  - Bugtags (3.1.0):
+    - Bugtags/Core (= 3.1.0)
+  - Bugtags/Core (3.1.0)
+  - ESTabBarController-swift (2.6.4)
   - FXBlurView (1.6.4)
-  - KeychainAccess (3.1.0)
-  - MJRefresh (3.1.14)
-  - ObjectMapper (3.0.0)
-  - SVProgressHUD (2.2.1)
+  - KeychainAccess (3.1.2)
+  - MJRefresh (3.1.15.7)
+  - ObjectMapper (3.4.2)
+  - SVProgressHUD (2.2.5)
   - TU_TZImagePickerController (1.0.0):
     - YYImage
-  - TUNetworking (1.0.13):
+  - TUNetworking (1.0.14):
     - AFNetworking (~> 3.0)
-    - TUNetworking/Batch (= 1.0.13)
-    - TUNetworking/Config (= 1.0.13)
-    - TUNetworking/Helper (= 1.0.13)
-    - TUNetworking/Manager (= 1.0.13)
-    - TUNetworking/Request (= 1.0.13)
-  - TUNetworking/Batch (1.0.13):
+    - TUNetworking/Batch (= 1.0.14)
+    - TUNetworking/Config (= 1.0.14)
+    - TUNetworking/Helper (= 1.0.14)
+    - TUNetworking/Manager (= 1.0.14)
+    - TUNetworking/Request (= 1.0.14)
+  - TUNetworking/Batch (1.0.14):
     - AFNetworking (~> 3.0)
     - TUNetworking/Manager
     - TUNetworking/Request
-  - TUNetworking/Config (1.0.13):
+  - TUNetworking/Config (1.0.14):
     - AFNetworking (~> 3.0)
     - TUNetworking/Helper
-  - TUNetworking/Helper (1.0.13):
+  - TUNetworking/Helper (1.0.14):
     - AFNetworking (~> 3.0)
-  - TUNetworking/Manager (1.0.13):
+  - TUNetworking/Manager (1.0.14):
     - AFNetworking (~> 3.0)
     - TUNetworking/Helper
     - TUNetworking/Request
-  - TUNetworking/Request (1.0.13):
+  - TUNetworking/Request (1.0.14):
     - AFNetworking (~> 3.0)
     - TUNetworking/Config
     - TUNetworking/Helper
-  - XHPhotoBrowser (1.1.1):
+  - XHPhotoBrowser (1.1.2):
     - YYWebImage
   - YYCache (1.0.4)
   - YYImage (1.0.4):
@@ -77,6 +77,23 @@ DEPENDENCIES:
   - YYText
   - YYWebImage
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AFNetworking
+    - Bugtags
+    - ESTabBarController-swift
+    - FXBlurView
+    - KeychainAccess
+    - MJRefresh
+    - ObjectMapper
+    - SVProgressHUD
+    - TUNetworking
+    - XHPhotoBrowser
+    - YYCache
+    - YYImage
+    - YYText
+    - YYWebImage
+
 EXTERNAL SOURCES:
   TU_TZImagePickerController:
     :branch: YYImage_ImagePicker
@@ -88,17 +105,17 @@ CHECKOUT OPTIONS:
     :git: https://github.com/chengxianghe/TU_TZImagePickerController.git
 
 SPEC CHECKSUMS:
-  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  Bugtags: 916b3dcbc4e495f96206ac35546aa196c9ed2132
-  ESTabBarController-swift: 8daa432f2a9be8ebd25101dc46c84472fd760512
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  Bugtags: 1e85fd3ca98f383c5d7f847415d81071eb1c1404
+  ESTabBarController-swift: 58cca4ab7de980657d99a02181c1ff310983e975
   FXBlurView: db786c2561cb49a09ae98407f52460096ab8a44f
-  KeychainAccess: 94c5540b32eabf7bc32bfb976a268e8ea05fd6da
-  MJRefresh: 6642e35b3227a5447b9fd5e17c552c90196c9859
-  ObjectMapper: 92230db59bf8f341a5c3a3cf0b9fbdde3cf0d87f
-  SVProgressHUD: db27c54e6e18bc903341661fc9feb55e04905cc4
+  KeychainAccess: b3816fddcf28aa29d94b10ec305cd52be14c472b
+  MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
+  ObjectMapper: 0d4402610f4e468903ae64629eec4784531e5c51
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   TU_TZImagePickerController: ce13e4be41647e97f2a389e0d771c26688010865
-  TUNetworking: 0237fe29bf2469818d7bca3403ca846fac72a28b
-  XHPhotoBrowser: b4fe2e13e13dd27f2ee1fb618ad990fa850dbe3a
+  TUNetworking: 4591f68c037035210c48a6ae74c062f474985470
+  XHPhotoBrowser: 1642fd620047c3d782b22ba50c3c7fdd07eee71f
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
@@ -106,4 +123,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 7261b7b7080fcb02e834ef1848f1060f3990b05b
 
-COCOAPODS: 1.4.0.beta.1
+COCOAPODS: 1.6.0.beta.2

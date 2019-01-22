@@ -37,7 +37,7 @@
 }
 
 /// 请求的protocol
-- (NSString *)requestProtocol {
+- (NSString *)requestURLProtocol {
     return @"http://";
 }
 

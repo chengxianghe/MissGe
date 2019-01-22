@@ -17,8 +17,8 @@ extension MJRefreshAutoStateFooter  {
         self.setTitle("", for: MJRefreshState.idle)
         
         /** 设置是否 自动根据有无数据来显示和隐藏 */
-        self.isAutomaticallyHidden = false;
-        
+//        self.isAutomaticallyHidden = false;
+
         /** 隐藏刷新状态的文字 */
         self.isRefreshingTitleHidden = true
     }

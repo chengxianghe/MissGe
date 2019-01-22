@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-#if __has_include("YYImage.h")
-#import "YYImage.h"
-#elif __has_include(<YYImage/YYImage.h>)
-#import <YYImage/YYImage.h>
-#else
+//#if __has_include("YYImage.h")
+//#import "YYImage.h"
+//#elif __has_include(<YYImage/YYImage.h>)
+//#import <YYImage/YYImage.h>
+//#else
 @import YYImage;
-#endif
+//#endif
 
 @class TZAssetModel,TZProgressView,TZPhotoPreviewView;
 @interface TZPhotoPreviewCell : UICollectionViewCell

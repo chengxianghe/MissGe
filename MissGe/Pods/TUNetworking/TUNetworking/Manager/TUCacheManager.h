@@ -58,7 +58,7 @@ typedef void (^TUCacheWriteCompletion)(NSError * _Nullable error, NSString * _Nu
 + (void)clearCacheForRequest:(nonnull TUBaseRequest *)request;
 
 /// 清除所有缓存
-+ (void)clearAllCacheWithCompletion:(nullable void(^)())completion;
++ (void)clearAllCacheWithCompletion:(nullable void(^)(void))completion;
 
 /// 获取单个缓存文件的大小,返回多少B
 + (CGFloat)getCacheSizeWithRequest:(nonnull TUBaseRequest *)request;
