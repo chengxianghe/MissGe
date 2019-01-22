@@ -91,7 +91,8 @@ class MLLoginController: BaseViewController, UITextFieldDelegate {
 
             }) { (baseRequest, error) in
                 sender.isEnabled = true
-                self.showError("登录失败\n\(error.localizedDescription)")
+                let errStr = ((error as NSError).userInfo["msg"] as? String) ?? "登录错误"
+                self.showError(errStr)
                 print(error)
             }
         } else {

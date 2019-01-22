@@ -8,9 +8,7 @@
 
 #if os(iOS) || os(tvOS)
 
-#if !RX_NO_MODULE
 import RxSwift
-#endif
 import UIKit
 
 extension Reactive where Base: UISearchBar {
@@ -31,10 +29,13 @@ extension Reactive where Base: UISearchBar {
     public var value: ControlProperty<String?> {
         let source: Observable<String?> = Observable.deferred { [weak searchBar = self.base as UISearchBar] () -> Observable<String?> in
             let text = searchBar?.text
+
+            let textDidChange = (searchBar?.rx.delegate.methodInvoked(#selector(UISearchBarDelegate.searchBar(_:textDidChange:))) ?? Observable.empty())
+            let didEndEditing = (searchBar?.rx.delegate.methodInvoked(#selector(UISearchBarDelegate.searchBarTextDidEndEditing(_:))) ?? Observable.empty())
             
-            return (searchBar?.rx.delegate.methodInvoked(#selector(UISearchBarDelegate.searchBar(_:textDidChange:))) ?? Observable.empty())
+            return Observable.merge(textDidChange, didEndEditing)
                     .map { a in
-                        return a[1] as? String
+                        return searchBar?.text ?? ""
                     }
                     .startWith(text)
         }

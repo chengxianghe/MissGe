@@ -154,6 +154,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         let v5 = kLoadVCFromSB("MLMineViewController", stroyBoard: nil)!
         let nav5 = MLBaseNavigationController.init(rootViewController: v5)
 
+
         nav1.tabBarItem = ESTabBarItem.init(ExampleIrregularityBasicContentView(),
                                             title: nil,
                                             image: UIImage(named: "tabbar_home_nor"),
@@ -223,6 +224,7 @@ class ExampleIrregularityBasicContentView: ExampleBouncesContentView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.itemContentMode = .alwaysOriginal
 
 //        textColor = UIColor.init(white: 255.0 / 255.0, alpha: 1.0)
 //        highlightTextColor = UIColor.init(red: 23/255.0, green: 149/255.0, blue: 158/255.0, alpha: 1.0)
@@ -243,6 +245,7 @@ class ExampleIrregularityContentView: ESTabBarItemContentView, CAAnimationDelega
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.itemContentMode = .alwaysOriginal
 
         //128*99
         self.imageView.backgroundColor = UIColor.init(red: 251/255.0, green: 0/255.0, blue: 153/255.0, alpha: 1.0)

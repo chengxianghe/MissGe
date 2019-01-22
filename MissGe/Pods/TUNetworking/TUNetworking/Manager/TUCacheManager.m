@@ -199,7 +199,7 @@ static NSString *cacheBaseDownloadPath = nil;
     [self removeFilePath:[self getCachePathForRequest:request]];
 }
 
-+ (void)clearAllCacheWithCompletion:(void (^)())completion {
++ (void)clearAllCacheWithCompletion:(void (^)(void))completion {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self removeFilePath:[self cacheBaseDirPath]];
         dispatch_async(dispatch_get_main_queue(), ^{

@@ -11,11 +11,11 @@
 
 @implementation TUBaseRequest
 
-- (NSString *)requestProtocol {
-    if ([[self requestConfig] respondsToSelector:@selector(requestProtocol)]) {
-        return [[self requestConfig] requestProtocol];
+- (NSString *)requestURLProtocol {
+    if ([[self requestConfig] respondsToSelector:@selector(requestURLProtocol)]) {
+        return [[self requestConfig] requestURLProtocol];
     } else {
-        return [[TUNetworkConfig config] requestProtocol];
+        return [[TUNetworkConfig config] requestURLProtocol];
     }
 }
 

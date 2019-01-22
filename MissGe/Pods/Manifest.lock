@@ -1,72 +1,72 @@
 PODS:
-  - AFNetworking (3.1.0):
-    - AFNetworking/NSURLSession (= 3.1.0)
-    - AFNetworking/Reachability (= 3.1.0)
-    - AFNetworking/Security (= 3.1.0)
-    - AFNetworking/Serialization (= 3.1.0)
-    - AFNetworking/UIKit (= 3.1.0)
-  - AFNetworking/NSURLSession (3.1.0):
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.1.0)
-  - AFNetworking/Security (3.1.0)
-  - AFNetworking/Serialization (3.1.0)
-  - AFNetworking/UIKit (3.1.0):
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
   - Alamofire (4.5.1)
-  - Bugtags (2.4.2):
-    - Bugtags/Core (= 2.4.2)
-  - Bugtags/Core (2.4.2)
-  - Differentiator (3.0.2)
-  - ESTabBarController-swift (2.5)
+  - Bugtags (3.1.0):
+    - Bugtags/Core (= 3.1.0)
+  - Bugtags/Core (3.1.0)
+  - Differentiator (3.1.0)
+  - ESTabBarController-swift (2.6.4)
   - FXBlurView (1.6.4)
-  - KeychainAccess (3.1.0)
-  - MJRefresh (3.1.15.1)
-  - Moya (10.0.1):
-    - Moya/Core (= 10.0.1)
-  - Moya/Core (10.0.1):
+  - KeychainAccess (3.1.2)
+  - MJRefresh (3.1.15.7)
+  - Moya/Core (11.0.2):
     - Alamofire (~> 4.1)
     - Result (~> 3.0)
-  - Moya/RxSwift (10.0.1):
+  - Moya/RxSwift (11.0.2):
     - Moya/Core
     - RxSwift (~> 4.0)
-  - ObjectMapper (3.1.0)
+  - ObjectMapper (3.4.2)
   - Result (3.2.4)
-  - RxCocoa (4.0.0):
+  - RxAtomic (4.4.0)
+  - RxCocoa (4.4.0):
     - RxSwift (~> 4.0)
-  - RxDataSources (3.0.2):
+  - RxDataSources (3.1.0):
     - Differentiator (~> 3.0)
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
-  - RxSwift (4.0.0)
-  - SVProgressHUD (2.2.2)
-  - TU_TZImagePickerController (1.0.0):
-    - YYImage
-  - TUNetworking (1.0.13):
+  - RxSwift (4.4.0):
+    - RxAtomic (~> 4.4)
+  - SnapKit (4.2.0)
+  - SVProgressHUD (2.2.5)
+  - TUNetworking (1.0.14):
     - AFNetworking (~> 3.0)
-    - TUNetworking/Batch (= 1.0.13)
-    - TUNetworking/Config (= 1.0.13)
-    - TUNetworking/Helper (= 1.0.13)
-    - TUNetworking/Manager (= 1.0.13)
-    - TUNetworking/Request (= 1.0.13)
-  - TUNetworking/Batch (1.0.13):
+    - TUNetworking/Batch (= 1.0.14)
+    - TUNetworking/Config (= 1.0.14)
+    - TUNetworking/Helper (= 1.0.14)
+    - TUNetworking/Manager (= 1.0.14)
+    - TUNetworking/Request (= 1.0.14)
+  - TUNetworking/Batch (1.0.14):
     - AFNetworking (~> 3.0)
     - TUNetworking/Manager
     - TUNetworking/Request
-  - TUNetworking/Config (1.0.13):
+  - TUNetworking/Config (1.0.14):
     - AFNetworking (~> 3.0)
     - TUNetworking/Helper
-  - TUNetworking/Helper (1.0.13):
+  - TUNetworking/Helper (1.0.14):
     - AFNetworking (~> 3.0)
-  - TUNetworking/Manager (1.0.13):
+  - TUNetworking/Manager (1.0.14):
     - AFNetworking (~> 3.0)
     - TUNetworking/Helper
     - TUNetworking/Request
-  - TUNetworking/Request (1.0.13):
+  - TUNetworking/Request (1.0.14):
     - AFNetworking (~> 3.0)
     - TUNetworking/Config
     - TUNetworking/Helper
+  - TZImagePickerController (3.1.9)
   - XHPhotoBrowser (1.1.2):
     - YYWebImage
   - YYCache (1.0.4)
@@ -81,61 +81,80 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.5.1)
   - Bugtags
-  - Differentiator (~> 3.0.2)
-  - ESTabBarController-swift (~> 2.5)
+  - Differentiator (~> 3.0)
+  - ESTabBarController-swift
   - FXBlurView
   - KeychainAccess (~> 3.1.0)
   - MJRefresh (~> 3.1.15.1)
-  - Moya (~> 10.0.1)
   - Moya/RxSwift
-  - ObjectMapper (~> 3.1.0)
-  - Result (~> 3.2.4)
-  - RxCocoa (~> 4.0.0)
-  - RxDataSources (~> 3.0.2)
-  - RxSwift (~> 4.0.0)
+  - ObjectMapper (~> 3.4)
+  - Result (~> 3.2)
+  - RxCocoa (~> 4.0)
+  - RxDataSources (~> 3.0)
+  - RxSwift (~> 4.0)
+  - SnapKit (~> 4.0)
   - SVProgressHUD (~> 2.2.2)
-  - TU_TZImagePickerController (from `https://github.com/chengxianghe/TU_TZImagePickerController.git`, branch `YYImage_ImagePicker`)
   - TUNetworking
+  - TZImagePickerController
   - XHPhotoBrowser (~> 1.1.2)
-  - YYCache (~> 1.0.4)
-  - YYImage (~> 1.0.4)
-  - YYText (~> 1.0.7)
-  - YYWebImage (~> 1.0.5)
+  - YYCache
+  - YYImage
+  - YYText
+  - YYWebImage
 
-EXTERNAL SOURCES:
-  TU_TZImagePickerController:
-    :branch: YYImage_ImagePicker
-    :git: https://github.com/chengxianghe/TU_TZImagePickerController.git
-
-CHECKOUT OPTIONS:
-  TU_TZImagePickerController:
-    :commit: 47aa12978ed304495fd3328cb086e46c8019f449
-    :git: https://github.com/chengxianghe/TU_TZImagePickerController.git
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AFNetworking
+    - Alamofire
+    - Bugtags
+    - Differentiator
+    - ESTabBarController-swift
+    - FXBlurView
+    - KeychainAccess
+    - MJRefresh
+    - Moya
+    - ObjectMapper
+    - Result
+    - RxAtomic
+    - RxCocoa
+    - RxDataSources
+    - RxSwift
+    - SnapKit
+    - SVProgressHUD
+    - TUNetworking
+    - TZImagePickerController
+    - XHPhotoBrowser
+    - YYCache
+    - YYImage
+    - YYText
+    - YYWebImage
 
 SPEC CHECKSUMS:
-  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
-  Bugtags: 03318eafb02ec71e6c65c48c3a2b0ef34ed45eee
-  Differentiator: a87be69eba49ec4ab460c7671143ee3a9eececfd
-  ESTabBarController-swift: 8daa432f2a9be8ebd25101dc46c84472fd760512
+  Bugtags: 1e85fd3ca98f383c5d7f847415d81071eb1c1404
+  Differentiator: be49ca3408f0ecfc761e4c7763d20c62be01b9ad
+  ESTabBarController-swift: 58cca4ab7de980657d99a02181c1ff310983e975
   FXBlurView: db786c2561cb49a09ae98407f52460096ab8a44f
-  KeychainAccess: 94c5540b32eabf7bc32bfb976a268e8ea05fd6da
-  MJRefresh: 5f8552bc25ca8751c010f621c1098dbdaacbccd6
-  Moya: 9e621707ff754eeb51ff3ec51a3d54e517c0733a
-  ObjectMapper: 20505058f54e5c3ca69e1d6de9897d152a5369a6
+  KeychainAccess: b3816fddcf28aa29d94b10ec305cd52be14c472b
+  MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
+  Moya: a725035953bc1c0eb1be505ab903984501d82440
+  ObjectMapper: 0d4402610f4e468903ae64629eec4784531e5c51
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
-  RxCocoa: d62846ca96495d862fa4c59ea7d87e5031d7340e
-  RxDataSources: cb7c31e652a87ebb919da45f716bbb87b3765f6b
-  RxSwift: fd680d75283beb5e2559486f3c0ff852f0d35334
-  SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
-  TU_TZImagePickerController: ce13e4be41647e97f2a389e0d771c26688010865
-  TUNetworking: 0237fe29bf2469818d7bca3403ca846fac72a28b
+  RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
+  RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
+  RxDataSources: a843bad90c29817f5923ec8163f4af2de084ceb3
+  RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
+  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  TUNetworking: 4591f68c037035210c48a6ae74c062f474985470
+  TZImagePickerController: c3f7c505d23281e21e98df6dbeae372946caa28f
   XHPhotoBrowser: 1642fd620047c3d782b22ba50c3c7fdd07eee71f
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: 14ffbedef20b8d3747b39e6b4cf97bf30a9f2a25
+PODFILE CHECKSUM: aa7755a4e4f125810e3e1381d3cb9f66b14f85fc
 
-COCOAPODS: 1.4.0.beta.2
+COCOAPODS: 1.6.0.beta.2

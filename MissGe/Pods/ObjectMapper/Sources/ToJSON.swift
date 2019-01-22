@@ -6,7 +6,7 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2014-2016 Hearst
+//  Copyright (c) 2014-2018 Tristan Himmelman
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -98,7 +98,7 @@ internal final class ToJSON {
 		if let field = field {
 			basicType(field, map: map)
 		} else if map.shouldIncludeNilValues {
-			basicType(NSNull(), map: map)  //If BasicType is nil, emil NSNull into the JSON output
+			basicType(NSNull(), map: map)  //If BasicType is nil, emit NSNull into the JSON output
 		}
 	}
 
@@ -111,6 +111,8 @@ internal final class ToJSON {
 	class func optionalObject<N: BaseMappable>(_ field: N?, map: Map) {
 		if let field = field {
 			object(field, map: map)
+		} else if map.shouldIncludeNilValues {
+			basicType(NSNull(), map: map)  //If field is nil, emit NSNull into the JSON output
 		}
 	}
 

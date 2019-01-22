@@ -39,7 +39,7 @@ let kNetWorkActivityPlugin = NetworkActivityPlugin { (change, _)  -> Void in
 //    }
 //}
 
-let kAPIManagerEndpointClosure = { (target: APIManager) -> Endpoint<APIManager> in
+let kAPIManagerEndpointClosure = { (target: APIManager) -> Endpoint in
     let defaultEndpoint = MoyaProvider.defaultEndpointMapping(for: target)
 //    let _ = defaultEndpoint.adding(newHTTPHeaderFields: ["output":"json",
 //                                                         "_app_key":"f722d367b8a96655c4f3365739d38d85",
@@ -47,7 +47,7 @@ let kAPIManagerEndpointClosure = { (target: APIManager) -> Endpoint<APIManager> 
     return defaultEndpoint
 }
 
-let kAPIManagerRequestClosure = { (endpoint: Endpoint<APIManager>, done: MoyaProvider.RequestResultClosure) in
+let kAPIManagerRequestClosure = { (endpoint: Endpoint, done: MoyaProvider.RequestResultClosure) in
     do {
         var request = try endpoint.urlRequest()
         // Modify the request however you like.

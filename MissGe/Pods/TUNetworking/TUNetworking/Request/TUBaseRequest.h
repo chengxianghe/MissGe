@@ -46,18 +46,14 @@ typedef void (^TURequestCacheCompletion)(__kindof TUBaseRequest *baseRequest, __
 @property (nonatomic, assign) TURequestPriority requestPriority;///< 请求优先级
 @property (nonatomic, assign) TURequestCacheOption cacheOption; ///< 请求的缓存选项
 
-
-/**
- *  清理网络回调block
- */
-- (void)clearCompletionBlock;
+#pragma mark - Build TURequest
 
 /**
  *  请求的protocol
- *
+ *  例如："http://"
  *  @return NSString
  */
-- (nullable NSString *)requestProtocol;
+- (nullable NSString *)requestURLProtocol;
 
 /**
  *  请求的Host
@@ -123,6 +119,7 @@ typedef void (^TURequestCacheCompletion)(__kindof TUBaseRequest *baseRequest, __
  */
 - (nullable NSDictionary<NSString *, NSString *> *)requestHeaderFieldValueDictionary;
 
+#pragma mark - Request Handle
 /**
  *  请求的回调
  */
@@ -137,7 +134,20 @@ typedef void (^TURequestCacheCompletion)(__kindof TUBaseRequest *baseRequest, __
 - (void)requestHandleResultFromCache:(nullable id)cacheResult error:(nullable NSError *)error;
 
 /**
- *  自定义UrlRequest
+ *  请求结果校验
+ *
+ *  @return BOOL
+ */
+- (BOOL)requestVerifyResult;
+
+/**
+ *  清理网络回调block
+ */
+- (void)clearCompletionBlock;
+
+#pragma mark - Custom Request
+/**
+ *  自定义UrlRequest 忽略所有Build TURequest方法
  *
  *  @return NSURLRequest
  */
@@ -172,13 +182,6 @@ typedef void (^TURequestCacheCompletion)(__kindof TUBaseRequest *baseRequest, __
  *  @return TUNetworkConfig
  */
 - (nonnull id<TUNetworkConfigProtocol>)requestConfig;
-
-/**
- *  请求结果校验
- *
- *  @return BOOL
- */
-- (BOOL)requestVerifyResult;
 
 @end
 

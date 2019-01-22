@@ -2,7 +2,7 @@
 //  ESTabBarController.swift
 //
 //  Created by Vincent Li on 2017/2/8.
-//  Copyright (c) 2013-2017 ESTabBarController (https://github.com/eggswift/ESTabBarController)
+//  Copyright (c) 2013-2018 ESTabBarController (https://github.com/eggswift/ESTabBarController)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -33,14 +33,14 @@ public typealias ESTabBarControllerDidHijackHandler = ((_ tabBarController: UITa
 open class ESTabBarController: UITabBarController, ESTabBarDelegate {
     
     /// 打印异常
-    open static func printError(_ description: String) {
+    public static func printError(_ description: String) {
         #if DEBUG
             print("ERROR: ESTabBarController catch an error '\(description)' \n")
         #endif
     }
     
     /// 当前tabBarController是否存在"More"tab
-    open static func isShowingMore(_ tabBarController: UITabBarController?) -> Bool {
+    public static func isShowingMore(_ tabBarController: UITabBarController?) -> Bool {
         return tabBarController?.moreNavigationController.parent != nil
     }
 

@@ -50,6 +50,16 @@
 				<string>wxc5453a0ef5e8287e</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>missge</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>lkmemissge</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>20180330.01</string>

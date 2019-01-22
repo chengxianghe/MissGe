@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import TU_TZImagePickerController
+import TZImagePickerController
 import AssetsLibrary
 
 class TZTestCell: UICollectionViewCell {
@@ -43,7 +43,7 @@ class TZTestCell: UICollectionViewCell {
         self.clipsToBounds = true
 
         videoImageView = UIImageView()
-        videoImageView.image = UIImage.init(namedFromMyBundle: "MMVideoPreviewPlay")
+        videoImageView.image = UIImage.tz_imageNamed(fromMyBundle: "MMVideoPreviewPlay")
         videoImageView.contentMode = UIViewContentMode.scaleAspectFill
         videoImageView.isHidden = true
         self.addSubview(videoImageView)

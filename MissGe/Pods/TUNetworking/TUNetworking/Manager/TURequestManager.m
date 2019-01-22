@@ -576,8 +576,8 @@
     
     NSMutableString *baseUrl = [NSMutableString string];
     
-    if ([request requestProtocol].length > 0) {
-        [baseUrl appendString:[request requestProtocol]];
+    if ([request requestURLProtocol].length > 0) {
+        [baseUrl appendString:[request requestURLProtocol]];
     }
     if ([request requestHost].length > 0) {
         [baseUrl appendString:[request requestHost]];

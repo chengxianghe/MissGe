@@ -8,8 +8,7 @@
 
 import UIKit
 import Photos
-import AssetsLibrary
-import TU_TZImagePickerController
+import TZImagePickerController
 import YYImage
 import RxSwift
 import RxCocoa
@@ -178,8 +177,11 @@ class MLPostTopicController: BaseViewController {
                             })
 
                         } else {
-                            i += 1
                             self.uploadImages.append(self.setuoUploadImageWithImage((selectedPhotos[i] as! UIImage)))
+                            i += 1
+                            if i == self.selectedModels.count {
+                                self.realUpload()
+                            }
                         }
                     }
                 } else {
@@ -293,112 +295,6 @@ class MLPostTopicController: BaseViewController {
             }).disposed(by: self.bag)
     }
 
-    // MARK: - UICollectionViewDataSource
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return selectedPhotos.count + 1
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAtIndexPath indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TZTestCell", for: indexPath) as? TZTestCell else {
-            return UICollectionViewCell()
-        }
-
-        cell.videoImageView.isHidden = true
-        if (indexPath.row == selectedPhotos.count) {
-            cell.imageView.image = UIImage(named: "AlbumAddBtn")
-            cell.deleteBtn.isHidden = true
-            cell.gifLable.isHidden = true
-        } else {
-            cell.imageView.image = selectedPhotos[indexPath.row] as? UIImage
-            cell.model = selectedModels[indexPath.row] as? TZAssetModel
-            cell.deleteBtn.isHidden = false
-        }
-        cell.deleteClickClosure = {[weak self] (sender: AnyObject?) in
-            self?.deleteBtnClik(indexPath: indexPath)
-        }
-        return cell
-
-    }
-
-    // MARK: - UICollectionViewDelegate
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: IndexPath) {
-        if ((indexPath as NSIndexPath).row == selectedPhotos.count) {
-            self.view.endEditing(true)
-            let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            let actionTakePhoto = UIAlertAction.init(title: "拍照", style: UIAlertActionStyle.default, handler: { (action) in
-                self.takePhoto()
-            })
-
-            let actionSelect = UIAlertAction(title: "去相册选择", style: UIAlertActionStyle.default, handler: { (action) in
-                self.pushImagePickerController()
-            })
-
-            let actionCancel = UIAlertAction(title: "取消", style: UIAlertActionStyle.cancel, handler: nil)
-
-            actionSheet.addAction(actionTakePhoto)
-            actionSheet.addAction(actionSelect)
-            actionSheet.addAction(actionCancel)
-
-            // support iPad
-            if (kisIPad()) {
-                actionSheet.popoverPresentationController?.sourceView = collectionView
-                actionSheet.popoverPresentationController?.sourceRect = (collectionView.cellForItem(at: indexPath)?.frame)!
-                //或者
-                //            actionSheet.popoverPresentationController?.barButtonItem = self.saveBarButtomItem
-            }
-
-            self.present(actionSheet, animated: true, completion: nil)
-
-        } else { // preview photos or video / 预览照片或者视频
-            let asset = selectedAssets[(indexPath as NSIndexPath).row]
-            var isVideo = false
-            if ((asset as AnyObject).isKind(of: PHAsset.classForCoder())) {
-                let phAsset = asset as! PHAsset
-                isVideo = phAsset.mediaType == PHAssetMediaType.video
-            } else if ((asset as AnyObject).isKind(of: ALAsset.classForCoder())) {
-                let alAsset = asset as! ALAsset
-                isVideo = alAsset.value(forProperty: ALAssetPropertyType) as! String == ALAssetTypeVideo
-            }
-            if (isVideo) { // perview video / 预览视频
-                let vc = TZVideoPlayerController()
-
-                let model = TZAssetModel.init(asset: asset, type: TZAssetModelMediaTypeVideo, timeLength: "")
-                vc.model = model
-                self.present(vc, animated: true, completion: nil)
-            } else { // preview photos / 预览照片
-//                var selectedModels = [TZAssetModel]();
-//                for asset in selectedAssets {
-//                    if asset {
-//                        let model = TZAssetModel.init(asset: asset, type: TZAssetModelMediaTypePhotoGif, timeLength: "")
-//                        selectedModels.append(model)
-//                    }
-//                }
-
-                let imagePickerVc = TZImagePickerController.init(selectedAssets: selectedAssets, selectedPhotos: selectedPhotos, index: (indexPath as NSIndexPath).row)
-                imagePickerVc?.allowPickingOriginalPhoto = true
-                imagePickerVc?.allowPickingGif = true
-                imagePickerVc?.isSelectOriginalPhoto = isSelectOriginalPhoto
-                imagePickerVc?.selectedModels = self.selectedModels
-                imagePickerVc?.didFinishPickingPhotosHandle = ({ (models: [TZAssetModel]?, photos: [UIImage]?, assets: [Any]?, isSelectOriginalPhoto: Bool) in
-                    self.selectedPhotos = NSMutableArray.init(array: photos!)
-                    self.selectedAssets = NSMutableArray.init(array: assets!)
-                    self.selectedModels = NSMutableArray.init(array: models!)
-
-                    self.isSelectOriginalPhoto = isSelectOriginalPhoto
-                    //                    self.collectionViewLayout.itemCount = self.selectedPhotos.count;
-                    self.collectionView.reloadData()
-                    //                    self.collectionView.contentSize = CGSizeMake(0, ((_selectedPhotos.count + 2) / 3 ) * (_margin + _itemWH));
-
-                    self.refreshCollectionViewHeight()
-
-                })
-
-                self.present(imagePickerVc!, animated: true, completion: nil)
-            }
-        }
-
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -456,35 +352,24 @@ extension MLPostTopicController: TZImagePickerControllerDelegate, UIImagePickerC
             // 无权限 做一个友好的提示
             let actionSheet = UIAlertController(title: "无法使用相机", message: "请在iPhone的'设置-隐私-相机'中允许访问相机", preferredStyle: .alert)
             let actionSet = UIAlertAction.init(title: "设置", style: UIAlertActionStyle.default, handler: { (action) in
-                if (kiOS8Later()) {
-                    UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
-                } else {
-                    // [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=Privacy&path=Photos"]];
-                }
+                UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
             })
             let actionCancel = UIAlertAction(title: "取消", style: UIAlertActionStyle.cancel, handler: nil)
             actionSheet.addAction(actionSet)
             actionSheet.addAction(actionCancel)
 
             self.present(actionSheet, animated: true, completion: nil)
-
-            //            let alert = UIAlertView(title: "无法使用相机", message:, delegate:self, cancelButtonTitle:"取消", otherButtonTitles:"设置", nil);
-            //            alert.show()
-        } else if (TZImageManager.authorizationStatus() == 2) { // 已被拒绝，没有相册权限，将无法保存拍的照片
+        } else if (PHPhotoLibrary.authorizationStatus().rawValue == 2) { // 已被拒绝，没有相册权限，将无法保存拍的照片
             let actionSheet = UIAlertController(title: "无法访问相册", message: "请在iPhone的'设置-隐私-相册'中允许访问相册", preferredStyle: .alert)
             let actionSet = UIAlertAction.init(title: "设置", style: UIAlertActionStyle.default, handler: { (action) in
-                if (kiOS8Later()) {
-                    UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
-                } else {
-                    // [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=Privacy&path=Photos"]];
-                }
+                UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
             })
             let actionCancel = UIAlertAction(title: "取消", style: UIAlertActionStyle.cancel, handler: nil)
             actionSheet.addAction(actionSet)
             actionSheet.addAction(actionCancel)
 
             self.present(actionSheet, animated: true, completion: nil)
-        } else if (TZImageManager.authorizationStatus() == 0) { // 正在弹框询问用户是否允许访问相册，监听权限状态
+        } else if (PHPhotoLibrary.authorizationStatus().rawValue == 0) { // 正在弹框询问用户是否允许访问相册，监听权限状态
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { // .seconds(1)
                 // your code here
                 return self.takePhoto()
@@ -493,9 +378,7 @@ extension MLPostTopicController: TZImagePickerControllerDelegate, UIImagePickerC
             let sourceType = UIImagePickerControllerSourceType.camera
             if (UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)) {
                 self.imagePickerVc.sourceType = sourceType
-                if(kiOS8Later()) {
-                    imagePickerVc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-                }
+                imagePickerVc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
                 self.present(imagePickerVc, animated: true, completion: nil)
             } else {
                 print("模拟器中无法打开照相机,请在真机中使用")
@@ -516,9 +399,9 @@ extension MLPostTopicController: TZImagePickerControllerDelegate, UIImagePickerC
 
             let image = info["UIImagePickerControllerOriginalImage"] as! UIImage
             // save photo and get asset / 保存图片，获取到asset
-            TZImageManager.default().savePhoto(with: image, completion: { (error) in
-                TZImageManager.default().getCameraRollAlbum(false, allowPickingImage: true, completion: { (model) in
-                    TZImageManager.default().getAssetsFromFetchResult(model?.result, allowPickingVideo: false, allowPickingImage: true, completion: {[weak self] (models) in
+            TZImageManager.default()?.savePhoto(with: image, completion: { (asset, error) in
+                TZImageManager.default()?.getCameraRollAlbum(false, allowPickingImage: true, needFetchAssets: true, completion: { (albumModel) in
+                    TZImageManager.default()?.getAssetsFrom(albumModel?.result, completion: {[weak self] (models) in
                         guard let _self = self else {
                             return
                         }
@@ -535,7 +418,6 @@ extension MLPostTopicController: TZImagePickerControllerDelegate, UIImagePickerC
                         _self.selectedAssets.add((assetModel?.asset)!)
                         _self.selectedPhotos.add(image)
                         _self.selectedModels.add(assetModel!)
-//                        _self.collectionView.reloadData()
                         _self.refreshCollectionViewHeight()
                     })
                 })
@@ -580,30 +462,15 @@ extension MLPostTopicController: TZImagePickerControllerDelegate, UIImagePickerC
 
         // You can get the photos by block, the same as by delegate.
         // 你可以通过block或者代理，来得到用户选择的照片.
-        //        imagePickerVc.didFinishPickingPhotosHandle
-
-//        imagePickerVc?.didFinishPickingGifImageHandle = {[weak self] (animatedImage: UIImage?, sourceAssets: Any?) in
-//            guard let _self = self else {
-//                return
-//            }
-//            _self.selectedPhotos.add(animatedImage!)
-//            _self.selectedAssets.add(sourceAssets!)
-//            _self.isSelectOriginalPhoto = imagePickerVc!.isSelectOriginalPhoto;
-//            //    _layout.itemCount = _selectedPhotos.count;
-//            //            _self.collectionView.reloadData()
-//            _self.refreshCollectionViewHeight()
-//        }
-
-        imagePickerVc?.didFinishPickingPhotosHandle = {[weak self] (models: [TZAssetModel]?, photos: [UIImage]?, assets: [Any]?, isSelectOriginalPhoto: Bool) in
+        imagePickerVc?.didFinishPickingPhotosHandle = {[weak self] (photos: [UIImage]?, assets: [Any]?, isSelectOriginalPhoto: Bool) in
             guard let _self = self else {
                 return
             }
+
             _self.selectedPhotos = NSMutableArray(array: photos!)
             _self.selectedAssets = NSMutableArray(array: assets!)
-            _self.selectedModels = NSMutableArray(array: models!)
+            _self.selectedModels = NSMutableArray(array: imagePickerVc?.selectedModels ?? [])
             _self.isSelectOriginalPhoto = isSelectOriginalPhoto
-            //    _layout.itemCount = _selectedPhotos.count;
-//            _self.collectionView.reloadData()
             _self.refreshCollectionViewHeight()
         }
 
@@ -611,6 +478,94 @@ extension MLPostTopicController: TZImagePickerControllerDelegate, UIImagePickerC
     }
 
     func tz_imagePickerControllerDidCancel(_ picker: TZImagePickerController!) {
+
+    }
+
+}
+
+
+// MARK: - UICollectionViewDataSource
+extension MLPostTopicController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return selectedPhotos.count + 1
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TZTestCell", for: indexPath) as? TZTestCell else {
+            return UICollectionViewCell()
+        }
+
+        cell.videoImageView.isHidden = true
+        if (indexPath.row == selectedPhotos.count) {
+            cell.imageView.image = UIImage(named: "AlbumAddBtn")
+            cell.deleteBtn.isHidden = true
+            cell.gifLable.isHidden = true
+        } else {
+            cell.imageView.image = selectedPhotos[indexPath.row] as? UIImage
+            cell.model = selectedModels[indexPath.row] as? TZAssetModel
+            cell.deleteBtn.isHidden = false
+        }
+        cell.deleteClickClosure = {[weak self] (sender: AnyObject?) in
+            self?.deleteBtnClik(indexPath: indexPath)
+        }
+        return cell
+
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+extension MLPostTopicController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if ((indexPath as NSIndexPath).row == selectedPhotos.count) {
+            self.view.endEditing(true)
+            let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            let actionTakePhoto = UIAlertAction.init(title: "拍照", style: UIAlertActionStyle.default, handler: { (action) in
+                self.takePhoto()
+            })
+
+            let actionSelect = UIAlertAction(title: "去相册选择", style: UIAlertActionStyle.default, handler: { (action) in
+                self.pushImagePickerController()
+            })
+
+            let actionCancel = UIAlertAction(title: "取消", style: UIAlertActionStyle.cancel, handler: nil)
+
+            actionSheet.addAction(actionTakePhoto)
+            actionSheet.addAction(actionSelect)
+            actionSheet.addAction(actionCancel)
+
+            // support iPad
+            if (kisIPad()) {
+                actionSheet.popoverPresentationController?.sourceView = collectionView
+                actionSheet.popoverPresentationController?.sourceRect = (collectionView.cellForItem(at: indexPath)?.frame)!
+                //或者
+                //            actionSheet.popoverPresentationController?.barButtonItem = self.saveBarButtomItem
+            }
+
+            self.present(actionSheet, animated: true, completion: nil)
+
+        } else { // preview photos or video / 预览照片或者视频
+            let assetModel = selectedModels[(indexPath as NSIndexPath).row] as? TZAssetModel
+            if (assetModel?.type == TZAssetModelMediaTypeVideo) { // perview video / 预览视频
+                let vc = TZVideoPlayerController()
+                vc.model = assetModel
+                self.present(vc, animated: true, completion: nil)
+            } else { // preview photos / 预览照片
+                let imagePickerVc = TZImagePickerController.init(selectedAssets: selectedAssets, selectedPhotos: selectedPhotos, index: (indexPath as NSIndexPath).row)
+                imagePickerVc?.allowPickingOriginalPhoto = true
+                imagePickerVc?.allowPickingGif = true
+                imagePickerVc?.isSelectOriginalPhoto = isSelectOriginalPhoto
+                imagePickerVc?.selectedModels = self.selectedModels
+                imagePickerVc?.didFinishPickingPhotosHandle = ({ (photos: [UIImage]?, assets: [Any]?, isSelectOriginalPhoto: Bool) in
+                    self.selectedPhotos = NSMutableArray.init(array: photos!)
+                    self.selectedAssets = NSMutableArray.init(array: assets!)
+                    self.selectedModels = NSMutableArray.init(array: imagePickerVc?.selectedModels ?? [])
+                    self.isSelectOriginalPhoto = isSelectOriginalPhoto
+                    self.refreshCollectionViewHeight()
+                })
+
+                self.present(imagePickerVc!, animated: true, completion: nil)
+            }
+        }
 
     }
 

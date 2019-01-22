@@ -48,15 +48,6 @@ class XHImageGifHelper {
                     if (uti == (kUTTypeGIF as String)) {
                         //这里获取gif图片的NSData数据
                         completion?(true, imageData)
-//                        let cache = (info?[PHImageCancelledKey] as! NSString).boolValue
-//                        let error: NSError? = info?[PHImageErrorKey] as? NSError
-//                        let downloadFinined = !cache && error == nil;
-//                        
-//                        if (downloadFinined && (imageData != nil)) {
-//                            completion?(true, imageData!)
-//                        } else {
-//                            completion?(true, imageData)
-//                        }
                     } else {
                         //其他格式的图片
                         completion?(false, imageData)

@@ -25,6 +25,8 @@ class JokeHelper {
         } catch let error as NSError {
             print(error)
         }
+
+        return NSRegularExpression.init()
     }()
 
     lazy var regexTopic = { () -> NSRegularExpression in
@@ -34,6 +36,7 @@ class JokeHelper {
         } catch let error as NSError {
             print(error)
         }
+        return NSRegularExpression.init()
     }()
 
     lazy var regexEmoticon = { () -> NSRegularExpression in
@@ -43,6 +46,7 @@ class JokeHelper {
         } catch let error as NSError {
             print(error)
         }
+        return NSRegularExpression.init()
     }()
 
     static func shortedNumberDesc(number: Int) -> String {

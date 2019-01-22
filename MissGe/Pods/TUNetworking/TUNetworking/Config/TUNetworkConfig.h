@@ -44,10 +44,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)requestVerifyResult:(nonnull id)result;
 
 @optional
-/// 请求的protocol
-- (nullable NSString *)requestProtocol;
+/// 请求的protocol 例如："http://"
+- (nullable NSString *)requestURLProtocol;
 
-/// 请求的Host
+/// 请求的Host 例如："www.douban.com:8080"
 - (nullable NSString *)requestHost;
 
 /// 请求的超时时间
@@ -77,7 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nonnull NSString *)configUserId;
 
-- (nullable NSString *)requestProtocol;
+- (nullable NSString *)requestURLProtocol;
 
 - (nullable NSString *)requestHost;
 
