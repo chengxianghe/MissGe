@@ -122,9 +122,8 @@ class MLSquareViewController: BaseViewController, UITableViewDelegate {
             self.performSegue(withIdentifier: "SquareToPublish", sender: nil)
         } else {
             if !MLNetConfig.isUserLogin() {
-                let goLogin = UIAlertAction.init(title: "去登录", style: UIAlertActionStyle.default, handler: {[weak self] (action) in
-                    let loginVCNav = kLoadVCFromSB(nil, stroyBoard: "Account")!
-                    self?.present(loginVCNav, animated: true, completion: nil)
+                let goLogin = UIAlertAction.init(title: "去登录", style: UIAlertActionStyle.default, handler: { (action) in
+                    (UIApplication.shared.delegate as? AppDelegate)?.showLoginVC()
                 })
 
                 let cancel = UIAlertAction.init(title: "取消", style: UIAlertActionStyle.cancel, handler: nil)

@@ -43,7 +43,7 @@ extension PrimitiveSequence where TraitType == SingleTrait, ElementType == Respo
 extension Response {
 
     /// Maps data received from the signal into a JSON object.
-    public func mapParseJSON(failsOnEmptyData: Bool = true) throws -> Any {
+    public func mapParseJSON(failsOnEmptyData: Bool = false) throws -> Any {
         var resultObject: Any? = nil
         do {
             resultObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
@@ -65,7 +65,13 @@ extension Response {
                 }
                 let error = NSError(domain: "Network", code: Int(code)!, userInfo: [NSLocalizedDescriptionKey: msg])
                 print(error)
-                throw RxSwiftMoyaError.OtherError
+
+                if code == "127" {
+// 非有效用户 需要重新登录
+                    (UIApplication.shared.delegate as? AppDelegate)?.showLoginVC()
+                }
+
+                throw error
             }
         }
         return resultObject!

@@ -32,6 +32,9 @@ class MLNetConfig: NSObject, TUNetworkConfigProtocol {
         }
     }
     var token: String! {
+        set {
+            self.user.token = (newValue ?? "")
+        }
         get {
             return self.user?.token ?? ""
         }
@@ -125,6 +128,11 @@ class MLNetConfig: NSObject, TUNetworkConfigProtocol {
     }
 
     static func checkToken() {
+
+    }
+
+    static func logout() {
+        self.shareInstance.token = nil
 
     }
 

@@ -247,14 +247,14 @@ class MLPostTopicController: BaseViewController {
             .rx
             .request(.PostTopic(anonymous: self.hiddenNameSwitch.isOn ? 1 : 0, ids: ids, detail: self.textView.text.emojiEscapedString))
             .filterSuccessfulStatusCodes()
-            .mapJSON()
+            .mapParseJSON()
             .subscribe(onSuccess: { (res) in
                 self.showSuccess("发表成功")
                 self.dismissPost(true)
             }, onError: { ( error) in
                 self.hideHud()
                 print(error)
-                self.showError("发表失败" + error.localizedDescription)
+                self.showError("发表失败\n" + error.localizedDescription)
                 print(error)
             }).disposed(by: self.bag)
     }
@@ -265,7 +265,7 @@ class MLPostTopicController: BaseViewController {
             .rx
             .request(.TopicComment(anonymous: self.hiddenNameSwitch.isOn ? 1 : 0, tid: tid, quote: quote, detail: self.textView.text.emojiEscapedString))
             .filterSuccessfulStatusCodes()
-            .mapJSON()
+            .mapParseJSON()
             .subscribe(onSuccess: { (res) in
                 self.showSuccess("发表成功")
                 self.dismissPost(true)

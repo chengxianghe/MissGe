@@ -110,6 +110,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                 WeiboSDK.handleOpen(url, delegate: SinaShareDelegate.currenSinaShareDelegate)
     }
 
+    func showLoginVC(animated flag: Bool = true, completion: (() -> Void)? = nil) {
+        MLNetConfig.logout()
+        let loginVCNav = kLoadVCFromSB(nil, stroyBoard: "Account")!
+        self.topViewController().present(loginVCNav, animated: flag, completion: completion)
+    }
+
+    func topViewController() -> UIViewController {
+        var topVC = self.window?.rootViewController
+
+        let selectedNav =  (self.window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController
+        topVC = selectedNav
+
+        var topNav = selectedNav
+        while topNav?.topViewController != nil {
+            topVC = topNav?.topViewController
+
+            if (topVC?.presentedViewController) != nil {
+                topVC = topVC?.presentedViewController
+            }
+
+            topNav = topVC as? UINavigationController
+        }
+
+        return topVC ?? UIViewController()
+    }
+
 // MARK: tabbar
     func customIrregularityStyle(delegate: UITabBarControllerDelegate?) -> ESTabBarController {
         let tabBarController = ESTabBarController()
