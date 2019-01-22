@@ -26,14 +26,14 @@ class MLNetConfig: NSObject, TUNetworkConfigProtocol {
 
     static let shareInstance = MLNetConfig()
 
-    var userId: String! {
+    var userId: String {
         get {
             return self.user?.uid ?? "0"
         }
     }
-    var token: String! {
+    var token: String {
         set {
-            self.user.token = (newValue ?? "")
+            self.user.token = newValue
         }
         get {
             return self.user?.token ?? ""
@@ -132,12 +132,12 @@ class MLNetConfig: NSObject, TUNetworkConfigProtocol {
     }
 
     static func logout() {
-        self.shareInstance.token = nil
+        self.shareInstance.token = ""
 
     }
 
     static func isUserLogin() -> Bool {
-        return self.shareInstance.token != nil && self.shareInstance.token.length > 0
+        return self.shareInstance.token.length > 0
     }
 
 }

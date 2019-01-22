@@ -180,6 +180,7 @@ extension APIManager: TargetType {
         default:
             break
         }
+
         let publicDict = ["output":"json",
                     "_app_key":"f722d367b8a96655c4f3365739d38d85",
                     "_app_secret":"30248115015ec6c79d3bed2915f9e4cc"]

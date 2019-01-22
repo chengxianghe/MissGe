@@ -212,7 +212,7 @@ extension MLSquareViewController: MLSquareCellDelegate, MLTopicDetailControllerD
                     _self.showSuccess("已删除")
                     let index = _self.viewModel.modelObserable.value.index(of: cell.layout)!
                     _self.viewModel.modelObserable.value.remove(at: index)
-                    _self.tableView.deleteRows(at: [IndexPath.init(row: index, section: 0)], with: .automatic)
+//                    _self.tableView.deleteRows(at: [IndexPath.init(row: index, section: 0)], with: .automatic)
                     }, failure: {[weak self] (error) in
                         guard let _self = self else {
                             return
