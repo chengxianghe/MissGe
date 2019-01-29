@@ -207,12 +207,12 @@ typedef NS_ENUM(NSUInteger, XHSingleTapOption) {
 @property (nonatomic, assign, readonly) BOOL isPresented;
 
 /**
- *  适配iPhone X 是否全屏展示（包含安全区域，只在iPhone X上生效）默认 YES
+ *  适配iPhone X系列 是否全屏展示（包含安全区域，只在iPhone X上生效）默认 YES
  */
 @property (nonatomic, assign) BOOL isFullScreen;
 
 /**
- *  适配iPhone X 是否全屏展示按钮文字（包含安全区域，只在iPhone X上生效）默认 NO
+ *  适配iPhone X系列 是否全屏展示按钮文字（包含安全区域，只在iPhone X上生效）默认 NO
  */
 @property (nonatomic, assign) BOOL isFullScreenWord;
 
@@ -235,7 +235,6 @@ typedef NS_ENUM(NSUInteger, XHSingleTapOption) {
  *  展示
  *
  *  @param container   展示的容器
- *  @param currentPage 展示的初始页面
  *  @param animated    是否需要动画
  *  @param completion  完成的回调
  */

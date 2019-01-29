@@ -94,7 +94,7 @@
 }
 
 - (CGRect)fixUpFrameForIphoneX:(CGRect)toFrame {
-    if (kIs_Inch5_8 && !_isFullScreen) {
+    if (kiPhoneX && !_isFullScreen) {
         CGFloat toWidth = CGRectGetWidth(toFrame);
         CGFloat toHeight = CGRectGetHeight(toFrame);
         if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeRight) {
@@ -161,7 +161,7 @@
     // toolbar
     _toolBar = [[UIToolbar alloc] init];
     _toolBar.xh_width = self.xh_width;
-    if (kIs_Inch5_8) {
+    if (kiPhoneX) {
         _toolBar.xh_height = 40 + 24;
         _toolBar.center = CGPointMake(self.xh_width / 2, self.xh_height - 20 - 12);
     } else {
@@ -266,7 +266,7 @@
     UITextView *captionView = [[UITextView alloc] init];
     captionView.frame = CGRectMake(0, self.xh_height - self.toolBar.xh_height - _maxCaptionHeight, self.xh_width, _maxCaptionHeight);
     captionView.textContainerInset = UIEdgeInsetsMake(k_IPhoneX_TextDefaultInset, k_IPhoneX_TextDefaultInset, k_IPhoneX_TextDefaultInset, k_IPhoneX_TextDefaultInset);
-    if (kIs_Inch5_8 && _isFullScreen && !_isFullScreenWord && UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+    if (kiPhoneX && _isFullScreen && !_isFullScreenWord && UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
         captionView.textContainerInset = UIEdgeInsetsMake(k_IPhoneX_TextDefaultInset, k_IPhoneX_SafeWidth, k_IPhoneX_TextDefaultInset, k_IPhoneX_SafeWidth);
     }
     captionView.editable = NO;
@@ -297,7 +297,7 @@
     
     _closeButtonHideFrame = CGRectMake(5, -20, 44, 44);
     _closeButtonShowFrame = CGRectMake(5, 20, 44, 44);
-    if (kIs_Inch5_8 && _isFullScreen) {
+    if (kiPhoneX && _isFullScreen) {
         if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
             _closeButtonShowFrame = CGRectMake(k_IPhoneX_SafeWidth, 20, 44, 44);
         } else {
@@ -330,7 +330,7 @@
     
     _deleteButtonHideFrame = CGRectMake(self.xh_width - 44, -20, 44, 44);
     _deleteButtonShowFrame = CGRectMake(self.xh_width - 44, 20, 44, 44);
-    if (kIs_Inch5_8 && _isFullScreen) {
+    if (kiPhoneX && _isFullScreen) {
         if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
             _deleteButtonShowFrame = CGRectMake(self.xh_width - 44 - k_IPhoneX_SafeWidth, 20, 44, 44);
         } else {
@@ -1106,7 +1106,7 @@
     } completion:^(BOOL finish) {
         if (finish) {
             [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                if (kIs_Inch5_8) {
+                if (kiPhoneX) {
                     _captionView.xh_top = self.xh_height - _captionView.xh_height - 24;
                 } else {
                     _captionView.xh_top = self.xh_height - _captionView.xh_height;
@@ -1368,7 +1368,7 @@
     _scrollView.contentSize = CGSizeMake(_scrollView.xh_width * self.groupItems.count, _scrollView.xh_height);
     _isOrientationChange = NO;
     
-    if (kIs_Inch5_8 && _isFullScreen && !_isFullScreenWord) {
+    if (kiPhoneX && _isFullScreen && !_isFullScreenWord) {
         if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
             _captionView.textContainerInset = UIEdgeInsetsMake(k_IPhoneX_TextDefaultInset, k_IPhoneX_SafeWidth, k_IPhoneX_TextDefaultInset, k_IPhoneX_SafeWidth);
         } else {
@@ -1379,7 +1379,7 @@
         }
     }
     
-    if (kIs_Inch5_8 && _isFullScreen) {
+    if (kiPhoneX && _isFullScreen) {
         if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
             _closeButtonShowFrame = CGRectMake(k_IPhoneX_SafeWidth, 20, 44, 44);
             _deleteButtonShowFrame = CGRectMake(self.xh_width - 44 - k_IPhoneX_SafeWidth, 20, 44, 44);

@@ -23,7 +23,6 @@ GitHub：[chengxianghe](https://github.com/chengxianghe)
 - 适配iOS11
 - 适配iPhone X界面
 - 使用Xcode 9.0, Swift 4.0重新编译
-- XHPhotoBrowserController 改用自定义的导航栏（这导致在XHPhotoBrowserController中侧滑返回手势失效）
 - Demo升级Swift 4.0
 
 

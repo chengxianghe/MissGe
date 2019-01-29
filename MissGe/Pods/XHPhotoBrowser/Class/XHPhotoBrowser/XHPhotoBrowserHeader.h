@@ -79,9 +79,10 @@
 #define kScreenOneScale (1.0 / [UIScreen mainScreen].scale)
 #endif
 
-#ifndef kStatusBarHeight
-#define kStatusBarHeight CGRectGetHeight([UIApplication sharedApplication].statusBarFrame)
-#endif
+//#ifndef kStatusBarHeight
+//#define kStatusBarHeight CGRectGetHeight([UIApplication sharedApplication].statusBarFrame)
+//#endif
+
 
 /* 屏幕尺寸判断 ===============================================================================*/
 /** 判断是否为3.5inch 320*480 640*960 */
@@ -103,9 +104,29 @@
 #define kIs_Inch5_5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size) : NO)
 #endif
 
-/** 判断是否为5.8inch 375*812 1125*2436 */
-#ifndef kIs_Inch5_8
-#define kIs_Inch5_8 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+///** 判断是否为X 5.8inch 375*812 1125*2436 */
+//#ifndef kIs_Inch5_8
+//#define kIs_Inch5_8 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+//#endif
+
+/** 是否为iphoneX系列设备 判断是否为刘海屏 （x、xs)(2436 x 1125) xsmax(2688 x 1242) xr(1792 x 828) */
+#ifndef kiPhoneX
+#define kiPhoneX (kScreenHeight == 812 || kScreenWidth == 812 || kScreenHeight == 896 || kScreenWidth == 896)
+#endif
+
+//状态栏高度
+#ifndef kStatusBarHeight
+#define kStatusBarHeight (kiPhoneX ? 44.0f : 20.0f)
+#endif
+
+//顶部nav导航+状态条
+#ifndef kNavBarHeight
+#define kNavBarHeight (44 + kStatusBarHeight)
+#endif
+
+//底部tabbar高度
+#ifndef kTabbarHeight
+#define kTabbarHeight (kiPhoneX ? 83.0f : 49.0f)
 #endif
 
 /** iPhone X 默认的按钮边距 */

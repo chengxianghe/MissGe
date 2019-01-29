@@ -67,7 +67,7 @@ PODS:
     - TUNetworking/Config
     - TUNetworking/Helper
   - TZImagePickerController (3.1.9)
-  - XHPhotoBrowser (1.1.2):
+  - XHPhotoBrowser (1.1.3):
     - YYWebImage
   - YYCache (1.0.4)
   - YYImage (1.0.4):
@@ -149,7 +149,7 @@ SPEC CHECKSUMS:
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   TUNetworking: 4591f68c037035210c48a6ae74c062f474985470
   TZImagePickerController: c3f7c505d23281e21e98df6dbeae372946caa28f
-  XHPhotoBrowser: 1642fd620047c3d782b22ba50c3c7fdd07eee71f
+  XHPhotoBrowser: c4c0b4600814717f69b4a1969995d779b9859ed3
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849

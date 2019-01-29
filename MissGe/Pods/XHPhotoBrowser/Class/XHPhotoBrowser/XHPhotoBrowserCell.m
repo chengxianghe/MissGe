@@ -32,7 +32,7 @@ static NSString *const kLayerAnimationKey = @"yytest.fade";
         
         _imageView = [YYAnimatedImageView new];
         _imageView.clipsToBounds = YES;
-        _imageView.backgroundColor = [UIColor colorWithWhite:1.000 alpha:0.500];
+        _imageView.backgroundColor = [UIColor blackColor];
         [_imageContainerView addSubview:_imageView];
         
         _progressLayer = [CAShapeLayer layer];

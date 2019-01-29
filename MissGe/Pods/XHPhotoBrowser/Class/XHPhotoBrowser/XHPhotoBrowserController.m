@@ -97,7 +97,7 @@
     
     self.view.backgroundColor = [UIColor blackColor];
     
-    CGFloat navH = kIs_Inch5_8 ? 88 : 64;
+    CGFloat navH = kiPhoneX ? 88 : 64;
     
     if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) && [UIApplication sharedApplication].isStatusBarHidden) {
         navH = 44;
@@ -119,7 +119,7 @@
     [titleLabel setFrame:CGRectMake(0, 0, 200, 40)];
     [titleLabel setCenter:CGPointMake(kScreenWidth * 0.5, (navH + statusH) * 0.5)];
     [self.customNavView addSubview:titleLabel];
-    if (!kIs_Inch5_8) {
+    if (!kiPhoneX) {
         titleLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
     }
     
@@ -133,7 +133,7 @@
     [rightBtn addTarget:self action:@selector(onMore:) forControlEvents:UIControlEventTouchUpInside];
     [self.customNavView addSubview:rightBtn];
     [rightBtn setCenter:CGPointMake(kScreenWidth - 25, (navH + statusH) * 0.5)];
-    if (kIs_Inch5_8) {
+    if (kiPhoneX) {
         if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
             rightBtn.xh_left = kScreenWidth - 60 - k_IPhoneX_SafeWidth;
         }
@@ -153,7 +153,7 @@
     [backBtn addTarget:self action:@selector(onBack:) forControlEvents:UIControlEventTouchUpInside];
     [backBtn setCenter:CGPointMake(20, (navH + statusH) * 0.5)];
     [self.customNavView addSubview:backBtn];
-    if (kIs_Inch5_8) {
+    if (kiPhoneX) {
         if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
             backBtn.xh_left = k_IPhoneX_SafeWidth;
         }
@@ -217,7 +217,7 @@
 - (void)statusBarOrientationChange:(NSNotification *)notification{
     
     CGFloat statusH = kStatusBarHeight;
-    if (!kIs_Inch5_8) {
+    if (!kiPhoneX) {
         CGFloat navH = 64;
         if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) && [UIApplication sharedApplication].isStatusBarHidden) {
             navH = 44;
